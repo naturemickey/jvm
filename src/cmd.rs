@@ -26,11 +26,6 @@ pub fn parse_cmd() -> Cmd {
             continue;
         }
 
-        if cmd.class.is_empty() && !argument.starts_with("-") {
-            cmd.class = argument.clone();
-            continue;
-        }
-
         cmd.args.push(argument.clone());
 
         if set_cp {
@@ -41,14 +36,24 @@ pub fn parse_cmd() -> Cmd {
 
         if &argument == "-help" || &argument == "-?" {
             cmd.help_flg = true;
+            continue;
         }
 
         if &argument == "-version" {
             cmd.version_fle = true;
+            continue;
         }
 
         if &argument == "-cp" || &argument == "-classpath" {
             set_cp = true;
+            continue;
+        }
+
+        if cmd.class.is_empty() && !argument.starts_with("-") {
+            cmd.class = argument.clone();
+            continue;
+        } else {
+            panic!("error arguments.");
         }
 
     }
