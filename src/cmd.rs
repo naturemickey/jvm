@@ -1,53 +1,56 @@
 pub struct Cmd {
-    helpFlg: bool,
-    versionFlg: bool,
-    cpOption: String,
-    class: String,
-    args: Vec<String>,
+    pub help_flg: bool,
+    pub version_fle: bool,
+    pub cp_option: String,
+    pub class: String,
+    pub args: Vec<String>,
 }
 
 impl Cmd {
     pub fn new() -> Cmd {
-        Cmd { helpFlg: false, versionFlg: false, cpOption: String::new(), class: String::new(), args: [] }
+        Cmd { help_flg: false, version_fle: false, cp_option: String::new(), class: String::new(), args: [].to_vec() }
     }
 }
 
 use std::env;
 
-pub fn parseCmd() -> Cmd {
+pub fn parse_cmd() -> Cmd {
     let mut cmd = Cmd::new();
 
-    let mut setCp = false;
+    let mut set_cp = false;
+    let mut is_first = true;
 
     for argument in env::args() {
-        if cmd.class.is_empty() {
-            cmd.class == argument;
+        if is_first {
+            is_first = false;
             continue;
         }
 
-        cmd.args.push(argument);
+        if cmd.class.is_empty() && !argument.starts_with("-") {
+            cmd.class = argument.clone();
+            continue;
+        }
 
-        if setCp {
-            setCp = false;
-            cmd.cpOption = argument;
+        cmd.args.push(argument.clone());
+
+        if set_cp {
+            set_cp = false;
+            cmd.cp_option = argument;
             continue;
         }
 
         if &argument == "-help" || &argument == "-?" {
-            println!("print help message.");
-            cmd.helpFlg = true;
+            cmd.help_flg = true;
         }
 
         if &argument == "-version" {
-            println!("print version and exit.");
-            cmd.versionFlg = true;
+            cmd.version_fle = true;
         }
 
         if &argument == "-cp" || &argument == "-classpath" {
-            setCp = true;
+            set_cp = true;
         }
 
-        print!("Usage: %s [-options] class [args...]\n", cmd.class);
     }
 
     cmd
