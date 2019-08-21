@@ -2,6 +2,7 @@ extern crate java;
 
 use java::cmd;
 use java::cmd::Cmd;
+use java::entry;
 
 fn main() {
     let cmd = cmd::parse_cmd();
@@ -16,5 +17,6 @@ fn main() {
 }
 
 fn start_jvm(cmd: Cmd) {
+    entry::new_entry(cmd.cp_option);
     println!(" classpath:{} class:{} args:{:?}\n", cmd.cp_option, cmd.class, cmd.args);
 }
