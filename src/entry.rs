@@ -4,16 +4,16 @@ use std::path::Path;
 use std::fs::File;
 
 pub trait entry {
-    fn to_string(&self) -> String;
-    fn read_class<'a>(&self, className: String) -> (i8, &'a entry);
+    fn to_string(&self) -> &str;
+    fn read_class(&self, className: &str) -> (&Vec<u8>, &entry);
 }
 
 struct dir_entry<'a> {
     abs_dir: &'a Path
 }
 
-struct zip_entry {
-    abs_path: String
+struct zip_entry<'a> {
+    abs_path: &'a Path
 }
 
 struct composite_entry<'a> {
@@ -55,12 +55,13 @@ impl wildcard_entry {
 }
 
 impl entry for dir_entry {
-    fn to_string(&self) -> String {
-        self.abs_dir.to_str().get_or_insert("dir_entry error path").into_string()
+    fn to_string(&self) -> &str {
+        self.abs_dir.to_string_lossy().as_ref()
     }
-    fn read_class<'a>(&self, className: String) -> (i8, &'a entry) {
+    fn read_class<'a>(&self, className: &str) -> (&Vec<u8>, &'a entry) {
         let path = self.abs_dir.join(className).as_path();
         let file = file_util::path_to_file(path);
+        (file_util::read_file(file), self)
     }
 }
 
