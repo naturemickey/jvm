@@ -1,74 +1,66 @@
-use super::os;
-use super::util::file_util;
+use crate::os;
+use crate::util::file_util;
 use std::path::Path;
 use std::fs::File;
 use std::option::Option;
 use crate::os::path_list_separator;
+use std::string::ToString;
 
-pub trait entry {
-    fn to_string(&self) -> &str;
-    fn read_class(&self, className: &str) -> Option<(&Vec<u8>, &entry)>;
+pub trait Entry {
+    fn read_class(&self, className: &str) -> Option<(&Vec<u8>, &Entry)>;
 }
 
-struct dir_entry<'a> {
+struct DirEntry<'a> {
     abs_dir: &'a Path
 }
 
-struct zip_entry<'a> {
+struct ZipEntry<'a> {
     abs_path: &'a Path
 }
 
-struct composite_entry<'a> {
-    entrys: Vec<&'a entry>
+struct CompositeEntry<'a> {
+    entrys: Vec<&'a Entry>
 }
 
-struct wildcard_entry<'a> {
-    entry: composite_entry<'a>
+struct WildcardEntry<'a> {
+    entry: CompositeEntry<'a>
 }
 
-pub fn new_entry(path: &str) -> &entry {
+pub fn new_entry(path: &str) -> &Entry {
     if path.contains(os::path_list_separator) {
-        composite_entry::new(path)
+        &CompositeEntry::new(path)
     } else if path.ends_with("*") {
-        wildcard_entry::new(path)
+        &WildcardEntry::new(path)
     } else if path.ends_with(".jar") || path.ends_with(".JAR") || path.ends_with(".zip") || path.ends_with(".ZIP") {
-        zip_entry::new(path)
+        &ZipEntry::new(path)
     } else {
-        dir_entry::new(path)
+        &DirEntry::new(path)
     }
 }
 
-impl dir_entry {
-    fn new(path: &str) -> &dir_entry {
-        &Self { abs_dir: Path::new(path) }
+impl<'a> ZipEntry<'a> {
+    fn new(path: &'a str) -> ZipEntry<'a> {
+        Self { abs_path: &Path::new(path) }
     }
 }
 
-impl zip_entry {
-    fn new(path: &str) -> &zip_entry {
-        &Self { abs_path: Path::new(path) }
-    }
-}
-
-impl composite_entry {
-    fn new(path: &str) -> composite_entry {
-        let path_list = path.split(path_list_separator);
-        let mut path_vec = Vec::new();
-        for p in path_list {
-
+impl<'a> CompositeEntry<'a> {
+    fn new(path: &str) -> CompositeEntry {
+        let mut path_vec : Vec<&Entry> = Vec::new();
+        let pl:Vec<&str> = path.split(path_list_separator).collect();
+        for p in pl {
+            path_vec.push(new_entry(p));
         }
+        Self { entrys: path_vec }
     }
 }
 
-impl wildcard_entry {
-    fn new(path: &str) -> wildcard_entry {}
+impl<'a> WildcardEntry<'a> {
+    fn new(path: &str) -> WildcardEntry {}
 }
 
-impl entry for dir_entry {
-    fn to_string(&self) -> &str {
-        self.abs_dir.to_string_lossy().as_ref()
-    }
-    fn read_class<'a>(&self, className: &str) -> Option<(&Vec<u8>, &entry)> {
+impl<'a> Entry for DirEntry<'a> {
+    fn read_class(&self, className: &str) -> Option<(&Vec<u8>, &Entry)> {
         let path = self.abs_dir.join(className).as_path();
         if path.is_file() {
             let file = file_util::path_to_file(path);
@@ -79,29 +71,47 @@ impl entry for dir_entry {
     }
 }
 
-impl entry for zip_entry {
-    fn to_string(&self) -> &str {
-        self.abs_path.to_string_lossy().as_ref()
-    }
-    fn read_class<'a>(&self, className: &str) -> (&Vec<u8>, &'a entry) {
-
+impl<'a> DirEntry<'a> {
+    fn new(path: &str) -> DirEntry {
+        Self { abs_dir: Path::new(path) }
     }
 }
 
-impl entry for composite_entry {
-    fn to_string(&self) -> &str {
+impl<'a> Entry for ZipEntry<'a> {
+    fn read_class(&self, className: &str) -> Option<(&Vec<u8>, &Entry)> {}
+}
 
-    }
-    fn read_class<'a>(&self, className: &str) -> (&Vec<u8>, &'a entry) {
+impl<'a> Entry for CompositeEntry<'a> {
+    fn read_class(&self, className: &str) -> Option<(&Vec<u8>, &Entry)> {}
+}
 
+impl<'a> Entry for WildcardEntry<'a> {
+    fn read_class(&self, className: &str) -> Option<(&Vec<u8>, &Entry)> {}
+}
+
+impl<'a> ToString for DirEntry<'a> {
+    fn to_string(&self) -> String {
+        self.abs_dir.to_string_lossy().as_ref().to_string()
     }
 }
 
-impl entry for wildcard_entry {
-    fn to_string(&self) -> &str {
-
+impl<'a> ToString for ZipEntry<'a> {
+    fn to_string(&self) -> String {
+        self.abs_path.to_string_lossy().as_ref().to_string()
     }
-    fn read_class<'a>(&self, className: &str) -> (&Vec<u8>, &'a entry) {
+}
 
+impl<'a> ToString for CompositeEntry<'a> {
+    fn to_string(&self) -> String {
+        let mut strs = Vec::new();
+        for entry in self.entrys {
+            strs.
+        }
+    }
+}
+
+impl<'a> ToString for WildcardEntry<'a> {
+    fn to_string(&self) -> String {
+        self.entry.to_string()
     }
 }
