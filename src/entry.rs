@@ -3,7 +3,7 @@ use crate::util::file_util;
 use std::path::Path;
 use std::fs::File;
 use std::option::Option;
-use crate::os::path_list_separator;
+use crate::os::*;
 use std::string::ToString;
 
 pub trait Entry {
@@ -38,6 +38,12 @@ pub fn new_entry(path: &str) -> &Entry {
     }
 }
 
+impl<'a> DirEntry<'a> {
+    fn new(path: &'a str) -> DirEntry<'a> {
+        Self { abs_dir: &Path::new(path) }
+    }
+}
+
 impl<'a> ZipEntry<'a> {
     fn new(path: &'a str) -> ZipEntry<'a> {
         Self { abs_path: &Path::new(path) }
@@ -45,9 +51,9 @@ impl<'a> ZipEntry<'a> {
 }
 
 impl<'a> CompositeEntry<'a> {
-    fn new(path: &str) -> CompositeEntry {
+    fn new(path: &'a str) -> CompositeEntry<'a> {
         let mut path_vec : Vec<&Entry> = Vec::new();
-        let pl:Vec<&str> = path.split(path_list_separator).collect();
+        let pl:Vec<&'a str> = path.split(path_list_separator).collect();
         for p in pl {
             path_vec.push(new_entry(p));
         }
@@ -56,7 +62,9 @@ impl<'a> CompositeEntry<'a> {
 }
 
 impl<'a> WildcardEntry<'a> {
-    fn new(path: &str) -> WildcardEntry {}
+    fn new(path: &'a str) -> WildcardEntry<'a> {
+        Self {entry : CompositeEntry::new(path)}
+    }
 }
 
 impl<'a> Entry for DirEntry<'a> {
@@ -68,12 +76,6 @@ impl<'a> Entry for DirEntry<'a> {
         } else {
             None
         }
-    }
-}
-
-impl<'a> DirEntry<'a> {
-    fn new(path: &str) -> DirEntry {
-        Self { abs_dir: Path::new(path) }
     }
 }
 
@@ -105,8 +107,9 @@ impl<'a> ToString for CompositeEntry<'a> {
     fn to_string(&self) -> String {
         let mut strs = Vec::new();
         for entry in self.entrys {
-            strs.
+            strs.push(entry.to_string());
         }
+        strs.join(path_list_separator_str)
     }
 }
 
