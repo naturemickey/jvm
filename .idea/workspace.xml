@@ -6,9 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="49ff3ef2-99c0-4972-84de-2a7e2714ca46" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jvm.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/entry.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entry.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/os.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/os.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/file_util.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/file_util.rs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -25,16 +24,6 @@
         <option value="Rust File" />
       </list>
     </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>jvm</find>
-      <find>Split</find>
-      <find>type Split</find>
-    </findStrings>
-    <dirStrings>
-      <dir>D:\GitHub\jvm</dir>
-    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -79,8 +68,15 @@
       <option name="backtrace" value="SHORT" />
       <option name="workingDirectory" value="file://$PROJECT_DIR$" />
       <envs />
-      <method v="2" />
+      <method v="2">
+        <option name="CARGO.BUILD_TASK_PROVIDER" enabled="true" />
+      </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Cargo Command.Run java" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="RustProjectSettings">
     <option name="toolchainHomeDirectory" value="$USER_HOME$/.cargo/bin" />

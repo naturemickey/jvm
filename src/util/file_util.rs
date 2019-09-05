@@ -17,3 +17,7 @@ pub fn read_file(file:&File) -> &Vec<u8> {
     reader.read_to_end(v);
     &v
 }
+
+pub fn classname_to_filename(classname:&str) -> &str {
+    classname
+}

@@ -5,6 +5,8 @@ use std::fs::File;
 use std::option::Option;
 use crate::os::*;
 use std::string::ToString;
+use std::io::{BufReader, Read};
+use std::error::Error;
 
 pub trait Entry {
     fn read_class(&self, className: &str) -> Option<(&Vec<u8>, &Entry)>;
@@ -52,8 +54,8 @@ impl<'a> ZipEntry<'a> {
 
 impl<'a> CompositeEntry<'a> {
     fn new(path: &'a str) -> CompositeEntry<'a> {
-        let mut path_vec : Vec<&Entry> = Vec::new();
-        let pl:Vec<&'a str> = path.split(path_list_separator).collect();
+        let mut path_vec: Vec<&Entry> = Vec::new();
+        let pl: Vec<&'a str> = path.split(path_list_separator).collect();
         for p in pl {
             path_vec.push(new_entry(p));
         }
@@ -63,7 +65,7 @@ impl<'a> CompositeEntry<'a> {
 
 impl<'a> WildcardEntry<'a> {
     fn new(path: &'a str) -> WildcardEntry<'a> {
-        Self {entry : CompositeEntry::new(path)}
+        Self { entry: CompositeEntry::new(path) }
     }
 }
 
@@ -80,7 +82,21 @@ impl<'a> Entry for DirEntry<'a> {
 }
 
 impl<'a> Entry for ZipEntry<'a> {
-    fn read_class(&self, className: &str) -> Option<(&Vec<u8>, &Entry)> {}
+    fn read_class(&self, className: &str) -> Option<(&Vec<u8>, &Entry)> {
+        let file = file_util::path_to_file(self.abs_path);
+        let classFileName = file_util::classname_to_filename(className);
+        let reader = BufReader::new(file);
+        let mut za = zip::ZipArchive::new(reader).unwrap();
+
+        let mut file = match za.by_name(classFileName)
+            {
+                Ok(file) => file,
+                Err(why) => panic!("{}", why)
+            };
+        let mut v = Vec::new();
+        file.read_to_end(&mut v);
+        Some((&v, self))
+    }
 }
 
 impl<'a> Entry for CompositeEntry<'a> {
