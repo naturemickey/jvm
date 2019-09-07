@@ -3,9 +3,10 @@ use std::path::Path;
 use std::option::Option;
 use std::string::ToString;
 use std::io::{BufReader, Read};
+use std::error::Error;
 
 pub trait Entry: ToString {
-    fn read_class(&self, className: &str) -> Option<(Vec<u8>, &dyn Entry)>;
+    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, &dyn Entry)>;
 }
 
 struct DirEntry<'a> {
@@ -66,8 +67,8 @@ impl<'a> WildcardEntry<'a> {
 }
 
 impl<'a> Entry for DirEntry<'a> {
-    fn read_class(&self, className: &str) -> Option<(Vec<u8>, &Entry)> {
-        let pb = self.abs_dir.join(className);
+    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, &dyn Entry)> {
+        let pb = self.abs_dir.join(class_name);
         let path = pb.as_path();
         if path.is_file() {
             let file = file_util::path_to_file(path);
@@ -79,23 +80,26 @@ impl<'a> Entry for DirEntry<'a> {
 }
 
 impl<'a> Entry for ZipEntry<'a> {
-    fn read_class(&self, className: &str) -> Option<(Vec<u8>, &Entry)> {
+    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, &dyn Entry)> {
         let file = file_util::path_to_file(self.abs_path);
-        let classFileName = file_util::classname_to_filename(className);
+        let class_file_name = file_util::classname_to_filename(class_name);
         let reader = BufReader::new(file);
         let mut za = zip::ZipArchive::new(reader).unwrap();
 
-        let mut file = za.by_name(classFileName).unwrap();
+        let mut file = za.by_name(class_file_name).unwrap();
         let mut v = Vec::new();
-        file.read_to_end(&mut v);
+        let read_res = file.read_to_end(&mut v);
+        if read_res.is_err() {
+            panic!("ZipEntry read file err {}", read_res.unwrap_err().description());
+        }
         Some((v, self))
     }
 }
 
 impl<'a> Entry for CompositeEntry<'a> {
-    fn read_class(&self, className: &str) -> Option<(Vec<u8>, &Entry)> {
+    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, &dyn Entry)> {
         for entry in &self.entrys {
-            let res = entry.read_class(className);
+            let res = entry.read_class(class_name);
             if res.is_some() {
                 return res;
             }
@@ -105,8 +109,8 @@ impl<'a> Entry for CompositeEntry<'a> {
 }
 
 impl<'a> Entry for WildcardEntry<'a> {
-    fn read_class(&self, className: &str) -> Option<(Vec<u8>, &Entry)> {
-        self.entry.read_class(className)
+    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, &dyn Entry)> {
+        self.entry.read_class(class_name)
     }
 }
 

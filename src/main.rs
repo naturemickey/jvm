@@ -17,6 +17,6 @@ fn main() {
 }
 
 fn start_jvm(cmd: Cmd) {
-    entry::new_entry(cmd.cp_option);
+    entry::new_entry(&cmd.cp_option);
     println!(" classpath:{} class:{} args:{:?}\n", cmd.cp_option, cmd.class, cmd.args);
 }
