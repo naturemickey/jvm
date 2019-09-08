@@ -25,7 +25,7 @@ struct WildcardEntry<'a> {
     entry: CompositeEntry<'a>
 }
 
-pub fn new_entry(path: &str) -> Box<dyn Entry + '_> {
+pub fn new_entry<'a>(path: &'a str) -> Box<dyn Entry + 'a> {
     if path.contains(if cfg!(windows) { ';' } else { ':' }) {
         Box::new(CompositeEntry::new(path))
     } else if path.ends_with("*") {
@@ -108,25 +108,25 @@ impl<'a> Entry for CompositeEntry<'a> {
     }
 }
 
-impl<'a> Entry for WildcardEntry<'a> {
+impl Entry for WildcardEntry<'_> {
     fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, &dyn Entry)> {
         self.entry.read_class(class_name)
     }
 }
 
-impl<'a> ToString for DirEntry<'a> {
+impl ToString for DirEntry<'_> {
     fn to_string(&self) -> String {
         self.abs_dir.to_string_lossy().as_ref().to_string()
     }
 }
 
-impl<'a> ToString for ZipEntry<'a> {
+impl ToString for ZipEntry<'_> {
     fn to_string(&self) -> String {
         self.abs_path.to_string_lossy().as_ref().to_string()
     }
 }
 
-impl<'a> ToString for CompositeEntry<'a> {
+impl ToString for CompositeEntry<'_> {
     fn to_string(&self) -> String {
         let mut strs = Vec::new();
         for entry in &self.entrys {
@@ -136,7 +136,7 @@ impl<'a> ToString for CompositeEntry<'a> {
     }
 }
 
-impl<'a> ToString for WildcardEntry<'a> {
+impl ToString for WildcardEntry<'_> {
     fn to_string(&self) -> String {
         self.entry.to_string()
     }
