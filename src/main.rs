@@ -2,6 +2,7 @@ extern crate java;
 
 use java::cmd::Cmd;
 use java::classpath::Classpath;
+use java::util::file_util;
 
 fn main() {
     let cmd = Cmd::parse();
@@ -19,8 +20,10 @@ fn start_jvm(cmd: Cmd) {
     let cp = Classpath::parse(&cmd.cp_option);
     println!(" classpath:{} class:{} args:{:?}\n", cmd.cp_option, cmd.class, cmd.args);
 
-    let class_name = &(cmd.class.replace("\\.", if cfg!(windows) { "\\" } else { "/" }) + ".class");
-    let class_data = cp.read_class(class_name);
+    let class_name = file_util::classname_to_filename(&cmd.class);
+
+    // println!("{}", class_name);
+    let class_data = cp.read_class(&class_name);
     match class_data {
         Some((data, _)) => println!("class data:{:?}", data),
         None => println!("could not find or load main class {}", cmd.class),

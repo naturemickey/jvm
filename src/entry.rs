@@ -82,11 +82,12 @@ impl<'a> Entry for DirEntry<'a> {
 impl<'a> Entry for ZipEntry<'a> {
     fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, &dyn Entry)> {
         let file = file_util::path_to_file(self.abs_path);
-        let class_file_name = file_util::classname_to_filename(class_name);
         let reader = BufReader::new(file);
         let mut za = zip::ZipArchive::new(reader).unwrap();
 
-        let mut file = za.by_name(class_file_name).unwrap();
+        // println!("aaaaaaaaaaaaaaaaaaaaaaaaa {}", class_name);
+
+        let mut file = za.by_name(class_name).unwrap();
         let mut v = Vec::new();
         let read_res = file.read_to_end(&mut v);
         if read_res.is_err() {
