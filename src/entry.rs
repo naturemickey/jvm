@@ -30,7 +30,7 @@ pub fn new_entry<'a>(path: &'a str) -> Box<dyn Entry + 'a> {
         Box::new(CompositeEntry::new(path))
     } else if path.ends_with("*") {
         Box::new(WildcardEntry::new(path))
-    } else if path.ends_with(".jar") || path.ends_with(".JAR") || path.ends_with(".zip") || path.ends_with(".ZIP") {
+    } else if file_util::is_jar_name(path) {
         Box::new(ZipEntry::new(path))
     } else {
         Box::new(DirEntry::new(path))
@@ -51,18 +51,43 @@ impl<'a> ZipEntry<'a> {
 
 impl<'a> CompositeEntry<'a> {
     fn new(path: &'a str) -> CompositeEntry<'a> {
-        let mut path_vec = Vec::new();
-        let pl: Vec<&'a str> = path.split(if cfg!(windows) { ';' } else { ':' }).collect();
-        for p in pl {
-            path_vec.push(new_entry(p));
+        let paths: Vec<&'a str> = path.split(if cfg!(windows) { ';' } else { ':' }).collect();
+        Self::new_by_paths(paths)
+    }
+    fn new_by_paths(paths: Vec<&'a str>) -> CompositeEntry<'a> {
+        let mut entrys = Vec::new();
+        for p in paths {
+            entrys.push(new_entry(p));
         }
-        Self { entrys: path_vec }
+        Self::new_by_entrys(entrys)
+    }
+    fn new_by_entrys(entrys: Vec<Box<dyn Entry + 'a>>) -> CompositeEntry<'a> {
+        Self { entrys: entrys }
     }
 }
 
 impl<'a> WildcardEntry<'a> {
     fn new(path: &'a str) -> WildcardEntry<'a> {
-        Self { entry: CompositeEntry::new(path) }
+        let mut p = path.to_string();
+        p.remove(path.len() - 1);
+        let read_dir = std::fs::read_dir(p).unwrap();
+
+        let mut paths: Vec<&'a str> = Vec::new();
+
+        for result_dir_entry in read_dir {
+            let p = result_dir_entry.unwrap().path();
+            let path_in:&'a Path = p.as_path();
+
+            if path_in.is_file() {
+                let file_name:&'a str = path_in.file_name().unwrap().to_str().unwrap();
+
+                if file_util::is_jar_name(file_name) {
+                    let s:&'a str = path_in.to_str().unwrap();
+                    paths.push(&s);
+                }
+            }
+        }
+        Self { entry: CompositeEntry::new_by_paths(paths) }
     }
 }
 

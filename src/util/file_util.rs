@@ -23,3 +23,7 @@ pub fn classname_to_filename(classname: &str) -> String {
     // This works :
     classname.replace(".", "/") + ".class"
 }
+
+pub fn is_jar_name(file_name: &str) -> bool {
+    file_name.ends_with(".jar") || file_name.ends_with(".JAR") || file_name.ends_with(".zip") || file_name.ends_with(".ZIP")
+}
