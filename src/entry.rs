@@ -18,15 +18,15 @@ struct ZipEntry {
     abs_path: String
 }
 
-struct CompositeEntry<'a> {
-    entrys: Vec<Box<dyn Entry + 'a>>
+struct CompositeEntry {
+    entrys: Vec<Box<dyn Entry>>
 }
 
-struct WildcardEntry<'a> {
-    entry: CompositeEntry<'a>
+struct WildcardEntry {
+    entry: CompositeEntry
 }
 
-pub fn new_entry<'a>(path: String) -> Box<dyn Entry + 'a> {
+pub fn new_entry(path: String) -> Box<dyn Entry> {
     if path.contains(if cfg!(windows) { ';' } else { ':' }) {
         Box::new(CompositeEntry::new(path))
     } else if path.ends_with("*") {
@@ -50,8 +50,8 @@ impl ZipEntry {
     }
 }
 
-impl<'a> CompositeEntry<'a> {
-    fn new(path: String) -> CompositeEntry<'a> {
+impl CompositeEntry {
+    fn new(path: String) -> CompositeEntry {
         let paths: Vec<&str> = path.split(if cfg!(windows) { ';' } else { ':' }).collect();
         let mut paths2: Vec<String> = Vec::new();
         for p in paths {
@@ -59,7 +59,7 @@ impl<'a> CompositeEntry<'a> {
         }
         Self::new_by_paths(paths2)
     }
-    fn new_by_paths(paths: Vec<String>) -> CompositeEntry<'a> {
+    fn new_by_paths(paths: Vec<String>) -> CompositeEntry {
         let mut entrys = Vec::new();
         for p in paths {
             // println!("{}", p);
@@ -67,13 +67,13 @@ impl<'a> CompositeEntry<'a> {
         }
         Self::new_by_entrys(entrys)
     }
-    fn new_by_entrys(entrys: Vec<Box<dyn Entry + 'a>>) -> CompositeEntry<'a> {
-        Self { entrys: entrys }
+    fn new_by_entrys(entrys: Vec<Box<dyn Entry>>) -> CompositeEntry {
+        Self { entrys }
     }
 }
 
-impl<'a> WildcardEntry<'a> {
-    fn new(path: String) -> WildcardEntry<'a> {
+impl WildcardEntry {
+    fn new(path: String) -> WildcardEntry {
         let mut p = path.to_string();
         p.remove(path.len() - 1);
         let read_dir = std::fs::read_dir(p).unwrap();
@@ -81,7 +81,7 @@ impl<'a> WildcardEntry<'a> {
         let mut paths: Vec<String> = Vec::new();
 
         for result_dir_entry in read_dir {
-            let path_in  = result_dir_entry.unwrap().path();
+            let path_in = result_dir_entry.unwrap().path();
 
             if path_in.is_file() {
                 let file_name = path_in.file_name().unwrap().to_str().unwrap();
@@ -101,7 +101,7 @@ impl Entry for DirEntry {
         let pb = Path::new(&self.abs_dir).join(class_name);
         let path = pb.as_path();
         if path.is_file() {
-            let file =  File::open(path).unwrap();
+            let file = File::open(path).unwrap();
             Some((file_util::read_file(&file), self))
         } else {
             None
@@ -118,20 +118,21 @@ impl Entry for ZipEntry {
         // println!("aaaaaaaaaaaaaaaaaaaaaaaaa {}", class_name);
 
         let zf = za.by_name(&class_name);
-        if zf.is_err() {
-            return None;
+        match zf {
+            Err(_) => None,
+            Ok(mut file) => {
+                let mut v = Vec::new();
+                let read_res = file.read_to_end(&mut v);
+                if read_res.is_err() {
+                    panic!("ZipEntry read file err {}", read_res.unwrap_err().description());
+                }
+                Some((v, self))
+            }
         }
-        let mut file = zf.unwrap();
-        let mut v = Vec::new();
-        let read_res = file.read_to_end(&mut v);
-        if read_res.is_err() {
-            panic!("ZipEntry read file err {}", read_res.unwrap_err().description());
-        }
-        Some((v, self))
     }
 }
 
-impl<'a> Entry for CompositeEntry<'a> {
+impl Entry for CompositeEntry {
     fn read_class(&self, class_name: String) -> Option<(Vec<u8>, &dyn Entry)> {
         for entry in &self.entrys {
             let res = entry.read_class(class_name.clone());
@@ -143,11 +144,13 @@ impl<'a> Entry for CompositeEntry<'a> {
     }
 }
 
-impl Entry for WildcardEntry<'_> {
+impl Entry for WildcardEntry {
     fn read_class(&self, class_name: String) -> Option<(Vec<u8>, &dyn Entry)> {
         self.entry.read_class(class_name)
     }
 }
+
+// impl ToString :
 
 impl ToString for DirEntry {
     fn to_string(&self) -> String {
@@ -161,7 +164,7 @@ impl ToString for ZipEntry {
     }
 }
 
-impl ToString for CompositeEntry<'_> {
+impl ToString for CompositeEntry {
     fn to_string(&self) -> String {
         let mut strs = Vec::new();
         for entry in &self.entrys {
@@ -171,7 +174,7 @@ impl ToString for CompositeEntry<'_> {
     }
 }
 
-impl ToString for WildcardEntry<'_> {
+impl ToString for WildcardEntry {
     fn to_string(&self) -> String {
         self.entry.to_string()
     }
