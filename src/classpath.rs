@@ -9,11 +9,11 @@ pub struct Classpath<'a> {
 }
 
 impl<'a> Classpath<'a> {
-    pub fn parse(cp_option: &'a str) -> Classpath {
+    pub fn parse(cp_option: String) -> Classpath<'a> {
         let entry: Box<dyn Entry + 'a> = new_entry(cp_option);
         Self { user_classpath: entry }
     }
-    pub fn read_class(&self, class_name:&'a str) ->  Option<(Vec<u8>, &dyn Entry)> {
+    pub fn read_class(&self, class_name:String) ->  Option<(Vec<u8>, &dyn Entry)> {
         self.user_classpath.read_class(class_name)
     }
 }
