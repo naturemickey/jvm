@@ -5,7 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="49ff3ef2-99c0-4972-84de-2a7e2714ca46" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/classfile.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/classfile.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/classFile/AttributeInfo.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/classFile/ClassFile.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/classFile/ConstantPool.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/classFile/MemberInfo.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/classFile/mod.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classfile.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/classFile/ClassReader.rs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,6 +49,11 @@
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\GitHub\jvm\src\classFile" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
