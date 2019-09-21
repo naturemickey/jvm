@@ -3,6 +3,7 @@ pub struct ClassReader {
     pc: usize,
 }
 
+
 impl ClassReader {
     pub fn new(data: Vec<u8>) -> ClassReader {
         Self { data, pc: 0 }
