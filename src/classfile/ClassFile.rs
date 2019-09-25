@@ -1,38 +1,39 @@
-pub struct ClassFile {
+pub struct ClassFile<'a> {
     magic: u32,
     minor_version: u16,
     major_version: u16,
-    constant_pool: ConstantPool,
+    constant_pool: Box<ConstantPool>,
     access_flags: u16,
     this_class: u16,
     super_class: u16,
-    interfaces: Box<Vec<u16>>,
-    fields: Box<Vec<Box<MemberInfo>>>,
-    methods: Box<Vec<Box<MemberInfo>>>,
-    attributes: Box<Vec<AttributeInfo>>,
+    interfaces: Vec<u16>,
+    fields: Vec<MemberInfo<'a>>,
+    methods: Vec<MemberInfo<'a>>,
+    attributes: Vec<AttributeInfo>,
 }
 
 
-impl ClassFile {
-    pub fn parse(class_data: Vec<u8>) -> ClassFile {
+impl<'a> ClassFile<'a> {
+    pub fn parse(class_data: Vec<u8>) -> ClassFile<'a> {
         let mut cr = ClassReader::new(class_data);
         let mut cf = ClassFile::read(&mut cr);
         cf
     }
 
-    fn read(reader: &mut ClassReader) -> ClassFile {
+    fn read(reader: &'a mut ClassReader) -> ClassFile<'a> {
         let magic = ClassFile::read_and_check_magic(reader);
         let (minor_version, major_version) = ClassFile::read_and_check_version(reader);
-        let constant_pool = ClassFile::read_constant_pool(reader);
-        let access_flags: u16 = reader.read_u16();
-        let this_class: u16 = reader.read_u16();
-        let super_class: u16 = reader.read_u16();
-        let interfaces: Box<Vec<u16>> = Box::new(reader.read_u16s());
-        let fields = ClassFile::read_members(reader, &constant_pool);
-        let methods = ClassFile::read_members(reader, &constant_pool);
-        let attributes = ClassFile::read_attributes(reader, &constant_pool);
+        let constant_pool = Box::new(ConstantPool::read_constant_pool(reader));
+        let access_flags = reader.read_u16();
+        let this_class = reader.read_u16();
+        let super_class = reader.read_u16();
+        let interfaces = reader.read_u16s();
+        let fields = MemberInfo::read_members(reader, &constant_pool);
+        let methods = MemberInfo::read_members(reader, &constant_pool);
+        let attributes = AttributeInfo::read_attributes(reader, &constant_pool);
         Self { magic, minor_version, major_version, constant_pool, access_flags, this_class, super_class, interfaces, fields, methods, attributes }
     }
+
     fn read_and_check_magic(reader: &mut ClassReader) -> u32 {
         let magic: u32 = reader.read_u32();
         if magic != 0xCAFEBABE {
@@ -40,13 +41,14 @@ impl ClassFile {
         }
         magic
     }
+
     fn read_and_check_version(reader: &mut ClassReader) -> (u16, u16) {
         let minor_version: u16 = reader.read_u16();
         let major_version: u16 = reader.read_u16();
 
-       let res = (minor_version, major_version);
+        let res = (minor_version, major_version);
 
-        match res{
+        match res {
             (_, 45) => res,
             (0, 46) => res,
             (0, 47) => res,
@@ -72,10 +74,10 @@ impl ClassFile {
     pub fn access_flags(&self) -> u16 {
         self.access_flags
     }
-    pub fn fields(&self) -> &Box<Vec<Box<MemberInfo>>> {
+    pub fn fields(&self) -> &Vec<MemberInfo> {
         &self.fields
     }
-    pub fn methods(&self) -> &Box<Vec<Box<MemberInfo>>> {
+    pub fn methods(&self) -> &Vec<MemberInfo> {
         &self.methods
     }
     pub fn class_name(&self) -> &str {
@@ -95,8 +97,4 @@ impl ClassFile {
         }
         names
     }
-
-    pub fn read_constant_pool(reader: &mut ClassReader) -> ConstantPool {}
-    pub fn read_members(reader: &mut ClassReader, constant_pool: &ConstantPool) -> Box<Vec<Box<MemberInfo>>> {}
-    pub fn read_attributes(reader: &mut ClassReader, constant_pool: &ConstantPool) -> Box<Vec<AttributeInfo>> {}
 }
