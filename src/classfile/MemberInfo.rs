@@ -19,7 +19,7 @@ impl<'a> MemberInfo<'a> {
     fn read_members(reader: &'a mut ClassReader, cp: &'a ConstantPool) -> Vec<MemberInfo<'a>> {
         let mut member_count = reader.read_u16();
         let mut members = Vec::new();
-        while --member_count >= 0 {
+        for _ in 0..member_count {
             members.push(Self::read_member(reader, cp));
         }
         members

@@ -23,9 +23,14 @@ impl ConstantPool {
 
     fn get_name_and_type(&self, index: u16) -> (&str, &str) {
         // todo
+        unimplemented!()
     }
 
-    fn class_name(&self, class_index: u16) -> &str {}
+    fn class_name(&self, class_index: u16) -> &str {
+        unimplemented!()
+    }
 
-    fn get_utf8(&self, index: u16) -> &str {}
+    fn get_utf8(&self, index: u16) -> &str {
+        unimplemented!()
+    }
 }
