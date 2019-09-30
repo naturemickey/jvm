@@ -53,7 +53,7 @@ struct ConstantIntegerInfo {
 
 impl ConstantIntegerInfo {
     fn new(reader: &mut ClassReader) -> ConstantIntegerInfo {
-        ConstantIntegerInfo { integer32: reader.read_u32() as i32 }
+        Self { integer32: reader.read_u32() as i32 }
     }
 }
 
@@ -65,48 +65,79 @@ struct ConstantFloatInfo {
 
 impl ConstantFloatInfo {
     fn new(reader: &mut ClassReader) -> ConstantFloatInfo {
-        ConstantFloatInfo { float32: reader.read_u32() as f32 }
+        Self { float32: f32::from_bits(reader.read_u32()) }
     }
 }
 
 impl ConstantInfo for ConstantFloatInfo {}
 
-struct ConstantUtf8Info {}
+struct ConstantUtf8Info {
+    string: String
+}
 
 impl ConstantUtf8Info {
-    fn new(reader: &mut ClassReader) -> ConstantUtf8Info {}
+    fn new(reader: &mut ClassReader) -> ConstantUtf8Info {
+        let length = reader.read_u16();
+        let bytes = reader.read_bytes(length as usize);
+        let string = String::from_utf8(bytes).unwrap();
+        Self { string }
+    }
 }
 
 impl ConstantInfo for ConstantUtf8Info {}
 
-struct ConstantLongInfo {}
+struct ConstantLongInfo {
+    integer64: i64
+}
 
 impl ConstantLongInfo {
-    fn new(reader: &mut ClassReader) -> ConstantLongInfo {}
+    fn new(reader: &mut ClassReader) -> ConstantLongInfo {
+        Self { integer64: reader.read_u64() as i64 }
+    }
 }
 
 impl ConstantInfo for ConstantLongInfo {}
 
-struct ConstantDoubleInfo {}
+struct ConstantDoubleInfo {
+    float64: f64
+}
 
 impl ConstantDoubleInfo {
-    fn new(reader: &mut ClassReader) -> ConstantDoubleInfo {}
+    fn new(reader: &mut ClassReader) -> ConstantDoubleInfo {
+        Self { float64: f64::from_bits(reader.read_u64()) }
+    }
 }
 
 impl ConstantInfo for ConstantDoubleInfo {}
 
-struct ConstantClassInfo {}
+struct ConstantClassInfo<'a> {
+    string_info: ConstantStringInfo<'a>
+}
 
 impl ConstantClassInfo {
-    fn new(reader: &mut ClassReader, cp: &ConstantPool) -> ConstantClassInfo {}
+    fn new(reader: &mut ClassReader, cp: &ConstantPool) -> ConstantClassInfo {
+        Self { string_info: ConstantStringInfo::new(reader, cp) }
+    }
+    fn string(&self) -> &str {
+        self.string_info.string()
+    }
 }
 
 impl ConstantInfo for ConstantClassInfo {}
 
-struct ConstantStringInfo {}
+struct ConstantStringInfo<'a> {
+    cp: &'a ConstantPool,
+    stringIndex: uint16,
+}
 
 impl ConstantStringInfo {
-    fn new(reader: &mut ClassReader, cp: &ConstantPool) -> ConstantStringInfo {}
+    fn new(reader: &mut ClassReader, cp: &ConstantPool) -> ConstantStringInfo {
+        let stringIndex = reader.read_u16();
+        Self { cp, stringIndex }
+    }
+    fn string(&self) -> &str {
+        self.cp.get_utf8(self.stringIndex)
+    }
 }
 
 impl ConstantInfo for ConstantStringInfo {}
