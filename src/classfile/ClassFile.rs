@@ -1,37 +1,38 @@
-pub struct ClassFile<'a> {
+pub struct ClassFile {
     magic: u32,
     minor_version: u16,
     major_version: u16,
-    constant_pool: Box<ConstantPool>,
+    constant_pool: ConstantPool,
     access_flags: u16,
     this_class: u16,
     super_class: u16,
     interfaces: Vec<u16>,
-    fields: Vec<MemberInfo<'a>>,
-    methods: Vec<MemberInfo<'a>>,
+    fields: Vec<MemberInfo>,
+    methods: Vec<MemberInfo>,
     attributes: Vec<AttributeInfo>,
 }
 
 
-impl<'a> ClassFile<'a> {
-    pub fn parse(class_data: Vec<u8>) -> ClassFile<'a> {
+impl ClassFile {
+    pub fn parse(class_data: Vec<u8>) -> ClassFile {
         let mut cr = ClassReader::new(class_data);
-        let mut cf = ClassFile::read(&mut cr);
+        let cf = ClassFile::read(&mut cr);
         cf
     }
 
-    fn read(reader: &'a mut ClassReader) -> ClassFile<'a> {
+    fn read(reader: &mut ClassReader) -> ClassFile {
         let magic = ClassFile::read_and_check_magic(reader);
         let (minor_version, major_version) = ClassFile::read_and_check_version(reader);
-        let constant_pool = Box::new(ConstantPool::read_constant_pool(reader));
+        let cp = ConstantPool::read_constant_pool(reader);
         let access_flags = reader.read_u16();
         let this_class = reader.read_u16();
         let super_class = reader.read_u16();
         let interfaces = reader.read_u16s();
-        let fields = MemberInfo::read_members(reader, &constant_pool);
-        let methods = MemberInfo::read_members(reader, &constant_pool);
-        let attributes = AttributeInfo::read_attributes(reader, &constant_pool);
-        Self { magic, minor_version, major_version, constant_pool, access_flags, this_class, super_class, interfaces, fields, methods, attributes }
+        let fields = MemberInfo::read_members(reader);
+        let methods = MemberInfo::read_members(reader);
+        let attributes = AttributeInfo::read_attributes(reader);
+
+        Self { magic, minor_version, major_version, constant_pool: cp, access_flags, this_class, super_class, interfaces, fields, methods, attributes }
     }
 
     fn read_and_check_magic(reader: &mut ClassReader) -> u32 {
@@ -92,8 +93,8 @@ impl<'a> ClassFile<'a> {
     }
     pub fn interface_names(&self) -> Vec<&str> {
         let mut names = Vec::new();
-        for i in self.interfaces {
-            names.push(self.constant_pool.class_name(i));
+        for i in &self.interfaces {
+            names.push(self.constant_pool.class_name(*i));
         }
         names
     }

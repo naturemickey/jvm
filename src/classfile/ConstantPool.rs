@@ -4,24 +4,23 @@ pub struct ConstantPool {
 
 impl ConstantPool {
     fn read_constant_pool(reader: &mut ClassReader) -> ConstantPool {
-        let mut cp_count = reader.read_u16();
-        let mut constant_info_s = Vec::new();
-        let mut cp = ConstantPool { constant_info_s };
+        let cp_count = reader.read_u16();
+        let mut constant_info_s: Vec<Box<dyn ConstantInfo>> = Vec::new();
 
         // 索引从1开始
-        constant_info_s.push(EMPTY_CONSTANT_INFO);
-        for i in 1..cp_count {
-            // todo
+        constant_info_s.push(Box::new(EMPTY_CONSTANT_INFO));
+        for _ in 1..cp_count {
+            constant_info_s.push(read_constant_info(reader));
         }
 
-        cp
+        ConstantPool { constant_info_s }
     }
 
     fn get_constant_info(&self, index: u16) -> &dyn ConstantInfo {
         self.constant_info_s.get(index as usize).unwrap().as_ref()
     }
 
-    fn get_name_and_type(&self, index: u16) -> (&str, &str) {
+    fn name_and_type(&self, index: u16) -> (&str, &str) {
         // todo
         unimplemented!()
     }
