@@ -1,5 +1,3 @@
-
-
 struct WildcardEntry {
     entry: CompositeEntry
 }

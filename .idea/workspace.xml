@@ -7,7 +7,10 @@
     <list default="true" id="49ff3ef2-99c0-4972-84de-2a7e2714ca46" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/classfile/ConstantInfo.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/classfile/ConstantInfo.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classfile/ConstantPool.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/classfile/ConstantPool.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entry/CompositeEntry.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entry/CompositeEntry.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entry/DirEntry.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entry/DirEntry.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entry/WildcardEntry.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entry/WildcardEntry.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entry/ZipEntry.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entry/ZipEntry.rs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

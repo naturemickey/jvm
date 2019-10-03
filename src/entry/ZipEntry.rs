@@ -1,5 +1,3 @@
-
-
 struct ZipEntry {
     abs_path: String
 }

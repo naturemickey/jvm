@@ -1,5 +1,3 @@
-
-
 struct CompositeEntry {
     entrys: Vec<Box<dyn Entry>>
 }

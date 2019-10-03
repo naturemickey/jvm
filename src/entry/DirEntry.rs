@@ -1,5 +1,3 @@
-
-
 struct DirEntry {
     abs_dir: String
 }

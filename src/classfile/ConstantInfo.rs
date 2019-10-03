@@ -1,17 +1,17 @@
-const CONSTANT_CLASS______________: u8 = 7;
-const CONSTANT_FIELDREF___________: u8 = 9;
-const CONSTANT_METHODREF__________: u8 = 10;
-const CONSTANT_INTERFACE_METHODREF: u8 = 11;
-const CONSTANT_STRING_____________: u8 = 8;
-const CONSTANT_INTGER_____________: u8 = 3;
-const CONSTANT_FLOAT______________: u8 = 4;
-const CONSTANT_LONG_______________: u8 = 5;
-const CONSTANT_DOUBLE_____________: u8 = 6;
-const CONSTANT_NAME_AND_TYPE______: u8 = 12;
-const CONSTANT_UTF8_______________: u8 = 1;
-const CONSTANT_METHOD_HANDLE______: u8 = 15;
-const CONSTANT_METHOD_TYPE________: u8 = 16;
-const CONSTANT_INOVKE_DYNAMIC_____: u8 = 18;
+const CONSTANT_CLASS_______________: u8 = 7;
+const CONSTANT_FIELD_REF___________: u8 = 9;
+const CONSTANT_METHOD_REF__________: u8 = 10;
+const CONSTANT_INTERFACE_METHOD_REF: u8 = 11;
+const CONSTANT_STRING______________: u8 = 8;
+const CONSTANT_INTEGER_____________: u8 = 3;
+const CONSTANT_FLOAT_______________: u8 = 4;
+const CONSTANT_LONG________________: u8 = 5;
+const CONSTANT_DOUBLE______________: u8 = 6;
+const CONSTANT_NAME_AND_TYPE_______: u8 = 12;
+const CONSTANT_UTF8________________: u8 = 1;
+const CONSTANT_METHOD_HANDLE_______: u8 = 15;
+const CONSTANT_METHOD_TYPE_________: u8 = 16;
+const CONSTANT_INVOKE_DYNAMIC______: u8 = 18;
 
 fn read_constant_info(reader: &mut ClassReader) -> ConstantInfo {
     let tag = reader.read_u8();
@@ -20,20 +20,20 @@ fn read_constant_info(reader: &mut ClassReader) -> ConstantInfo {
 
 fn new_constant_info(tag: u8, reader: &mut ClassReader) -> ConstantInfo {
     match tag {
-        CONSTANT_UTF8_______________ => ConstantInfo::Utf8(tag, ConstantUtf8Info::new(reader)),
-        CONSTANT_INTGER_____________ => ConstantInfo::Integer(tag, ConstantIntegerInfo::new(reader)),
-        CONSTANT_FLOAT______________ => ConstantInfo::Float(tag, ConstantFloatInfo::new(reader)),
-        CONSTANT_LONG_______________ => ConstantInfo::Long(tag, ConstantLongInfo::new(reader)),
-        CONSTANT_DOUBLE_____________ => ConstantInfo::Double(tag, ConstantDoubleInfo::new(reader)),
-        CONSTANT_CLASS______________ => ConstantInfo::Class(tag, ConstantClassInfo::new(reader)),
-        CONSTANT_STRING_____________ => ConstantInfo::String(tag, ConstantStringInfo::new(reader)),
-        CONSTANT_FIELDREF___________ => ConstantInfo::FieldRef(tag, ConstantFieldrefInfo::new(reader)),
-        CONSTANT_METHODREF__________ => ConstantInfo::MethodRef(tag, ConstantMethodrefInfo::new(reader)),
-        CONSTANT_INTERFACE_METHODREF => ConstantInfo::InterfaceMethodRef(tag, ConstantInterfaceMethodrefInfo::new(reader)),
-        CONSTANT_NAME_AND_TYPE______ => ConstantInfo::NameAndType(tag, ConstantNameAndTypeInfo::new(reader)),
-        CONSTANT_METHOD_HANDLE______ => ConstantInfo::MethodHandle(tag, ConstantMethodHandleInfo::new(reader)),
-        CONSTANT_METHOD_TYPE________ => ConstantInfo::MethodType(tag, ConstantMethodTypeInfo::new(reader)),
-        CONSTANT_INOVKE_DYNAMIC_____ => ConstantInfo::InvokeDynamic(tag, ConstantInvokeDynamicInfo::new(reader)),
+        CONSTANT_UTF8________________ => ConstantInfo::Utf8(tag, ConstantUtf8Info::new(reader)),
+        CONSTANT_INTEGER_____________ => ConstantInfo::Integer(tag, ConstantIntegerInfo::new(reader)),
+        CONSTANT_FLOAT_______________ => ConstantInfo::Float(tag, ConstantFloatInfo::new(reader)),
+        CONSTANT_LONG________________ => ConstantInfo::Long(tag, ConstantLongInfo::new(reader)),
+        CONSTANT_DOUBLE______________ => ConstantInfo::Double(tag, ConstantDoubleInfo::new(reader)),
+        CONSTANT_CLASS_______________ => ConstantInfo::Class(tag, ConstantClassInfo::new(reader)),
+        CONSTANT_STRING______________ => ConstantInfo::String(tag, ConstantStringInfo::new(reader)),
+        CONSTANT_FIELD_REF___________ => ConstantInfo::FieldRef(tag, ConstantFieldrefInfo::new(reader)),
+        CONSTANT_METHOD_REF__________ => ConstantInfo::MethodRef(tag, ConstantMethodrefInfo::new(reader)),
+        CONSTANT_INTERFACE_METHOD_REF => ConstantInfo::InterfaceMethodRef(tag, ConstantInterfaceMethodrefInfo::new(reader)),
+        CONSTANT_NAME_AND_TYPE_______ => ConstantInfo::NameAndType(tag, ConstantNameAndTypeInfo::new(reader)),
+        CONSTANT_METHOD_HANDLE_______ => ConstantInfo::MethodHandle(tag, ConstantMethodHandleInfo::new(reader)),
+        CONSTANT_METHOD_TYPE_________ => ConstantInfo::MethodType(tag, ConstantMethodTypeInfo::new(reader)),
+        CONSTANT_INVOKE_DYNAMIC______ => ConstantInfo::InvokeDynamic(tag, ConstantInvokeDynamicInfo::new(reader)),
         _ => panic!("java. lang. ClassFormatError: constant pool tag!"),
     }
 }
