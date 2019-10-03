@@ -12,8 +12,8 @@ impl ConstantPool {
         for _ in 1..cp_count {
             let constant_info = read_constant_info(reader);
             match &constant_info {
-                ConstantInfo::Long(_, _) => constant_info_s.push(ConstantInfo::Empty),
-                ConstantInfo::Double(_, _) => constant_info_s.push(ConstantInfo::Empty),
+                ConstantInfo::Long(_) => constant_info_s.push(ConstantInfo::Empty),
+                ConstantInfo::Double(_) => constant_info_s.push(ConstantInfo::Empty),
                 _ => {}
             }
             constant_info_s.push(constant_info);
@@ -30,11 +30,11 @@ impl ConstantPool {
         let constant_info = self.get_constant_info(index);
 
         match constant_info {
-            ConstantInfo::NameAndType(_, info) => {
+            ConstantInfo::NameAndType(info) => {
                 let _name = self.get_utf8(info.name_index);
                 let _type = self.get_utf8(info.descriptor_index);
                 (_name, _type)
-            },
+            }
             _ => panic!("impossible.")
         }
     }
@@ -43,7 +43,7 @@ impl ConstantPool {
         let constant_info = self.get_constant_info(class_index);
 
         match constant_info {
-            ConstantInfo::Class(_, info) => info.name(self),
+            ConstantInfo::Class(info) => info.name(self),
             _ => panic!("impossible.")
         }
     }
@@ -52,7 +52,7 @@ impl ConstantPool {
         let constant_info = self.get_constant_info(index);
 
         match constant_info {
-            ConstantInfo::Utf8(_, info) => &info.string,
+            ConstantInfo::Utf8(info) => &info.string,
             _ => panic!("impossible.")
         }
     }

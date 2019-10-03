@@ -20,40 +20,40 @@ fn read_constant_info(reader: &mut ClassReader) -> ConstantInfo {
 
 fn new_constant_info(tag: u8, reader: &mut ClassReader) -> ConstantInfo {
     match tag {
-        CONSTANT_UTF8________________ => ConstantInfo::Utf8(tag, ConstantUtf8Info::new(reader)),
-        CONSTANT_INTEGER_____________ => ConstantInfo::Integer(tag, ConstantIntegerInfo::new(reader)),
-        CONSTANT_FLOAT_______________ => ConstantInfo::Float(tag, ConstantFloatInfo::new(reader)),
-        CONSTANT_LONG________________ => ConstantInfo::Long(tag, ConstantLongInfo::new(reader)),
-        CONSTANT_DOUBLE______________ => ConstantInfo::Double(tag, ConstantDoubleInfo::new(reader)),
-        CONSTANT_CLASS_______________ => ConstantInfo::Class(tag, ConstantClassInfo::new(reader)),
-        CONSTANT_STRING______________ => ConstantInfo::String(tag, ConstantStringInfo::new(reader)),
-        CONSTANT_FIELD_REF___________ => ConstantInfo::FieldRef(tag, ConstantFieldrefInfo::new(reader)),
-        CONSTANT_METHOD_REF__________ => ConstantInfo::MethodRef(tag, ConstantMethodrefInfo::new(reader)),
-        CONSTANT_INTERFACE_METHOD_REF => ConstantInfo::InterfaceMethodRef(tag, ConstantInterfaceMethodrefInfo::new(reader)),
-        CONSTANT_NAME_AND_TYPE_______ => ConstantInfo::NameAndType(tag, ConstantNameAndTypeInfo::new(reader)),
-        CONSTANT_METHOD_HANDLE_______ => ConstantInfo::MethodHandle(tag, ConstantMethodHandleInfo::new(reader)),
-        CONSTANT_METHOD_TYPE_________ => ConstantInfo::MethodType(tag, ConstantMethodTypeInfo::new(reader)),
-        CONSTANT_INVOKE_DYNAMIC______ => ConstantInfo::InvokeDynamic(tag, ConstantInvokeDynamicInfo::new(reader)),
+        CONSTANT_UTF8________________ => ConstantInfo::Utf8(ConstantUtf8Info::new(reader)),
+        CONSTANT_INTEGER_____________ => ConstantInfo::Integer(ConstantIntegerInfo::new(reader)),
+        CONSTANT_FLOAT_______________ => ConstantInfo::Float(ConstantFloatInfo::new(reader)),
+        CONSTANT_LONG________________ => ConstantInfo::Long(ConstantLongInfo::new(reader)),
+        CONSTANT_DOUBLE______________ => ConstantInfo::Double(ConstantDoubleInfo::new(reader)),
+        CONSTANT_CLASS_______________ => ConstantInfo::Class(ConstantClassInfo::new(reader)),
+        CONSTANT_STRING______________ => ConstantInfo::String(ConstantStringInfo::new(reader)),
+        CONSTANT_FIELD_REF___________ => ConstantInfo::FieldRef(ConstantFieldrefInfo::new(reader)),
+        CONSTANT_METHOD_REF__________ => ConstantInfo::MethodRef(ConstantMethodrefInfo::new(reader)),
+        CONSTANT_INTERFACE_METHOD_REF => ConstantInfo::InterfaceMethodRef(ConstantInterfaceMethodrefInfo::new(reader)),
+        CONSTANT_NAME_AND_TYPE_______ => ConstantInfo::NameAndType(ConstantNameAndTypeInfo::new(reader)),
+        CONSTANT_METHOD_HANDLE_______ => ConstantInfo::MethodHandle(ConstantMethodHandleInfo::new(reader)),
+        CONSTANT_METHOD_TYPE_________ => ConstantInfo::MethodType(ConstantMethodTypeInfo::new(reader)),
+        CONSTANT_INVOKE_DYNAMIC______ => ConstantInfo::InvokeDynamic(ConstantInvokeDynamicInfo::new(reader)),
         _ => panic!("java. lang. ClassFormatError: constant pool tag!"),
     }
 }
 
 enum ConstantInfo {
     Empty,
-    Utf8(u8, ConstantUtf8Info),
-    Integer(u8, ConstantIntegerInfo),
-    Float(u8, ConstantFloatInfo),
-    Long(u8, ConstantLongInfo),
-    Double(u8, ConstantDoubleInfo),
-    Class(u8, ConstantClassInfo),
-    String(u8, ConstantStringInfo),
-    FieldRef(u8, ConstantFieldrefInfo),
-    MethodRef(u8, ConstantMethodrefInfo),
-    InterfaceMethodRef(u8, ConstantInterfaceMethodrefInfo),
-    NameAndType(u8, ConstantNameAndTypeInfo),
-    MethodHandle(u8, ConstantMethodHandleInfo),
-    MethodType(u8, ConstantMethodTypeInfo),
-    InvokeDynamic(u8, ConstantInvokeDynamicInfo),
+    Utf8(ConstantUtf8Info),
+    Integer(ConstantIntegerInfo),
+    Float(ConstantFloatInfo),
+    Long(ConstantLongInfo),
+    Double(ConstantDoubleInfo),
+    Class(ConstantClassInfo),
+    String(ConstantStringInfo),
+    FieldRef(ConstantFieldrefInfo),
+    MethodRef(ConstantMethodrefInfo),
+    InterfaceMethodRef(ConstantInterfaceMethodrefInfo),
+    NameAndType(ConstantNameAndTypeInfo),
+    MethodHandle(ConstantMethodHandleInfo),
+    MethodType(ConstantMethodTypeInfo),
+    InvokeDynamic(ConstantInvokeDynamicInfo),
 }
 
 
@@ -217,26 +217,38 @@ impl ConstantNameAndTypeInfo {
     }
 }
 
-struct ConstantMethodHandleInfo {}
+struct ConstantMethodHandleInfo {
+    reference_kind: u8,
+    reference_index: u16,
+}
 
 impl ConstantMethodHandleInfo {
     fn new(reader: &mut ClassReader) -> ConstantMethodHandleInfo {
-        unimplemented!()
+        let reference_kind = reader.read_u8();
+        let reference_index = reader.read_u16();
+        Self { reference_kind, reference_index }
     }
 }
 
-struct ConstantMethodTypeInfo {}
+struct ConstantMethodTypeInfo {
+    descriptor_index: u16
+}
 
 impl ConstantMethodTypeInfo {
     fn new(reader: &mut ClassReader) -> ConstantMethodTypeInfo {
-        unimplemented!()
+        Self { descriptor_index: reader.read_u16() }
     }
 }
 
-struct ConstantInvokeDynamicInfo {}
+struct ConstantInvokeDynamicInfo {
+    bootstrap_method_attr_index: u16,
+    name_and_type_index: u16,
+}
 
 impl ConstantInvokeDynamicInfo {
     fn new(reader: &mut ClassReader) -> ConstantInvokeDynamicInfo {
-        unimplemented!()
+        let bootstrap_method_attr_index = reader.read_u16();
+        let name_and_type_index = reader.read_u16();
+        Self { bootstrap_method_attr_index, name_and_type_index }
     }
 }
