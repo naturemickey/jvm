@@ -13,41 +13,52 @@ const CONSTANT_METHOD_HANDLE______: u8 = 15;
 const CONSTANT_METHOD_TYPE________: u8 = 16;
 const CONSTANT_INOVKE_DYNAMIC_____: u8 = 18;
 
-fn read_constant_info(reader: &mut ClassReader) -> Box<dyn ConstantInfo> {
+fn read_constant_info(reader: &mut ClassReader) -> ConstantInfo {
     let tag = reader.read_u8();
     new_constant_info(tag, reader)
 }
 
-fn new_constant_info(tag: u8, reader: &mut ClassReader) -> Box<dyn ConstantInfo> {
+fn new_constant_info(tag: u8, reader: &mut ClassReader) -> ConstantInfo {
     match tag {
-        CONSTANT_UTF8_______________ => Box::new(ConstantUtf8Info::new(reader)),
-        CONSTANT_INTGER_____________ => Box::new(ConstantIntegerInfo::new(reader)),
-        CONSTANT_FLOAT______________ => Box::new(ConstantFloatInfo::new(reader)),
-        CONSTANT_LONG_______________ => Box::new(ConstantLongInfo::new(reader)),
-        CONSTANT_DOUBLE_____________ => Box::new(ConstantDoubleInfo::new(reader)),
-        CONSTANT_CLASS______________ => Box::new(ConstantClassInfo::new(reader)),
-        CONSTANT_STRING_____________ => Box::new(ConstantStringInfo::new(reader)),
-        CONSTANT_FIELDREF___________ => Box::new(ConstantFieldrefInfo::new(reader)),
-        CONSTANT_METHODREF__________ => Box::new(ConstantMethodrefInfo::new(reader)),
-        CONSTANT_INTERFACE_METHODREF => Box::new(ConstantInterfaceMethodrefInfo::new(reader)),
-        CONSTANT_NAME_AND_TYPE______ => Box::new(ConstantNameAndTypeInfo::new(reader)),
-        CONSTANT_METHOD_HANDLE______ => Box::new(ConstantMethodHandleInfo::new(reader)),
-        CONSTANT_METHOD_TYPE________ => Box::new(ConstantMethodTypeInfo::new(reader)),
-        CONSTANT_INOVKE_DYNAMIC_____ => Box::new(ConstantInvokeDynamicInfo::new(reader)),
+        CONSTANT_UTF8_______________ => ConstantInfo::Utf8(tag, ConstantUtf8Info::new(reader)),
+        CONSTANT_INTGER_____________ => ConstantInfo::Integer(tag, ConstantIntegerInfo::new(reader)),
+        CONSTANT_FLOAT______________ => ConstantInfo::Float(tag, ConstantFloatInfo::new(reader)),
+        CONSTANT_LONG_______________ => ConstantInfo::Long(tag, ConstantLongInfo::new(reader)),
+        CONSTANT_DOUBLE_____________ => ConstantInfo::Double(tag, ConstantDoubleInfo::new(reader)),
+        CONSTANT_CLASS______________ => ConstantInfo::Class(tag, ConstantClassInfo::new(reader)),
+        CONSTANT_STRING_____________ => ConstantInfo::String(tag, ConstantStringInfo::new(reader)),
+        CONSTANT_FIELDREF___________ => ConstantInfo::FieldRef(tag, ConstantFieldrefInfo::new(reader)),
+        CONSTANT_METHODREF__________ => ConstantInfo::MethodRef(tag, ConstantMethodrefInfo::new(reader)),
+        CONSTANT_INTERFACE_METHODREF => ConstantInfo::InterfaceMethodRef(tag, ConstantInterfaceMethodrefInfo::new(reader)),
+        CONSTANT_NAME_AND_TYPE______ => ConstantInfo::NameAndType(tag, ConstantNameAndTypeInfo::new(reader)),
+        CONSTANT_METHOD_HANDLE______ => ConstantInfo::MethodHandle(tag, ConstantMethodHandleInfo::new(reader)),
+        CONSTANT_METHOD_TYPE________ => ConstantInfo::MethodType(tag, ConstantMethodTypeInfo::new(reader)),
+        CONSTANT_INOVKE_DYNAMIC_____ => ConstantInfo::InvokeDynamic(tag, ConstantInvokeDynamicInfo::new(reader)),
         _ => panic!("java. lang. ClassFormatError: constant pool tag!"),
     }
 }
 
-trait ConstantInfo {}
+enum ConstantInfo {
+    Empty,
+    Utf8(u8, ConstantUtf8Info),
+    Integer(u8, ConstantIntegerInfo),
+    Float(u8, ConstantFloatInfo),
+    Long(u8, ConstantLongInfo),
+    Double(u8, ConstantDoubleInfo),
+    Class(u8, ConstantClassInfo),
+    String(u8, ConstantStringInfo),
+    FieldRef(u8, ConstantFieldrefInfo),
+    MethodRef(u8, ConstantMethodrefInfo),
+    InterfaceMethodRef(u8, ConstantInterfaceMethodrefInfo),
+    NameAndType(u8, ConstantNameAndTypeInfo),
+    MethodHandle(u8, ConstantMethodHandleInfo),
+    MethodType(u8, ConstantMethodTypeInfo),
+    InvokeDynamic(u8, ConstantInvokeDynamicInfo),
+}
 
-struct ConstantEmptyInfo {}
-
-impl ConstantInfo for ConstantEmptyInfo {}
-
-const EMPTY_CONSTANT_INFO: ConstantEmptyInfo = ConstantEmptyInfo {};
 
 struct ConstantIntegerInfo {
-    integer32: i32
+    integer32: i32,
 }
 
 impl ConstantIntegerInfo {
@@ -56,10 +67,8 @@ impl ConstantIntegerInfo {
     }
 }
 
-impl ConstantInfo for ConstantIntegerInfo {}
-
 struct ConstantFloatInfo {
-    float32: f32
+    float32: f32,
 }
 
 impl ConstantFloatInfo {
@@ -68,10 +77,8 @@ impl ConstantFloatInfo {
     }
 }
 
-impl ConstantInfo for ConstantFloatInfo {}
-
 struct ConstantUtf8Info {
-    string: String
+    string: String,
 }
 
 impl ConstantUtf8Info {
@@ -83,10 +90,8 @@ impl ConstantUtf8Info {
     }
 }
 
-impl ConstantInfo for ConstantUtf8Info {}
-
 struct ConstantLongInfo {
-    integer64: i64
+    integer64: i64,
 }
 
 impl ConstantLongInfo {
@@ -95,10 +100,8 @@ impl ConstantLongInfo {
     }
 }
 
-impl ConstantInfo for ConstantLongInfo {}
-
 struct ConstantDoubleInfo {
-    float64: f64
+    float64: f64,
 }
 
 impl ConstantDoubleInfo {
@@ -107,10 +110,8 @@ impl ConstantDoubleInfo {
     }
 }
 
-impl ConstantInfo for ConstantDoubleInfo {}
-
 struct ConstantClassInfo {
-    string_info: ConstantStringInfo
+    string_info: ConstantStringInfo,
 }
 
 impl ConstantClassInfo {
@@ -121,8 +122,6 @@ impl ConstantClassInfo {
         self.string_info.string(cp)
     }
 }
-
-impl<'a> ConstantInfo for ConstantClassInfo {}
 
 struct ConstantStringInfo {
     string_index: u16,
@@ -137,8 +136,6 @@ impl ConstantStringInfo {
         cp.get_utf8(self.string_index)
     }
 }
-
-impl ConstantInfo for ConstantStringInfo {}
 
 struct ConstantMemberrefInfo {
     class_index: u16,
@@ -160,7 +157,7 @@ impl ConstantMemberrefInfo {
 }
 
 struct ConstantFieldrefInfo {
-    member: ConstantMemberrefInfo
+    member: ConstantMemberrefInfo,
 }
 
 impl ConstantFieldrefInfo {
@@ -175,10 +172,8 @@ impl ConstantFieldrefInfo {
     }
 }
 
-impl ConstantInfo for ConstantFieldrefInfo {}
-
 struct ConstantMethodrefInfo {
-    member: ConstantMemberrefInfo
+    member: ConstantMemberrefInfo,
 }
 
 impl ConstantMethodrefInfo {
@@ -193,10 +188,8 @@ impl ConstantMethodrefInfo {
     }
 }
 
-impl ConstantInfo for ConstantMethodrefInfo {}
-
 struct ConstantInterfaceMethodrefInfo {
-    member: ConstantMemberrefInfo
+    member: ConstantMemberrefInfo,
 }
 
 impl ConstantInterfaceMethodrefInfo {
@@ -211,8 +204,6 @@ impl ConstantInterfaceMethodrefInfo {
     }
 }
 
-impl ConstantInfo for ConstantInterfaceMethodrefInfo {}
-
 struct ConstantNameAndTypeInfo {
     name_index: u16,
     descriptor_index: u16,
@@ -226,8 +217,6 @@ impl ConstantNameAndTypeInfo {
     }
 }
 
-impl ConstantInfo for ConstantNameAndTypeInfo {}
-
 struct ConstantMethodHandleInfo {}
 
 impl ConstantMethodHandleInfo {
@@ -235,8 +224,6 @@ impl ConstantMethodHandleInfo {
         unimplemented!()
     }
 }
-
-impl ConstantInfo for ConstantMethodHandleInfo {}
 
 struct ConstantMethodTypeInfo {}
 
@@ -246,8 +233,6 @@ impl ConstantMethodTypeInfo {
     }
 }
 
-impl ConstantInfo for ConstantMethodTypeInfo {}
-
 struct ConstantInvokeDynamicInfo {}
 
 impl ConstantInvokeDynamicInfo {
@@ -255,5 +240,3 @@ impl ConstantInvokeDynamicInfo {
         unimplemented!()
     }
 }
-
-impl ConstantInfo for ConstantInvokeDynamicInfo {}
