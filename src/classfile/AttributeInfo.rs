@@ -2,7 +2,7 @@ enum AttributeInfo {
     Code(CodeAttribute),
     ConstantValue(ConstantValueAttribute),
     Deprecated(DeprecatedAttribute),
-    Exceptions,
+    Exceptions(ExceptionsAttribute),
     LineNumberTable,
     LocalVariableTable,
     SourceFile(SourceFileAttribute),
@@ -31,7 +31,7 @@ impl AttributeInfo {
             "Code" => Self::Code(CodeAttribute::new(reader, cp)),
             "ConstantValue" => Self::ConstantValue(ConstantValueAttribute::new(reader)),
             "Deprecated" => Self::Deprecated(DeprecatedAttribute {}),
-            "Exceptions" => Self::Exceptions,
+            "Exceptions" => Self::Exceptions(ExceptionsAttribute::new(reader)),
             "LineNumberTable" => Self::LineNumberTable,
             "LocalVariableTable" => Self::LocalVariableTable,
             "SourceFile" => Self::SourceFile(SourceFileAttribute::new(reader)),
@@ -123,5 +123,18 @@ impl ExceptionTableEntry {
             table.push(Self { start_pc, end_pc, handler_pc, catch_type })
         }
         table
+    }
+}
+
+struct ExceptionsAttribute {
+    index_table: Vec<u16>
+}
+
+impl ExceptionsAttribute {
+    fn new(reader: &mut ClassReader) -> ExceptionsAttribute {
+        Self { index_table: reader.read_u16s() }
+    }
+    fn index_table(&self) -> &Vec<u16> {
+        &self.index_table
     }
 }
