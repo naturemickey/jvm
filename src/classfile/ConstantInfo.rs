@@ -13,31 +13,6 @@ const CONSTANT_METHOD_HANDLE_______: u8 = 15;
 const CONSTANT_METHOD_TYPE_________: u8 = 16;
 const CONSTANT_INVOKE_DYNAMIC______: u8 = 18;
 
-fn read_constant_info(reader: &mut ClassReader) -> ConstantInfo {
-    let tag = reader.read_u8();
-    new_constant_info(tag, reader)
-}
-
-fn new_constant_info(tag: u8, reader: &mut ClassReader) -> ConstantInfo {
-    match tag {
-        CONSTANT_UTF8________________ => ConstantInfo::Utf8(ConstantUtf8Info::new(reader)),
-        CONSTANT_INTEGER_____________ => ConstantInfo::Integer(ConstantIntegerInfo::new(reader)),
-        CONSTANT_FLOAT_______________ => ConstantInfo::Float(ConstantFloatInfo::new(reader)),
-        CONSTANT_LONG________________ => ConstantInfo::Long(ConstantLongInfo::new(reader)),
-        CONSTANT_DOUBLE______________ => ConstantInfo::Double(ConstantDoubleInfo::new(reader)),
-        CONSTANT_CLASS_______________ => ConstantInfo::Class(ConstantClassInfo::new(reader)),
-        CONSTANT_STRING______________ => ConstantInfo::String(ConstantStringInfo::new(reader)),
-        CONSTANT_FIELD_REF___________ => ConstantInfo::FieldRef(ConstantFieldrefInfo::new(reader)),
-        CONSTANT_METHOD_REF__________ => ConstantInfo::MethodRef(ConstantMethodrefInfo::new(reader)),
-        CONSTANT_INTERFACE_METHOD_REF => ConstantInfo::InterfaceMethodRef(ConstantInterfaceMethodrefInfo::new(reader)),
-        CONSTANT_NAME_AND_TYPE_______ => ConstantInfo::NameAndType(ConstantNameAndTypeInfo::new(reader)),
-        CONSTANT_METHOD_HANDLE_______ => ConstantInfo::MethodHandle(ConstantMethodHandleInfo::new(reader)),
-        CONSTANT_METHOD_TYPE_________ => ConstantInfo::MethodType(ConstantMethodTypeInfo::new(reader)),
-        CONSTANT_INVOKE_DYNAMIC______ => ConstantInfo::InvokeDynamic(ConstantInvokeDynamicInfo::new(reader)),
-        _ => panic!("java. lang. ClassFormatError: constant pool tag!"),
-    }
-}
-
 enum ConstantInfo {
     Empty,
     Utf8(ConstantUtf8Info),
@@ -56,6 +31,32 @@ enum ConstantInfo {
     InvokeDynamic(ConstantInvokeDynamicInfo),
 }
 
+impl ConstantInfo {
+    fn read_constant_info(reader: &mut ClassReader) -> ConstantInfo {
+        let tag = reader.read_u8();
+        Self::new_constant_info(tag, reader)
+    }
+
+    fn new_constant_info(tag: u8, reader: &mut ClassReader) -> ConstantInfo {
+        match tag {
+            CONSTANT_UTF8________________ => Self::Utf8(ConstantUtf8Info::new(reader)),
+            CONSTANT_INTEGER_____________ => Self::Integer(ConstantIntegerInfo::new(reader)),
+            CONSTANT_FLOAT_______________ => Self::Float(ConstantFloatInfo::new(reader)),
+            CONSTANT_LONG________________ => Self::Long(ConstantLongInfo::new(reader)),
+            CONSTANT_DOUBLE______________ => Self::Double(ConstantDoubleInfo::new(reader)),
+            CONSTANT_CLASS_______________ => Self::Class(ConstantClassInfo::new(reader)),
+            CONSTANT_STRING______________ => Self::String(ConstantStringInfo::new(reader)),
+            CONSTANT_FIELD_REF___________ => Self::FieldRef(ConstantFieldrefInfo::new(reader)),
+            CONSTANT_METHOD_REF__________ => Self::MethodRef(ConstantMethodrefInfo::new(reader)),
+            CONSTANT_INTERFACE_METHOD_REF => Self::InterfaceMethodRef(ConstantInterfaceMethodrefInfo::new(reader)),
+            CONSTANT_NAME_AND_TYPE_______ => Self::NameAndType(ConstantNameAndTypeInfo::new(reader)),
+            CONSTANT_METHOD_HANDLE_______ => Self::MethodHandle(ConstantMethodHandleInfo::new(reader)),
+            CONSTANT_METHOD_TYPE_________ => Self::MethodType(ConstantMethodTypeInfo::new(reader)),
+            CONSTANT_INVOKE_DYNAMIC______ => Self::InvokeDynamic(ConstantInvokeDynamicInfo::new(reader)),
+            _ => panic!("java. lang. ClassFormatError: constant pool tag!"),
+        }
+    }
+}
 
 struct ConstantIntegerInfo {
     integer32: i32,
@@ -84,7 +85,7 @@ struct ConstantUtf8Info {
 impl ConstantUtf8Info {
     fn new(reader: &mut ClassReader) -> ConstantUtf8Info {
         let length = reader.read_u16();
-        let bytes = reader.read_bytes(length as usize);
+        let bytes = reader.read_bytes(length as u32);
         let string = String::from_utf8(bytes).unwrap();
         Self { string }
     }

@@ -55,7 +55,7 @@ impl ClassReader {
         v
     }
 
-    pub fn read_bytes(&mut self, length: usize) -> Vec<u8> {
+    pub fn read_bytes(&mut self, length: u32) -> Vec<u8> {
         let mut n = length;
         let mut v = Vec::new();
         while n > 0 {

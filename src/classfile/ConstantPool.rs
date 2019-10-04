@@ -10,7 +10,7 @@ impl ConstantPool {
         // 索引从1开始
         constant_info_s.push(ConstantInfo::Empty);
         for _ in 1..cp_count {
-            let constant_info = read_constant_info(reader);
+            let constant_info = ConstantInfo::read_constant_info(reader);
             match &constant_info {
                 ConstantInfo::Long(_) => constant_info_s.push(ConstantInfo::Empty),
                 ConstantInfo::Double(_) => constant_info_s.push(ConstantInfo::Empty),

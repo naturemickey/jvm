@@ -28,9 +28,9 @@ impl ClassFile {
         let this_class = reader.read_u16();
         let super_class = reader.read_u16();
         let interfaces = reader.read_u16s();
-        let fields = MemberInfo::read_members(reader);
-        let methods = MemberInfo::read_members(reader);
-        let attributes = AttributeInfo::read_attributes(reader);
+        let fields = MemberInfo::read_members(reader, &cp);
+        let methods = MemberInfo::read_members(reader, &cp);
+        let attributes = AttributeInfo::read_attributes(reader, &cp);
 
         Self { magic, minor_version, major_version, constant_pool: cp, access_flags, this_class, super_class, interfaces, fields, methods, attributes }
     }
