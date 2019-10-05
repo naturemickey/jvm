@@ -11,7 +11,10 @@ const CONSTANT_NAME_AND_TYPE_______: u8 = 12;
 const CONSTANT_UTF8________________: u8 = 1;
 const CONSTANT_METHOD_HANDLE_______: u8 = 15;
 const CONSTANT_METHOD_TYPE_________: u8 = 16;
+const CONSTANT_DYNAMIC_____________: u8 = 17;
 const CONSTANT_INVOKE_DYNAMIC______: u8 = 18;
+const CONSTANT_MODULE______________: u8 = 19;
+const CONSTANT_PACKAGE_____________: u8 = 20;
 
 enum ConstantInfo {
     Empty,
@@ -28,7 +31,10 @@ enum ConstantInfo {
     NameAndType(ConstantNameAndTypeInfo),
     MethodHandle(ConstantMethodHandleInfo),
     MethodType(ConstantMethodTypeInfo),
+    Dynamic(ConstantDynamicInfo),
     InvokeDynamic(ConstantInvokeDynamicInfo),
+    Module(ConstantModuleInfo),
+    Package(ConstantPackageInfo),
 }
 
 impl ConstantInfo {
@@ -52,7 +58,10 @@ impl ConstantInfo {
             CONSTANT_NAME_AND_TYPE_______ => Self::NameAndType(ConstantNameAndTypeInfo::new(reader)),
             CONSTANT_METHOD_HANDLE_______ => Self::MethodHandle(ConstantMethodHandleInfo::new(reader)),
             CONSTANT_METHOD_TYPE_________ => Self::MethodType(ConstantMethodTypeInfo::new(reader)),
+            CONSTANT_DYNAMIC_____________ => Self::Dynamic(ConstantDynamicInfo::new(reader)),
             CONSTANT_INVOKE_DYNAMIC______ => Self::InvokeDynamic(ConstantInvokeDynamicInfo::new(reader)),
+            CONSTANT_MODULE______________ => Self::Module(ConstantModuleInfo::new(reader)),
+            CONSTANT_PACKAGE_____________ => Self::Package(ConstantPackageInfo::new(reader)),
             _ => panic!("java.lang.ClassFormatError: constant pool tag {}", tag),
         }
     }
@@ -241,6 +250,19 @@ impl ConstantMethodTypeInfo {
     }
 }
 
+struct ConstantDynamicInfo {
+    bootstrap_method_attr_index: u16,
+    name_and_type_index: u16,
+}
+
+impl ConstantDynamicInfo {
+    fn new(reader: &mut ClassReader) -> ConstantDynamicInfo {
+        let bootstrap_method_attr_index = reader.read_u16();
+        let name_and_type_index = reader.read_u16();
+        Self { bootstrap_method_attr_index, name_and_type_index }
+    }
+}
+
 struct ConstantInvokeDynamicInfo {
     bootstrap_method_attr_index: u16,
     name_and_type_index: u16,
@@ -251,5 +273,25 @@ impl ConstantInvokeDynamicInfo {
         let bootstrap_method_attr_index = reader.read_u16();
         let name_and_type_index = reader.read_u16();
         Self { bootstrap_method_attr_index, name_and_type_index }
+    }
+}
+
+struct ConstantModuleInfo {
+    name_index: u16
+}
+
+impl ConstantModuleInfo {
+    fn new(reader: &mut ClassReader) -> ConstantModuleInfo {
+        Self { name_index: reader.read_u16() }
+    }
+}
+
+struct ConstantPackageInfo {
+    name_index: u16
+}
+
+impl ConstantPackageInfo {
+    fn new(reader: &mut ClassReader) -> ConstantPackageInfo {
+        Self { name_index: reader.read_u16() }
     }
 }
