@@ -4,3 +4,5 @@ struct Thread {
 }
 
 struct Stack {}
+
+struct Frame {}
