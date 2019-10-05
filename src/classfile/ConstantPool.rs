@@ -7,16 +7,31 @@ impl ConstantPool {
         let cp_count = reader.read_u16();
         let mut constant_info_s: Vec<ConstantInfo> = Vec::new();
 
+        //println!("debug log : cp_count is {}", cp_count);
+
         // 索引从1开始
         constant_info_s.push(ConstantInfo::Empty);
-        for _ in 1..cp_count {
+        let mut i = 1u16;
+        while (i < cp_count) {
+            //println!("debug log : cp_index is {}", i);
+
             let constant_info = ConstantInfo::read_constant_info(reader);
             match &constant_info {
-                ConstantInfo::Long(_) => constant_info_s.push(ConstantInfo::Empty),
-                ConstantInfo::Double(_) => constant_info_s.push(ConstantInfo::Empty),
+                ConstantInfo::Long(_) => {
+                    constant_info_s.push(ConstantInfo::Empty);
+                    i += 1;
+                    //println!("debug log : ConstantInfo::Long");
+                }
+                ConstantInfo::Double(_) => {
+                    constant_info_s.push(ConstantInfo::Empty);
+                    i += 1;
+                    //println!("debug log : ConstantInfo::Double");
+                }
                 _ => {}
             }
             constant_info_s.push(constant_info);
+
+            i += 1;
         }
 
         ConstantPool { constant_info_s }
@@ -55,5 +70,9 @@ impl ConstantPool {
             ConstantInfo::Utf8(info) => &info.string,
             _ => panic!("impossible.")
         }
+    }
+
+    pub fn constants_count(&self) -> usize {
+        self.constant_info_s.len()
     }
 }

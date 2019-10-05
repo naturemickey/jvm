@@ -53,7 +53,7 @@ impl ConstantInfo {
             CONSTANT_METHOD_HANDLE_______ => Self::MethodHandle(ConstantMethodHandleInfo::new(reader)),
             CONSTANT_METHOD_TYPE_________ => Self::MethodType(ConstantMethodTypeInfo::new(reader)),
             CONSTANT_INVOKE_DYNAMIC______ => Self::InvokeDynamic(ConstantInvokeDynamicInfo::new(reader)),
-            _ => panic!("java. lang. ClassFormatError: constant pool tag!"),
+            _ => panic!("java.lang.ClassFormatError: constant pool tag {}", tag),
         }
     }
 }

@@ -38,7 +38,7 @@ impl ClassFile {
     fn read_and_check_magic(reader: &mut ClassReader) -> u32 {
         let magic: u32 = reader.read_u32();
         if magic != 0xCAFEBABE {
-            panic!("java. lang. ClassFormatError: magic!");
+            panic!("java.lang.ClassFormatError: magic!");
         }
         magic
     }
