@@ -3,8 +3,8 @@ enum AttributeInfo {
     ConstantValue(ConstantValueAttribute),
     Deprecated(DeprecatedAttribute),
     Exceptions(ExceptionsAttribute),
-    LineNumberTable,
-    LocalVariableTable,
+    LineNumberTable(LineNumberTableAttribute),
+    LocalVariableTable(LocalVariableTableAttribute),
     SourceFile(SourceFileAttribute),
     Synthetic(SyntheticAttribute),
     // todo
@@ -32,8 +32,8 @@ impl AttributeInfo {
             "ConstantValue" => Self::ConstantValue(ConstantValueAttribute::new(reader)),
             "Deprecated" => Self::Deprecated(DeprecatedAttribute {}),
             "Exceptions" => Self::Exceptions(ExceptionsAttribute::new(reader)),
-            "LineNumberTable" => Self::LineNumberTable,
-            "LocalVariableTable" => Self::LocalVariableTable,
+            "LineNumberTable" => Self::LineNumberTable(LineNumberTableAttribute::new(reader)),
+            "LocalVariableTable" => Self::LocalVariableTable(LocalVariableTableAttribute::new(reader)),
             "SourceFile" => Self::SourceFile(SourceFileAttribute::new(reader)),
             "Synthetic" => Self::Synthetic(SyntheticAttribute {}),
             _ => Self::Unparsed(UnparsedAttribute::new(name_index, length, reader)),
@@ -136,5 +136,55 @@ impl ExceptionsAttribute {
     }
     fn index_table(&self) -> &Vec<u16> {
         &self.index_table
+    }
+}
+
+struct LineNumberTableAttribute {
+    line_number_table: Vec<LineNumberTableEntry>
+}
+
+struct LineNumberTableEntry {
+    start_pc: u16,
+    line_number: u16,
+}
+
+impl LineNumberTableAttribute {
+    fn new(reader: &mut ClassReader) -> LineNumberTableAttribute {
+        let line_number_table_length = reader.read_u16();
+        let mut line_number_table = Vec::new();
+        for _ in 0..line_number_table_length {
+            let start_pc = reader.read_u16();
+            let line_number = reader.read_u16();
+            line_number_table.push(LineNumberTableEntry { start_pc, line_number });
+        }
+        Self { line_number_table }
+    }
+}
+
+struct LocalVariableTableAttribute {
+    local_variable_table: Vec<LocalVariableTableEntry>
+}
+
+struct LocalVariableTableEntry {
+    start_pc: u16,
+    length: u16,
+    name_index: u16,
+    descriptor_index: u16,
+    index: u16,
+}
+
+impl LocalVariableTableAttribute {
+    fn new(reader: &mut ClassReader) -> LocalVariableTableAttribute {
+        let local_variable_table_length = reader.read_u16();
+        let mut local_variable_table = Vec::new();
+        for _ in 0..local_variable_table_length {
+            let start_pc = reader.read_u16();
+            let length = reader.read_u16();
+            let name_index = reader.read_u16();
+            let descriptor_index = reader.read_u16();
+            let index = reader.read_u16();
+            local_variable_table.push(LocalVariableTableEntry { start_pc, length, name_index, descriptor_index, index });
+        }
+        Self { local_variable_table }
     }
 }
