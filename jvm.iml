@@ -9,6 +9,11 @@
       <sourceFolder url="file://$MODULE_DIR$/benches" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/../jvm\examples" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/../jvm\benches" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/instructions/index16_instruction/src" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/instructions/index16_instruction\examples" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/src/instructions/index16_instruction\tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/src/instructions/index16_instruction\benches" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/src/instructions/index16_instruction\target" />
       <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
     <orderEntry type="inheritedJdk" />

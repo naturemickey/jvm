@@ -1,11 +1,11 @@
 struct NoOperandsInstruction {}
 
 impl Instruction for NoOperandsInstruction {
-    fn fetch_operands(reader: &BytecodeReader) {
-        // do nothing
+    fn fetch_operands(&mut self, reader: &mut BytecodeReader) {
+        // nothing to do.
     }
 
-    fn execute(frame: &Frame) {
-        // do nothing
+    fn execute(&mut self, frame: &mut Frame) {
+        // nothing to do.
     }
 }

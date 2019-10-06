@@ -15,3 +15,6 @@ use crate::rtda::Frame;
 include!("instruction.rs");
 include!("bytecode_reader.rs");
 include!("no_operands_instruction.rs");
+include!("branch_instruction.rs");
+include!("index8_instruction.rs");
+include!("index16_instruction.rs");

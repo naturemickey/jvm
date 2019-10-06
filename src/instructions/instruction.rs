@@ -1,4 +1,4 @@
 trait Instruction {
-    fn fetch_operands(reader: &BytecodeReader);
-    fn execute(frame: &Frame);
+    fn fetch_operands(&mut self, reader: &mut BytecodeReader);
+    fn execute(&mut self, frame: &mut Frame);
 }

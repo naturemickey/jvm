@@ -2,18 +2,19 @@
 <project version="4">
   <component name="CargoProjects">
     <cargoProject FILE="$PROJECT_DIR$/Cargo.toml" />
+    <cargoProject FILE="$PROJECT_DIR$/src/instructions/index16_instruction/Cargo.toml" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="49ff3ef2-99c0-4972-84de-2a7e2714ca46" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/rtda/local_vars.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rtda/operand_stack.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/instructions/branch_instruction.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/instructions/index16_instruction.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/instructions/index8_instruction.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classfile/ClassFile.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/classfile/class_file.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classfile/ClassReader.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/classfile/class_reader.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classfile/ConstantPool.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/classfile/constant_pool.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classfile/MemberInfo.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/classfile/member_info.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classfile/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/classfile/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/rtda/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/rtda/mod.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jvm.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jvm.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/bytecode_reader.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/bytecode_reader.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/instruction.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/instruction.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/mod.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/no_operands_instruction.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/no_operands_instruction.rs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
