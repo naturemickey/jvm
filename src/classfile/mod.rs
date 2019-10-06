@@ -2,7 +2,6 @@ include!("ClassReader.rs");
 include!("ClassFile.rs");
 include!("ConstantPool.rs");
 include!("MemberInfo.rs");
-include!("attribute_info/AttributeInfo.rs");
 
 include!("constant_info/ConstantInfo.rs");
 include!("constant_info/ConstantUtf8Info.rs");
@@ -23,3 +22,14 @@ include!("constant_info/ConstantDynamicInfo.rs");
 include!("constant_info/ConstantInvokeDynamicInfo.rs");
 include!("constant_info/ConstantModuleInfo.rs");
 include!("constant_info/ConstantPackageInfo.rs");
+
+include!("attribute_info/AttributeInfo.rs");
+include!("attribute_info/UnparsedAttribute.rs");
+include!("attribute_info/SourceFileAttribute.rs");
+include!("attribute_info/ConstantValueAttribute.rs");
+include!("attribute_info/CodeAttribute.rs");
+include!("attribute_info/ExceptionsAttribute.rs");
+include!("attribute_info/LineNumberTableAttribute.rs");
+include!("attribute_info/LocalVariableTableAttribute.rs");
+include!("attribute_info/DeprecatedAttribute.rs");
+include!("attribute_info/SyntheticAttribute.rs");

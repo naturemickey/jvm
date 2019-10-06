@@ -5,29 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="49ff3ef2-99c0-4972-84de-2a7e2714ca46" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/classfile/constant_info/ConstantClassInfo.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classfile/constant_info/ConstantDoubleInfo.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classfile/constant_info/ConstantDynamicInfo.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classfile/constant_info/ConstantFieldrefInfo.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classfile/constant_info/ConstantFloatInfo.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classfile/constant_info/ConstantIntegerInfo.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classfile/constant_info/ConstantInterfaceMethodrefInfo.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classfile/constant_info/ConstantInvokeDynamicInfo.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classfile/constant_info/ConstantLongInfo.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classfile/constant_info/ConstantMemberrefInfo.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classfile/constant_info/ConstantMethodHandleInfo.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classfile/constant_info/ConstantMethodTypeInfo.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classfile/constant_info/ConstantMethodrefInfo.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classfile/constant_info/ConstantModuleInfo.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classfile/constant_info/ConstantNameAndTypeInfo.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classfile/constant_info/ConstantPackageInfo.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classfile/constant_info/ConstantStringInfo.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/classfile/constant_info/ConstantUtf8Info.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/classfile/attribute_info/CodeAttribute.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/classfile/attribute_info/ConstantValueAttribute.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/classfile/attribute_info/DeprecatedAttribute.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/classfile/attribute_info/ExceptionsAttribute.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/classfile/attribute_info/LineNumberTableAttribute.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/classfile/attribute_info/LocalVariableTableAttribute.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/classfile/attribute_info/SourceFileAttribute.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/classfile/attribute_info/UnparsedAttribute.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classfile/AttributeInfo.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/classfile/attribute_info/AttributeInfo.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/classfile/ConstantInfo.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/classfile/constant_info/ConstantInfo.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classfile/attribute_info/AttributeInfo.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/classfile/attribute_info/AttributeInfo.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/classfile/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/classfile/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/rtda/thread.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/rtda/thread.rs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
