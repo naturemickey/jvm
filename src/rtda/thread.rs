@@ -16,15 +16,15 @@ impl Thread {
         self.pc = pc;
     }
 
-    fn push_frame(&mut self, frame: Frame) {
+    fn push_frame(&mut self, mut frame: Box<Frame>) {
         self.stack.push(frame);
     }
 
-    fn pop_frame(&mut self) -> Frame {
+    fn pop_frame(&mut self) -> Box<Frame> {
         self.stack.pop()
     }
 
-    fn current_frame(&self) -> &Frame {
+    fn current_frame(&self) -> &Box<Frame> {
         self.stack.top()
     }
 }
