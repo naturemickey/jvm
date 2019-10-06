@@ -1,7 +1,7 @@
-include!("ClassReader.rs");
-include!("ClassFile.rs");
-include!("ConstantPool.rs");
-include!("MemberInfo.rs");
+include!("class_reader.rs");
+include!("class_file.rs");
+include!("constant_pool.rs");
+include!("member_info.rs");
 
 include!("constant_info/ConstantInfo.rs");
 include!("constant_info/ConstantUtf8Info.rs");

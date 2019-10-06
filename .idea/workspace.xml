@@ -5,16 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="49ff3ef2-99c0-4972-84de-2a7e2714ca46" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/rtda/frame.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/rtda/stack.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/rtda/local_vars.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/rtda/operand_stack.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entry/CompositeEntry.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entry/composite_entry.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entry/DirEntry.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entry/dir_entry.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entry/WildcardEntry.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entry/wildcard_entry.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entry/ZipEntry.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entry/zip_entry.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entry/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/entry/mod.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classfile/ClassFile.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/classfile/class_file.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classfile/ClassReader.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/classfile/class_reader.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classfile/ConstantPool.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/classfile/constant_pool.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classfile/MemberInfo.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/classfile/member_info.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classfile/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/classfile/mod.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/rtda/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/rtda/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/rtda/thread.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/rtda/thread.rs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
