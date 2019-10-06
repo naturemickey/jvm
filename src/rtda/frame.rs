@@ -1,10 +1,10 @@
-struct Frame {
+pub struct Frame {
     local_vars: LocalVars,
     operand_stack: OperandStack,
 }
 
 impl Frame {
-    fn new(max_locals: usize, max_stack: usize) -> Box<Frame> {
+    pub fn new(max_locals: usize, max_stack: usize) -> Box<Frame> {
         let local_vars = LocalVars::new(max_locals);
         let operand_stack = OperandStack::new(max_stack);
         Box::new(Self { local_vars, operand_stack })
@@ -25,9 +25,9 @@ fn test_local_vars() {
     vars.set_int(0, int1);
     vars.set_int(1, int2);
     vars.set_long(2, long1);
-    vars.set_long(4,long2);
-    vars.set_float(6,float);
-    vars.set_double(7,double);
+    vars.set_long(4, long2);
+    vars.set_float(6, float);
+    vars.set_double(7, double);
 
     let _int1 = vars.get_int(0);
     let _int2 = vars.get_int(1);

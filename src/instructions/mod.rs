@@ -1,4 +1,3 @@
-pub mod base;
 pub mod comparisons;
 pub mod constants;
 pub mod control;
@@ -10,3 +9,9 @@ pub mod references;
 pub mod reserved;
 pub mod stack;
 pub mod stores;
+
+use crate::rtda::Frame;
+
+include!("instruction.rs");
+include!("bytecode_reader.rs");
+include!("no_operands_instruction.rs");
