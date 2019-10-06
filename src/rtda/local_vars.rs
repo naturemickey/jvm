@@ -3,11 +3,6 @@ struct LocalVars {
     vars: Vec<Slot>,
 }
 
-enum Slot {
-    Num(u32),
-    Ref(Object),
-}
-
 impl LocalVars {
     fn new(max_locals: usize) -> LocalVars {
         let mut vars = Vec::with_capacity(max_locals);
@@ -56,9 +51,9 @@ impl LocalVars {
     }
 
     fn get_long(&self, index: usize) -> i64 {
-        let low = self.get_u32(index);
+        let low = self.get_u32(index) as u64;
         let high = self.get_u32(index + 1) as u64;
-        ((high << 32) | (low as u64)) as i64
+        ((high << 32) | low) as i64
     }
 
     fn set_double(&mut self, index: usize, val: f64) {
