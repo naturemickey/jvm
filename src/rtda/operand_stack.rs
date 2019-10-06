@@ -17,16 +17,23 @@ impl OperandStack {
     }
 
     fn push_int(&mut self, val: i32) {
-        if self.slots.len() >= self.max_stack {
-            panic!("operand stack over flow in push_int");
-        }
-        self.slots.push(Slot::Num(val as u32))
+        self.push_u32(val as u32)
     }
 
     fn pop_int(&mut self) -> i32 {
+        self.pop_u32() as i32
+    }
+    fn push_u32(&mut self, val: u32) {
+        if self.slots.len() >= self.max_stack {
+            panic!("operand stack over flow in push_u32");
+        }
+        self.slots.push(Slot::Num(val))
+    }
+
+    fn pop_u32(&mut self) -> u32 {
         match self.slots.pop().unwrap() {
-            Slot::Num(i) => i as i32,
-            _ => panic!("error occur in pop_int")
+            Slot::Num(i) => i,
+            _ => panic!("error occur in pop_u32")
         }
     }
 
@@ -45,17 +52,38 @@ impl OperandStack {
     }
 
     fn push_long(&mut self, val: i64) {
-        let low = val as u32;
-        let high = (val as u64 >> 32) as u32;
-
-        self.push_int(low as i32);
-        self.push_int(high as i32);
+        self.push_u64(val as u64);
     }
 
     fn pop_long(&mut self) -> i64 {
-        let hight = self.pop_int() as u64;
-        let low = self.pop_int() as u64;
-        ((hight << 32) | low) as i64
+        self.pop_u64() as i64
+    }
+
+    fn push_u64(&mut self, val:u64) {
+        let low = val as u32;
+        let high = (val>> 32) as u32;
+
+        println!("push long:{}, low:{}, high:{}", val, low, high);
+
+        self.push_u32(low);
+        self.push_u32(high);
+    }
+
+    fn pop_u64(&mut self) -> u64 {
+        let high = self.pop_u32() as u64;
+        let low = self.pop_u32() as u64;
+        println!("pop long:{}, low:{}, high:{}", ((high << 32) | low), low, high);
+        (high << 32) | low
+    }
+
+    fn push_double(&mut self, val: f64) {
+        let long = f64::to_bits(val);
+        self.push_u64(long);
+    }
+
+    fn pop_double(&mut self) -> f64 {
+        let long = self.pop_u64();
+        f64::from_bits(long)
     }
 
     fn push_ref(&mut self, obj: Object) {
