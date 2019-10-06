@@ -22,7 +22,7 @@ pub fn new_entry(path: String) -> Box<dyn Entry> {
     }
 }
 
-include!("CompositeEntry.rs");
-include!("WildcardEntry.rs");
-include!("ZipEntry.rs");
-include!("DirEntry.rs");
+include!("composite_entry.rs");
+include!("wildcard_entry.rs");
+include!("zip_entry.rs");
+include!("dir_entry.rs");
