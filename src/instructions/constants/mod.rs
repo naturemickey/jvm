@@ -18,3 +18,8 @@ include!("iconst_5.rs");
 include!("iconst_m1.rs");
 include!("lconst_0.rs");
 include!("lconst_1.rs");
+include!("bipush.rs");
+include!("ldc.rs");
+include!("ldc2_w.rs");
+include!("ldc_w.rs");
+include!("sipush.rs");
