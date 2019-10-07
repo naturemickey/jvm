@@ -13,4 +13,8 @@ impl Frame {
     pub fn operand_stack(&mut self) -> &mut OperandStack {
         &mut self.operand_stack
     }
+
+    pub fn local_vars(&mut self) -> &mut LocalVars {
+        &mut self.local_vars
+    }
 }

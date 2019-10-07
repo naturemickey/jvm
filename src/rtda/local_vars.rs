@@ -70,8 +70,8 @@ impl LocalVars {
         self.vars[index] = Slot::Ref(reference)
     }
 
-    pub fn get_ref(&self, index: usize) -> &Object {
-        match &self.vars[index] {
+    pub fn get_ref(&self, index: usize) -> Object {
+        match self.vars[index] {
             Slot::Ref(obj) => obj,
             _ => panic!("error local var operation for get ref."),
         }
