@@ -1,6 +1,6 @@
-struct NoOperandsInstruction {}
+struct NOP {}
 
-impl Instruction for NoOperandsInstruction {
+impl Instruction for NOP {
     fn fetch_operands(&mut self, reader: &mut BytecodeReader) {
         // nothing to do.
     }

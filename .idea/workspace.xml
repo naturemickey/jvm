@@ -6,15 +6,33 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="49ff3ef2-99c0-4972-84de-2a7e2714ca46" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/instructions/branch_instruction.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/instructions/index16_instruction.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/instructions/index8_instruction.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/instructions/constants/aconst_null.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/instructions/constants/dconst_0.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/instructions/constants/dconst_1.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/instructions/constants/fconst_0.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/instructions/constants/fconst_1.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/instructions/constants/fconst_2.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/instructions/constants/iconst_0.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/instructions/constants/iconst_1.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/instructions/constants/iconst_2.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/instructions/constants/iconst_3.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/instructions/constants/iconst_4.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/instructions/constants/iconst_5.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/instructions/constants/iconst_m1.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/instructions/constants/lconst_0.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/instructions/constants/lconst_1.rs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/instructions/constants/nop.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jvm.iml" beforeDir="false" afterPath="$PROJECT_DIR$/jvm.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/instructions/bytecode_reader.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/bytecode_reader.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/instructions/instruction.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/instruction.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/branch_instruction.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/branch_instruction.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/constants/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/constants/mod.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/index16_instruction.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/index16_instruction.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/index8_instruction.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/index8_instruction.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/instructions/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/instructions/no_operands_instruction.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/no_operands_instruction.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/no_operands_instruction.rs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rtda/frame.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/rtda/frame.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rtda/local_vars.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/rtda/local_vars.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rtda/object.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/rtda/object.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rtda/operand_stack.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/rtda/operand_stack.rs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
