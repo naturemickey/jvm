@@ -99,6 +99,14 @@ impl OperandStack {
             _ => panic!("error local var operation for get pop_ref."),
         }
     }
+
+    pub fn push_slot(&mut self, slot: Slot) {
+        self.slots.push(slot);
+    }
+
+    pub fn pop_slot(&mut self) -> Slot {
+        self.slots.pop().unwrap()
+    }
 }
 
 #[test]
