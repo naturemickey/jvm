@@ -9,3 +9,10 @@ impl Clone for Object {
         *self
     }
 }
+
+impl PartialEq for Object {
+    #[inline(always)]
+    fn eq(&self, other: &Self) -> bool {
+        (self as *const Self) == (other as *const Self)
+    }
+}
