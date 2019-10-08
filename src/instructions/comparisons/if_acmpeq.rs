@@ -1,8 +1,8 @@
-struct IF_ACMPEQ {
+struct IfAcmpeq {
     base: BranchInstruction
 }
 
-impl Instruction for IF_ACMPEQ {
+impl Instruction for IfAcmpeq {
     fn fetch_operands(&mut self, reader: &mut BytecodeReader) {
         self.base.fetch_operands(reader);
     }
@@ -10,7 +10,7 @@ impl Instruction for IF_ACMPEQ {
     fn execute(&mut self, frame: &mut Frame) {
         let stack = frame.operand_stack();
         let val2 = stack.pop_ref();
-        let val1 = stack.stack();
+        let val1 = stack.pop_ref();
         if val1 == val2 {
             self.base.branch(frame);
         }

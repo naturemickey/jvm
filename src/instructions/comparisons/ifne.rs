@@ -1,8 +1,8 @@
-struct IFNE {
+struct Ifne {
     base: BranchInstruction,
 }
 
-impl Instruction for IFNE {
+impl Instruction for Ifne {
     fn fetch_operands(&mut self, reader: &mut BytecodeReader) {
         self.base.fetch_operands(reader);
     }

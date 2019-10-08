@@ -1,8 +1,8 @@
-struct IF_ICMPGT {
+struct IfIcmpgt {
     base: BranchInstruction
 }
 
-impl Instruction for IF_ICMPGT {
+impl Instruction for IfIcmpgt {
     fn fetch_operands(&mut self, reader: &mut BytecodeReader) {
         self.base.fetch_operands(reader);
     }

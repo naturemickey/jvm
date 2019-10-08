@@ -1,6 +1,6 @@
-struct DCMPL {}
+struct Dcmpl {}
 
-impl Instruction for DCMPL {
+impl Instruction for Dcmpl {
     fn fetch_operands(&mut self, reader: &mut BytecodeReader) {
         // nothing to do.
     }

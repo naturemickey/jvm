@@ -1,6 +1,6 @@
-struct FCMPG {}
+struct Fcmpg {}
 
-impl Instruction for FCMPG {
+impl Instruction for Fcmpg {
     fn fetch_operands(&mut self, reader: &mut BytecodeReader) {
         // nothing to do.
     }
