@@ -1,30 +1,30 @@
-struct Thread {
+pub struct Thread<'a> {
     pc: u32,
-    stack: Stack,
+    stack: Stack<'a>,
 }
 
-impl Thread {
-    fn new() -> Thread {
-        Self { pc: 0, stack: Stack::new1k() }
+impl <'a>Thread<'a> {
+    pub fn new() -> Thread <'a>{
+        Self { pc: 0, stack: Stack::<'a>::new1k() }
     }
 
-    fn pc(&self) -> u32 {
+    pub fn pc(&self) -> u32 {
         self.pc
     }
 
-    fn set_pc(&mut self, pc: u32) {
+    pub fn set_pc(&mut self, pc: u32) {
         self.pc = pc;
     }
 
-    fn push_frame(&mut self, mut frame: Box<Frame>) {
+    pub fn push_frame(&'a mut self, frame: Box<Frame<'a>>) {
         self.stack.push(frame);
     }
 
-    fn pop_frame(&mut self) -> Box<Frame> {
+    pub fn pop_frame(&'a mut self) -> Box<Frame<'a>> {
         self.stack.pop()
     }
 
-    fn current_frame(&self) -> &Box<Frame> {
+    pub fn current_frame(&self) -> &Box<Frame> {
         self.stack.top()
     }
 }

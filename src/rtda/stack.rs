@@ -1,32 +1,32 @@
-struct Stack {
+struct Stack<'a> {
     deep: usize,
-    vec: Vec<Box<Frame>>,
+    vec: Vec<Box<Frame<'a>>>,
 }
 
-impl Stack {
-    fn new(deep: usize) -> Stack {
+impl <'a>Stack <'a>{
+    fn new(deep: usize) -> Stack<'a> {
         Self { deep, vec: Vec::with_capacity(deep) }
     }
-    fn new1k() -> Stack {
+    fn new1k() -> Stack<'a> {
         Self::new(1024)
     }
-    fn new1m() -> Stack {
+    fn new1m() -> Stack<'a> {
         Self::new(1024 * 1024)
     }
 
-    fn push(&mut self, frame: Box<Frame>) {
+    fn push(&'a mut self, frame: Box<Frame<'a>>) {
         if self.vec.len() >= self.deep {
             panic!("java.lang.StackOverFlowError");
         }
         self.vec.push(frame);
     }
-    fn pop(&mut self) -> Box<Frame> {
+    fn pop(&'a mut self) -> Box<Frame<'a>> {
         if self.vec.len() == 0 {
             panic!("jvm stack is empty!");
         }
         self.vec.pop().unwrap()
     }
-    fn top(&self) -> &Box<Frame> {
+    fn top(&'a self) -> &Box<Frame<'a>> {
         if self.vec.len() == 0 {
             panic!("jvm stack is empty!");
         }

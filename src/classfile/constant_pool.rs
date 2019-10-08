@@ -12,7 +12,7 @@ impl ConstantPool {
         // 索引从1开始
         constant_info_s.push(ConstantInfo::Empty);
         let mut i = 1u16;
-        while (i < cp_count) {
+        while i < cp_count {
             //println!("debug log : cp_index is {}", i);
 
             let constant_info = ConstantInfo::read_constant_info(reader);
