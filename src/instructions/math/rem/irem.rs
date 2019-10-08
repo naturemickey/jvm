@@ -9,7 +9,9 @@ impl Instruction for IREM {
         let stack = frame.operand_stack();
         let v2 = stack.pop_int();
         let v1 = stack.pop_int();
-        let result = v1 % v2;
-        stack.push_int(result);
+        if v2 == 0 {
+            panic!("java.lang.ArithmeticException: / by zero");
+        }
+        stack.push_int(v1 % v2);
     }
 }

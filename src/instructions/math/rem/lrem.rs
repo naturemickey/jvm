@@ -9,7 +9,9 @@ impl Instruction for LREM {
         let stack = frame.operand_stack();
         let v2 = stack.pop_long();
         let v1 = stack.pop_long();
-        let result = v1 % v2;
-        stack.push_long(result);
+        if v2 == 0 {
+            panic!("java.lang.ArithmeticException: / by zero");
+        }
+        stack.push_long(v1 % v2);
     }
 }
