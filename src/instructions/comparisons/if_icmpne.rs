@@ -1,8 +1,8 @@
-struct IfIcmpne {
+struct IF_ICMPNE {
     base: BranchInstruction
 }
 
-impl Instruction for IfIcmpne {
+impl Instruction for IF_ICMPNE {
     fn fetch_operands(&mut self, reader: &mut BytecodeReader) {
         self.base.fetch_operands(reader);
     }

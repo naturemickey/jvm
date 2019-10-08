@@ -1,6 +1,6 @@
-struct Lcmp {}
+struct LCMP {}
 
-impl Instruction for Lcmp {
+impl Instruction for LCMP {
     fn fetch_operands(&mut self, reader: &mut BytecodeReader) {
         // nothing to do.
     }

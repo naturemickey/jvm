@@ -1,8 +1,8 @@
-struct Ifeq {
+struct IFEQ {
     base: BranchInstruction,
 }
 
-impl Instruction for Ifeq {
+impl Instruction for IFEQ {
     fn fetch_operands(&mut self, reader: &mut BytecodeReader) {
         self.base.fetch_operands(reader);
     }

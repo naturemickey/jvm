@@ -1,8 +1,8 @@
-struct Iflt {
+struct IFLT {
     base: BranchInstruction,
 }
 
-impl Instruction for Iflt {
+impl Instruction for IFLT {
     fn fetch_operands(&mut self, reader: &mut BytecodeReader) {
         self.base.fetch_operands(reader);
     }

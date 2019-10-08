@@ -1,4 +1,4 @@
-struct AconstNull {}
+struct ACONST_NULL {}
 
 impl Instruction for ACONST_NULL {
     fn fetch_operands(&mut self, reader: &mut BytecodeReader) {

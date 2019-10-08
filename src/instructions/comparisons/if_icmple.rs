@@ -1,8 +1,8 @@
-struct IfIcmple {
+struct IF_ICMPLE {
     base: BranchInstruction
 }
 
-impl Instruction for IfIcmple {
+impl Instruction for IF_ICMPLE {
     fn fetch_operands(&mut self, reader: &mut BytecodeReader) {
         self.base.fetch_operands(reader);
     }
