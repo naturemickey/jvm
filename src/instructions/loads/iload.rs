@@ -1,9 +1,12 @@
 #[allow(non_camel_case_types)]
-struct ILOAD {
+pub struct ILOAD {
     index: u8
 }
 
 impl ILOAD {
+    pub fn new() -> ILOAD {
+        Self { index: 0 }
+    }
     fn _iload(frame: &mut Frame, index: usize) {
         let val = frame.local_vars().get_int(index);
         frame.operand_stack().push_int(val);

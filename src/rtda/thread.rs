@@ -1,5 +1,5 @@
 pub struct Thread<'a> {
-    pc: u32,
+    pc: i32,
     stack: Stack<'a>,
 }
 
@@ -8,11 +8,11 @@ impl <'a>Thread<'a> {
         Self { pc: 0, stack: Stack::<'a>::new1k() }
     }
 
-    pub fn pc(&self) -> u32 {
+    pub fn pc(&self) -> i32 {
         self.pc
     }
 
-    pub fn set_pc(&mut self, pc: u32) {
+    pub fn set_pc(&mut self, pc: i32) {
         self.pc = pc;
     }
 

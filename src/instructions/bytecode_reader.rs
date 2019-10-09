@@ -30,10 +30,16 @@ impl BytecodeReader {
         let b4 = self.read_u8() as u32;
         ((b1 << 24) | (b2 << 16) | (b3 << 8) | b4) as i32
     }
-    fn read_i32s(&mut self) -> Vec<i32> {
-        unimplemented!()
+    fn read_i32s(&mut self, n: i32) -> Vec<i32> {
+        let mut ints = Vec::with_capacity(n as usize);
+        for _ in 0..n {
+            ints.push(self.read_i32());
+        }
+        ints
     }
     fn skip_padding(&mut self) {
-        unimplemented!()
+        while self.pc % 4 != 0 {
+            self.read_u8();
+        }
     }
 }

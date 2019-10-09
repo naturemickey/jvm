@@ -2,7 +2,7 @@ pub struct Frame<'a> {
     local_vars: LocalVars,
     operand_stack: OperandStack,
     thread: &'a Thread<'a>,
-    next_pc: u32,
+    next_pc: i32,
 }
 
 impl<'a> Frame<'a> {
@@ -24,11 +24,11 @@ impl<'a> Frame<'a> {
         self.thread
     }
 
-    pub fn next_pc(&self) -> u32 {
+    pub fn next_pc(&self) -> i32 {
         self.next_pc
     }
 
-    pub fn set_next_pc(&mut self, next_pc: u32) {
+    pub fn set_next_pc(&mut self, next_pc: i32) {
         self.next_pc = next_pc;
     }
 }
