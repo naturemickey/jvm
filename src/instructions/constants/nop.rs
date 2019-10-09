@@ -2,11 +2,8 @@
 struct NOP {}
 
 impl Instruction for NOP {
-    fn fetch_operands(&mut self, reader: &mut BytecodeReader) {
-        // nothing to do.
-    }
 
-    fn execute(&mut self, frame: &mut Frame) {
+    fn execute(&mut self, _frame: &mut Frame) {
         // nothing to do.
     }
 }

@@ -2,9 +2,6 @@
 struct DUP {}
 
 impl Instruction for DUP {
-    fn fetch_operands(&mut self, reader: &mut BytecodeReader) {
-        // nothing to do.
-    }
     /*
     bottom -> top
     [...][c][b][a]

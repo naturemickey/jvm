@@ -2,9 +2,6 @@
 struct SWAP {}
 
 impl Instruction for SWAP {
-    fn fetch_operands(&mut self, reader: &mut BytecodeReader) {
-        // nothing to do.
-    }
     /*
     bottom -> top
     [...][c][b][a]

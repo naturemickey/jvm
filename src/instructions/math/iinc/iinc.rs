@@ -12,7 +12,7 @@ impl Instruction for IINC {
 
     fn execute(&mut self, frame: &mut Frame) {
         let local_vars = frame.local_vars();
-        let mut val = local_vars.get_int(self.index);
+        let val = local_vars.get_int(self.index);
         local_vars.set_int(self.index, val + self._const);
     }
 }

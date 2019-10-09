@@ -2,9 +2,6 @@
 struct DUP2_X2 {}
 
 impl Instruction for DUP2_X2 {
-    fn fetch_operands(&mut self, reader: &mut BytecodeReader) {
-        // nothing to do.
-    }
     /*
     bottom -> top
     [...][d][c][b][a]
