@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct FSTORE_2 {}
 
 impl Instruction for FSTORE_2 {

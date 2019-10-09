@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct IAND {}
 
 impl Instruction for IAND {

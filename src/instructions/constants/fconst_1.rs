@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct FCOUNT_1 {}
 
 impl Instruction for FCOUNT_1 {

@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct ILOAD_0 {}
 
 impl Instruction for ILOAD_0 {

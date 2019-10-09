@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct LLOAD_2 {}
 
 impl Instruction for LLOAD_2 {

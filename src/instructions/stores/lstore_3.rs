@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct LSTORE_3 {}
 
 impl Instruction for LSTORE_3 {

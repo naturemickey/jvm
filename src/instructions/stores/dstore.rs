@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct DSTORE {
     index: u8
 }

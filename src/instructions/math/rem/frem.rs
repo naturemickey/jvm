@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct FREM {}
 
 impl Instruction for FREM {

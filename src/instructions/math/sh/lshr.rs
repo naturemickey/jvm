@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct LSHR {}
 
 impl Instruction for LSHR {

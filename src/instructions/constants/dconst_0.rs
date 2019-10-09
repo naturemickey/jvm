@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct DCOUNT_0 {}
 
 impl Instruction for DCOUNT_0 {

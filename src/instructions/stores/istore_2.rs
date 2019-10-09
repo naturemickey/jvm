@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct ISTORE_2 {}
 
 impl Instruction for ISTORE_2 {

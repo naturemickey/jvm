@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct D2L {}
 
 impl Instruction for D2L {

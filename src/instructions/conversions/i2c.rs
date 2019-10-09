@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct I2C {}
 
 impl Instruction for I2C {

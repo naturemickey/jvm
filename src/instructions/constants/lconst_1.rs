@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct LCOUNT_1 {}
 
 impl Instruction for LCOUNT_1 {

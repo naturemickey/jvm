@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct IF_ICMPNE {
     base: BranchInstruction
 }

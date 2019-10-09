@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct IINC {
     index: usize,
     _const: i32,

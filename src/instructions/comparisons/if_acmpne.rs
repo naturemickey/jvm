@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct IF_ACMPNE {
     base: BranchInstruction
 }
@@ -10,7 +11,7 @@ impl Instruction for IF_ACMPNE {
     fn execute(&mut self, frame: &mut Frame) {
         let stack = frame.operand_stack();
         let val2 = stack.pop_ref();
-        let val1 = stack.stack();
+        let val1 = stack.pop_ref();
         if val1 != val2 {
             self.base.branch(frame);
         }

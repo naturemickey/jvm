@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct ASTORE_0 {}
 
 impl Instruction for ASTORE_0 {

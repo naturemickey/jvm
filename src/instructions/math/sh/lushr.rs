@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct LUSHR {}
 
 impl Instruction for LUSHR {

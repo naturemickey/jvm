@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct I2B {}
 
 impl Instruction for I2B {

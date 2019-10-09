@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct I2S {}
 
 impl Instruction for I2S {

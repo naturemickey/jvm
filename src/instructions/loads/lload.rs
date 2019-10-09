@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct LLOAD {
     index: u8
 }

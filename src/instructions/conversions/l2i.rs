@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct L2I {}
 
 impl Instruction for L2I {

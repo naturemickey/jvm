@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct ICOUNT_2 {}
 
 impl Instruction for ICOUNT_2 {

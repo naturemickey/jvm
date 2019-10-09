@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct F2L {}
 
 impl Instruction for F2L {

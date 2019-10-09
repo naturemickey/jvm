@@ -6,33 +6,155 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="49ff3ef2-99c0-4972-84de-2a7e2714ca46" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/instructions/constants/aconst_null.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/instructions/constants/dconst_0.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/instructions/constants/dconst_1.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/instructions/constants/fconst_0.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/instructions/constants/fconst_1.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/instructions/constants/fconst_2.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/instructions/constants/iconst_0.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/instructions/constants/iconst_1.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/instructions/constants/iconst_2.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/instructions/constants/iconst_3.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/instructions/constants/iconst_4.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/instructions/constants/iconst_5.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/instructions/constants/iconst_m1.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/instructions/constants/lconst_0.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/instructions/constants/lconst_1.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/instructions/constants/nop.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/instructions/branch_instruction.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/branch_instruction.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/instructions/constants/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/constants/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/instructions/index16_instruction.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/index16_instruction.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/instructions/index8_instruction.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/index8_instruction.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/instructions/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/mod.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/instructions/no_operands_instruction.rs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/rtda/frame.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/rtda/frame.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/rtda/local_vars.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/rtda/local_vars.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/rtda/object.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/rtda/object.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/rtda/operand_stack.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/rtda/operand_stack.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/comparisons/dcmpg.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/comparisons/dcmpg.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/comparisons/dcmpl.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/comparisons/dcmpl.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/comparisons/fcmpg.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/comparisons/fcmpg.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/comparisons/fcmpl.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/comparisons/fcmpl.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/comparisons/if_acmpeq.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/comparisons/if_acmpeq.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/comparisons/if_acmpne.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/comparisons/if_acmpne.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/comparisons/if_icmpeq.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/comparisons/if_icmpeq.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/comparisons/if_icmpge.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/comparisons/if_icmpge.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/comparisons/if_icmpgt.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/comparisons/if_icmpgt.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/comparisons/if_icmple.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/comparisons/if_icmple.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/comparisons/if_icmplt.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/comparisons/if_icmplt.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/comparisons/if_icmpne.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/comparisons/if_icmpne.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/comparisons/ifeq.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/comparisons/ifeq.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/comparisons/ifge.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/comparisons/ifge.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/comparisons/ifgt.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/comparisons/ifgt.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/comparisons/ifle.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/comparisons/ifle.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/comparisons/iflt.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/comparisons/iflt.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/comparisons/ifne.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/comparisons/ifne.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/comparisons/lcmp.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/comparisons/lcmp.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/constants/aconst_null.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/constants/aconst_null.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/constants/bipush.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/constants/bipush.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/constants/dconst_0.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/constants/dconst_0.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/constants/dconst_1.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/constants/dconst_1.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/constants/fconst_0.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/constants/fconst_0.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/constants/fconst_1.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/constants/fconst_1.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/constants/fconst_2.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/constants/fconst_2.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/constants/iconst_0.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/constants/iconst_0.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/constants/iconst_1.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/constants/iconst_1.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/constants/iconst_2.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/constants/iconst_2.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/constants/iconst_3.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/constants/iconst_3.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/constants/iconst_4.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/constants/iconst_4.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/constants/iconst_5.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/constants/iconst_5.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/constants/iconst_m1.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/constants/iconst_m1.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/constants/lconst_0.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/constants/lconst_0.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/constants/lconst_1.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/constants/lconst_1.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/constants/nop.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/constants/nop.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/constants/sipush.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/constants/sipush.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/conversions/d2f.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/conversions/d2f.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/conversions/d2i.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/conversions/d2i.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/conversions/d2l.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/conversions/d2l.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/conversions/f2d.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/conversions/f2d.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/conversions/f2i.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/conversions/f2i.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/conversions/f2l.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/conversions/f2l.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/conversions/i2b.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/conversions/i2b.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/conversions/i2c.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/conversions/i2c.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/conversions/i2d.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/conversions/i2d.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/conversions/i2f.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/conversions/i2f.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/conversions/i2l.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/conversions/i2l.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/conversions/i2s.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/conversions/i2s.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/conversions/l2d.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/conversions/l2d.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/conversions/l2f.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/conversions/l2f.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/conversions/l2i.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/conversions/l2i.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/aload.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/aload.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/aload_0.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/aload_0.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/aload_1.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/aload_1.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/aload_2.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/aload_2.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/aload_3.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/aload_3.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/dload.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/dload.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/dload_0.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/dload_0.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/dload_1.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/dload_1.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/dload_2.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/dload_2.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/dload_3.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/dload_3.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/fload.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/fload.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/fload_0.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/fload_0.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/fload_1.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/fload_1.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/fload_2.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/fload_2.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/fload_3.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/fload_3.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/iload.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/iload.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/iload_0.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/iload_0.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/iload_1.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/iload_1.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/iload_2.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/iload_2.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/iload_3.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/iload_3.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/lload.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/lload.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/lload_0.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/lload_0.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/lload_1.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/lload_1.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/lload_2.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/lload_2.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/lload_3.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/lload_3.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/add/dadd.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/add/dadd.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/add/fadd.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/add/fadd.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/add/iadd.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/add/iadd.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/add/ladd.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/add/ladd.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/and/iand.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/and/iand.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/and/land.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/and/land.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/div/ddiv.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/div/ddiv.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/div/fdiv.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/div/fdiv.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/div/idiv.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/div/idiv.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/div/ldiv.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/div/ldiv.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/iinc/iinc.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/iinc/iinc.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/mul/dmul.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/mul/dmul.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/mul/fmul.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/mul/fmul.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/mul/imul.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/mul/imul.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/mul/lmul.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/mul/lmul.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/neg/dneg.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/neg/dneg.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/neg/fneg.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/neg/fneg.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/neg/ineg.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/neg/ineg.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/neg/lneg.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/neg/lneg.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/or/ior.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/or/ior.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/or/lor.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/or/lor.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/rem/drem.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/rem/drem.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/rem/frem.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/rem/frem.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/rem/irem.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/rem/irem.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/rem/lrem.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/rem/lrem.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/sh/ishl.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/sh/ishl.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/sh/ishr.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/sh/ishr.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/sh/iushr.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/sh/iushr.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/sh/lshl.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/sh/lshl.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/sh/lshr.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/sh/lshr.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/sh/lushr.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/sh/lushr.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/sub/dsub.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/sub/dsub.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/sub/fsub.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/sub/fsub.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/sub/isub.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/sub/isub.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/sub/lsub.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/sub/lsub.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/xor/ixor.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/xor/ixor.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/xor/lxor.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/xor/lxor.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stack/dup.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stack/dup.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stack/dup2.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stack/dup2.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stack/dup2_x1.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stack/dup2_x1.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stack/dup2_x2.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stack/dup2_x2.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stack/dup_x1.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stack/dup_x1.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stack/dup_x2.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stack/dup_x2.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stack/pop.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stack/pop.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stack/pop2.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stack/pop2.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stack/swap.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stack/swap.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/astore.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/astore.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/astore_0.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/astore_0.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/astore_1.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/astore_1.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/astore_2.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/astore_2.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/astore_3.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/astore_3.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/dstore.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/dstore.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/dstore_0.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/dstore_0.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/dstore_1.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/dstore_1.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/dstore_2.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/dstore_2.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/dstore_3.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/dstore_3.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/fstore.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/fstore.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/fstore_0.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/fstore_0.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/fstore_1.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/fstore_1.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/fstore_2.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/fstore_2.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/fstore_3.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/fstore_3.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/istore.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/istore.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/istore_0.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/istore_0.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/istore_1.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/istore_1.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/istore_2.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/istore_2.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/istore_3.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/istore_3.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/lstore.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/lstore.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/lstore_0.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/lstore_0.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/lstore_1.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/lstore_1.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/lstore_2.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/lstore_2.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/lstore_3.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/lstore_3.rs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

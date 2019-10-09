@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct L2D {}
 
 impl Instruction for L2D {

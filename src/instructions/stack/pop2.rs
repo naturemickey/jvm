@@ -1,3 +1,4 @@
+#[allow(non_camel_case_types)]
 struct POP2 {}
 
 impl Instruction for POP2 {
