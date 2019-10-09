@@ -1,9 +1,12 @@
 #[allow(non_camel_case_types)]
-struct ISTORE {
-    index: u8
+pub struct ISTORE {
+    index: usize
 }
 
 impl ISTORE {
+    pub fn new(index: usize) -> Self {
+        Self { index }
+    }
     fn _istore(frame: &mut Frame, index: usize) {
         let val = frame.operand_stack().pop_int();
         frame.local_vars().set_int(index as usize, val);
@@ -12,10 +15,10 @@ impl ISTORE {
 
 impl Instruction for ISTORE {
     fn fetch_operands(&mut self, reader: &mut BytecodeReader) {
-        self.index = reader.read_u8();
+        self.index = reader.read_u8() as usize;
     }
 
     fn execute(&mut self, frame: &mut Frame) {
-        Self::_istore(frame, self.index as usize);
+        Self::_istore(frame, self.index);
     }
 }

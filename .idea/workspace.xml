@@ -6,21 +6,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="49ff3ef2-99c0-4972-84de-2a7e2714ca46" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/instructions/extended/goto_w.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/instructions/extended/ifnonnull.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/instructions/extended/ifnull.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/instructions/extended/jsr_w.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/instructions/extended/multianewarray.rs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/instructions/extended/wide.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/instructions/branch_instruction.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/branch_instruction.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/instructions/bytecode_reader.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/bytecode_reader.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/instructions/control/lookupswitch.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/control/lookupswitch.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/instructions/control/tableswitch.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/control/tableswitch.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/instructions/extended/mod.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/extended/mod.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/extended/wide.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/extended/wide.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/aload.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/aload.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/dload.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/dload.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/fload.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/fload.rs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/instructions/loads/iload.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/iload.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/rtda/frame.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/rtda/frame.rs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/rtda/thread.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/rtda/thread.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/loads/lload.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/loads/lload.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/math/iinc/iinc.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/math/iinc/iinc.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/astore.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/astore.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/dstore.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/dstore.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/fstore.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/fstore.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/istore.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/istore.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/instructions/stores/lstore.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/stores/lstore.rs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

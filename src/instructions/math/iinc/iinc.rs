@@ -1,7 +1,13 @@
 #[allow(non_camel_case_types)]
-struct IINC {
+pub struct IINC {
     index: usize,
     _const: i32,
+}
+
+impl IINC {
+    pub fn new(index: usize, _const: i32) -> Self {
+        Self { index, _const }
+    }
 }
 
 impl Instruction for IINC {

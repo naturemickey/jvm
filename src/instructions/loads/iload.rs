@@ -1,11 +1,11 @@
 #[allow(non_camel_case_types)]
 pub struct ILOAD {
-    index: u8
+    index: usize
 }
 
 impl ILOAD {
-    pub fn new() -> ILOAD {
-        Self { index: 0 }
+    pub fn new(index: usize) -> ILOAD {
+        Self { index }
     }
     fn _iload(frame: &mut Frame, index: usize) {
         let val = frame.local_vars().get_int(index);
@@ -15,10 +15,10 @@ impl ILOAD {
 
 impl Instruction for ILOAD {
     fn fetch_operands(&mut self, reader: &mut BytecodeReader) {
-        self.index = reader.read_u8();
+        self.index = reader.read_u8() as usize;
     }
 
     fn execute(&mut self, frame: &mut Frame) {
-        Self::_iload(frame, self.index as usize);
+        Self::_iload(frame, self.index);
     }
 }

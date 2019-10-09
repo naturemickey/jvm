@@ -1,9 +1,12 @@
 #[allow(non_camel_case_types)]
-struct LLOAD {
-    index: u8
+pub struct LLOAD {
+    index: usize
 }
 
 impl LLOAD {
+    pub fn new(index: usize) -> LLOAD {
+        Self { index }
+    }
     fn _lload(frame: &mut Frame, index: usize) {
         let val = frame.local_vars().get_long(index);
         frame.operand_stack().push_long(val);
@@ -12,10 +15,10 @@ impl LLOAD {
 
 impl Instruction for LLOAD {
     fn fetch_operands(&mut self, reader: &mut BytecodeReader) {
-        self.index = reader.read_u8();
+        self.index = reader.read_u8() as usize;
     }
 
     fn execute(&mut self, frame: &mut Frame) {
-        Self::_lload(frame, self.index as usize);
+        Self::_lload(frame, self.index);
     }
 }
