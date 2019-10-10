@@ -1,0 +1,1 @@
+struct GET_STATIC {}

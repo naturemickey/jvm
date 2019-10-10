@@ -1,4 +1,4 @@
-struct SourceFileAttribute {
+pub struct SourceFileAttribute {
     name_index: u16
 }
 

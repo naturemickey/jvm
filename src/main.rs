@@ -3,7 +3,8 @@ extern crate java;
 use java::cmd::Cmd;
 use java::classpath::Classpath;
 use java::util::file_util;
-use java::classfile::ClassFile;
+use java::classfile::{ClassFile, MemberInfo};
+use java::rtda::Thread;
 
 fn main() {
     let cmd = Cmd::parse();

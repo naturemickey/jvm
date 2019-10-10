@@ -1,4 +1,4 @@
-struct LineNumberTableAttribute {
+pub struct LineNumberTableAttribute {
     line_number_table: Vec<LineNumberTableEntry>
 }
 

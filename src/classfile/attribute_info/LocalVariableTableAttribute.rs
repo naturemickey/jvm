@@ -1,4 +1,4 @@
-struct LocalVariableTableAttribute {
+pub struct LocalVariableTableAttribute {
     local_variable_table: Vec<LocalVariableTableEntry>
 }
 

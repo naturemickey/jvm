@@ -1,4 +1,4 @@
-struct CodeAttribute {
+pub struct CodeAttribute {
     max_stack: u16,
     max_locals: u16,
     code: Vec<u8>,
@@ -16,9 +16,15 @@ impl CodeAttribute {
         let attributes = AttributeInfo::read_attributes(reader, cp);
         Self { max_stack, max_locals, code, exception_table, attributes }
     }
+
+    pub fn max_stack(&self) -> u16 { self.max_stack }
+    pub fn max_locals(&self) -> u16 { self.max_locals }
+    pub fn code(&self) -> &Vec<u8> { self.code() }
+    pub fn exception_table(&self) -> &Vec<ExceptionTableEntry> { self.exception_table() }
+    pub fn attributes(&self) -> &Vec<AttributeInfo> { self.attributes() }
 }
 
-struct ExceptionTableEntry {
+pub struct ExceptionTableEntry {
     start_pc: u16,
     end_pc: u16,
     handler_pc: u16,

@@ -1,1 +1,1 @@
-struct DeprecatedAttribute{}
+pub struct DeprecatedAttribute{}

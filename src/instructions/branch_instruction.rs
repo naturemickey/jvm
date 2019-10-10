@@ -12,8 +12,6 @@ impl BranchInstruction {
     }
 
     fn _branch(frame: &mut Frame, offset: i32) {
-        let pc = frame.thread().pc();
-        let next_pc = pc + offset;
-        frame.set_next_pc(next_pc);
+        frame.set_next_pc(frame.thread_pc() + offset);
     }
 }

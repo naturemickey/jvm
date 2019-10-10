@@ -1,4 +1,4 @@
-struct ConstantValueAttribute {
+pub struct ConstantValueAttribute {
     value_index: u16
 }
 

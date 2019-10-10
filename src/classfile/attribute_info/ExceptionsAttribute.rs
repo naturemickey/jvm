@@ -1,4 +1,4 @@
-struct ExceptionsAttribute {
+pub struct ExceptionsAttribute {
     index_table: Vec<u16>
 }
 

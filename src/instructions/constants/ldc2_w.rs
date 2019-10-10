@@ -1,0 +1,1 @@
+struct LDC2_W {}

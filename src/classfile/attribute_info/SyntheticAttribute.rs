@@ -1,1 +1,1 @@
-struct SyntheticAttribute {}
+pub struct SyntheticAttribute {}

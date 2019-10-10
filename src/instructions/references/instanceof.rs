@@ -1,0 +1,1 @@
+struct INSTANCE_OF {}

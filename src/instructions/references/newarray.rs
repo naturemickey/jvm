@@ -1,0 +1,1 @@
+struct NEW_ARRAY {}

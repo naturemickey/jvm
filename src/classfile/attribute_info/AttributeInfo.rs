@@ -1,4 +1,4 @@
-enum AttributeInfo {
+pub enum AttributeInfo {
     Code(CodeAttribute),
     ConstantValue(ConstantValueAttribute),
     Deprecated(DeprecatedAttribute),

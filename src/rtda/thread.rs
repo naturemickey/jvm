@@ -1,11 +1,11 @@
-pub struct Thread<'a> {
+pub struct Thread {
     pc: i32,
-    stack: Stack<'a>,
+    stack: Stack,
 }
 
-impl <'a>Thread<'a> {
-    pub fn new() -> Thread <'a>{
-        Self { pc: 0, stack: Stack::<'a>::new1k() }
+impl Thread {
+    pub fn new() -> Thread {
+        Self { pc: 0, stack: Stack::new1k() }
     }
 
     pub fn pc(&self) -> i32 {
@@ -16,15 +16,19 @@ impl <'a>Thread<'a> {
         self.pc = pc;
     }
 
-    pub fn push_frame(&'a mut self, frame: Box<Frame<'a>>) {
+    pub fn push_frame(&mut self, frame: Box<Frame>) {
         self.stack.push(frame);
     }
 
-    pub fn pop_frame(&'a mut self) -> Box<Frame<'a>> {
+    pub fn pop_frame(&mut self) -> Box<Frame> {
         self.stack.pop()
     }
 
     pub fn current_frame(&self) -> &Box<Frame> {
         self.stack.top()
+    }
+
+    pub fn new_frame(& self, max_locals: usize, max_stack: usize) -> Box<Frame> {
+        Box::new(Frame::new(max_locals, max_stack, self))
     }
 }

@@ -1,15 +1,15 @@
-pub struct Frame<'a> {
+pub struct Frame {
     local_vars: LocalVars,
     operand_stack: OperandStack,
-    thread: &'a Thread<'a>,
+    thread: *const Thread,
     next_pc: i32,
 }
 
-impl<'a> Frame<'a> {
-    pub fn new(max_locals: usize, max_stack: usize, thread: &'a Thread) -> Box<Frame<'a>> {
+impl Frame {
+    pub fn new(max_locals: usize, max_stack: usize, thread: *const Thread) -> Frame {
         let local_vars = LocalVars::new(max_locals);
         let operand_stack = OperandStack::new(max_stack);
-        Box::new(Self { local_vars, operand_stack, thread, next_pc: 0 })
+        Self { local_vars, operand_stack, thread, next_pc: 0 }
     }
 
     pub fn operand_stack(&mut self) -> &mut OperandStack {
@@ -20,7 +20,7 @@ impl<'a> Frame<'a> {
         &mut self.local_vars
     }
 
-    pub fn thread(&'a self) -> &'a Thread {
+    pub fn thread(&self) -> *const Thread {
         self.thread
     }
 
@@ -30,5 +30,15 @@ impl<'a> Frame<'a> {
 
     pub fn set_next_pc(&mut self, next_pc: i32) {
         self.next_pc = next_pc;
+    }
+
+    pub fn branch(&mut self, offset: i32) {
+        self.set_next_pc(self.thread_pc() + offset);
+    }
+
+    pub fn thread_pc(&self) -> i32 {
+        unsafe {
+            (*self.thread).pc
+        }
     }
 }

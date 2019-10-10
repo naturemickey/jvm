@@ -6,7 +6,7 @@ pub struct MemberInfo {
 }
 
 impl MemberInfo {
-    fn read_member(reader: &mut ClassReader, cp:&ConstantPool) -> MemberInfo {
+    fn read_member(reader: &mut ClassReader, cp: &ConstantPool) -> MemberInfo {
         let access_flags = reader.read_u16();
         let name_index = reader.read_u16();
         let descriptor_index = reader.read_u16();
@@ -15,7 +15,7 @@ impl MemberInfo {
         Self { access_flags, name_index, descriptor_index, attributes }
     }
 
-    fn read_members(reader: &mut ClassReader, cp:&ConstantPool) -> Vec<MemberInfo> {
+    fn read_members(reader: &mut ClassReader, cp: &ConstantPool) -> Vec<MemberInfo> {
         let member_count = reader.read_u16();
         let mut members = Vec::new();
         for _ in 0..member_count {
@@ -34,5 +34,15 @@ impl MemberInfo {
 
     pub fn descriptor<'a>(&'a self, cp: &'a ConstantPool) -> &'a str {
         cp.get_utf8(self.descriptor_index)
+    }
+
+    pub fn code_attribute(&self) -> Option<&CodeAttribute> {
+        for attr in &self.attributes {
+            match attr {
+                AttributeInfo::Code(ca) => return Some(ca),
+                _ => {}
+            };
+        }
+        None
     }
 }

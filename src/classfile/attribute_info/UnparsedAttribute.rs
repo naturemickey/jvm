@@ -1,4 +1,4 @@
-struct UnparsedAttribute {
+pub struct UnparsedAttribute {
     name_index: u16,
     length: u32,
     info: Vec<u8>,
