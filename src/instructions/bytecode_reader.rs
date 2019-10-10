@@ -8,7 +8,7 @@ impl<'a> BytecodeReader<'a> {
         Self { code, pc }
     }
     pub fn read_u8(&mut self) -> u8 {
-        let u = self.code[self.pc];
+        let u = self.code[self.pc as usize];
         self.pc += 1;
         u
     }
