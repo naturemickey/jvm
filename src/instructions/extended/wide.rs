@@ -5,7 +5,7 @@ pub struct WIDE {
 
 impl WIDE {
     pub fn new() -> Self {
-        Self { modified_instruction: Box::default() }
+        Self { modified_instruction: Box::new(loads::ILOAD::new(0)) }
     }
 }
 
