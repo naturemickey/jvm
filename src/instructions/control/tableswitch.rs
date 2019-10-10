@@ -1,9 +1,15 @@
 #[allow(non_camel_case_types)]
-struct TABLE_SWITCH {
+pub struct TABLE_SWITCH {
     default_offset: i32,
     low: i32,
     high: i32,
     jump_offsets: Vec<i32>,
+}
+
+impl TABLE_SWITCH {
+    pub fn new() -> Self {
+        Self { default_offset: 0, low: 0, high: 0, jump_offsets: Vec::with_capacity(0) }
+    }
 }
 
 impl Instruction for TABLE_SWITCH {

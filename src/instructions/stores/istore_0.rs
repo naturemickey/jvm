@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct ISTORE_0 {}
+pub struct ISTORE_0 {}
 
 impl Instruction for ISTORE_0 {
     fn execute(&mut self, frame: &mut Frame) {

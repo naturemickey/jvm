@@ -1,1 +1,2 @@
-struct LALOAD {}
+#[allow(non_camel_case_types)]
+pub struct LALOAD {}

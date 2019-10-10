@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct LSUB {}
+pub struct LSUB {}
 
 impl Instruction for LSUB {
     fn execute(&mut self, frame: &mut Frame) {

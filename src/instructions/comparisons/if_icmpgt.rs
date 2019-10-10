@@ -1,6 +1,11 @@
 #[allow(non_camel_case_types)]
-struct IF_ICMPGT {
+pub struct IF_ICMPGT {
     base: BranchInstruction
+}
+impl IF_ICMPGT {
+    pub fn new() -> Self {
+        Self { base: BranchInstruction::new() }
+    }
 }
 
 impl Instruction for IF_ICMPGT {

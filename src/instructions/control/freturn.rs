@@ -1,1 +1,2 @@
-struct F_RETURN {}
+#[allow(non_camel_case_types)]
+pub struct F_RETURN {}

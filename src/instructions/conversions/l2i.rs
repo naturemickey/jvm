@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct L2I {}
+pub struct L2I {}
 
 impl Instruction for L2I {
     fn execute(&mut self, frame: &mut Frame) {

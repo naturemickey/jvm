@@ -3,6 +3,12 @@ struct BranchInstruction {
 }
 
 impl BranchInstruction {
+    fn new() -> Self {
+        Self { offset: 0 }
+    }
+}
+
+impl BranchInstruction {
     fn fetch_operands(&mut self, reader: &mut BytecodeReader) {
         self.offset = reader.read_i16() as i32;
     }

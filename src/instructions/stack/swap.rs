@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct SWAP {}
+pub struct SWAP {}
 
 impl Instruction for SWAP {
     /*

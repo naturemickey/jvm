@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct IREM {}
+pub struct IREM {}
 
 impl Instruction for IREM {
     fn execute(&mut self, frame: &mut Frame) {

@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct I2C {}
+pub struct I2C {}
 
 impl Instruction for I2C {
     fn execute(&mut self, frame: &mut Frame) {

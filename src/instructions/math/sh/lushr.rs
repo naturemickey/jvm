@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct LUSHR {}
+pub struct LUSHR {}
 
 impl Instruction for LUSHR {
     fn execute(&mut self, frame: &mut Frame) {

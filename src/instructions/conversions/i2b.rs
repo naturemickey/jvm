@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct I2B {}
+pub struct I2B {}
 
 impl Instruction for I2B {
     fn execute(&mut self, frame: &mut Frame) {

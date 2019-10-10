@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct DREM {}
+pub struct DREM {}
 
 impl Instruction for DREM {
     fn execute(&mut self, frame: &mut Frame) {

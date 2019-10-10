@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct LNEG {}
+pub struct LNEG {}
 
 impl Instruction for LNEG {
     fn execute(&mut self, frame: &mut Frame) {

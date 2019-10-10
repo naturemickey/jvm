@@ -1,6 +1,11 @@
 #[allow(non_camel_case_types)]
-struct IFGT {
+pub struct IFGT {
     base: BranchInstruction,
+}
+impl IFGT {
+    pub fn new() -> Self {
+        Self { base: BranchInstruction::new() }
+    }
 }
 
 impl Instruction for IFGT {

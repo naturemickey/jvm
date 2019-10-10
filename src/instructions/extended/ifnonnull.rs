@@ -1,6 +1,11 @@
 #[allow(non_camel_case_types)]
-struct IFNONNULL {
+pub struct IFNONNULL {
     base: BranchInstruction
+}
+impl IFNONNULL {
+    pub fn new() -> Self {
+        Self { base: BranchInstruction::new() }
+    }
 }
 
 impl Instruction for IFNONNULL {

@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct ISHL {}
+pub struct ISHL {}
 
 impl Instruction for ISHL {
     fn execute(&mut self, frame: &mut Frame) {

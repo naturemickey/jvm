@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct F2I {}
+pub struct F2I {}
 
 impl Instruction for F2I {
     fn execute(&mut self, frame: &mut Frame) {

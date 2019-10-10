@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct LAND {}
+pub struct LAND {}
 
 impl Instruction for LAND {
     fn execute(&mut self, frame: &mut Frame) {

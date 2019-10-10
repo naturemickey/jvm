@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct LMUL {}
+pub struct LMUL {}
 
 impl Instruction for LMUL {
     fn execute(&mut self, frame: &mut Frame) {

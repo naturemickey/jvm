@@ -1,6 +1,12 @@
 #[allow(non_camel_case_types)]
-struct BIPUSH {
+pub struct BIPUSH {
     val: i8
+}
+
+impl BIPUSH {
+    pub fn new() -> Self {
+        Self { val: 0 }
+    }
 }
 
 impl Instruction for BIPUSH {

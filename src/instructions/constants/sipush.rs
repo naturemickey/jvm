@@ -1,6 +1,12 @@
 #[allow(non_camel_case_types)]
-struct SIPUSH {
+pub struct SIPUSH {
     val: i16
+}
+
+impl SIPUSH {
+    pub fn new() -> Self {
+        Self { val: 0 }
+    }
 }
 
 impl Instruction for SIPUSH {

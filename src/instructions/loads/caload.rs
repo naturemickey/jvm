@@ -1,1 +1,2 @@
-struct CALOAD {}
+#[allow(non_camel_case_types)]
+pub struct CALOAD {}

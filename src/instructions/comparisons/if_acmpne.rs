@@ -1,6 +1,11 @@
 #[allow(non_camel_case_types)]
-struct IF_ACMPNE {
+pub struct IF_ACMPNE {
     base: BranchInstruction
+}
+impl IF_ACMPNE {
+    pub fn new() -> Self {
+        Self { base: BranchInstruction::new() }
+    }
 }
 
 impl Instruction for IF_ACMPNE {

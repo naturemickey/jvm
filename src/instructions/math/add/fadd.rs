@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct FADD {}
+pub struct FADD {}
 
 impl Instruction for FADD {
     fn execute(&mut self, frame: &mut Frame) {

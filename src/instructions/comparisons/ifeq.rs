@@ -1,6 +1,12 @@
 #[allow(non_camel_case_types)]
-struct IFEQ {
+pub struct IFEQ {
     base: BranchInstruction,
+}
+
+impl IFEQ {
+    pub fn new() -> Self {
+        Self { base: BranchInstruction::new() }
+    }
 }
 
 impl Instruction for IFEQ {

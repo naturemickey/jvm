@@ -25,8 +25,10 @@ fn _loop(thread :&mut Thread, bytecode:&Vec<u8>) {
         reader.reset(pc);
         let opcode = reader.read_u8();
 
-        let mut inst = new_Instruction(opcode);
-        inst.fetch_operands(&mut reader);
+        let mut enum_inst = new_Instruction(opcode);
+        match enum_inst {
+            _(inst) => inst.fetch_operands(&mut reader),
+        }
         frame.set_next_pc(reader.pc());
         println!("pc:{}, inst:{}", pc, inst);
         inst.execute(&mut frame);

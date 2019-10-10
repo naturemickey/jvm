@@ -1,1 +1,2 @@
-struct GET_STATIC {}
+#[allow(non_camel_case_types)]
+pub struct GET_STATIC {}

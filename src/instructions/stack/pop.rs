@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct POP {}
+pub struct POP {}
 
 impl Instruction for POP {
     fn execute(&mut self, frame: &mut Frame) {

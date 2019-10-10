@@ -1,8 +1,13 @@
 #[allow(non_camel_case_types)]
-struct IFLT {
+pub struct IFLT {
     base: BranchInstruction,
 }
 
+impl IFLT {
+    pub fn new() -> Self {
+        Self { base: BranchInstruction::new() }
+    }
+}
 impl Instruction for IFLT {
     fn fetch_operands(&mut self, reader: &mut BytecodeReader) {
         self.base.fetch_operands(reader);

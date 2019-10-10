@@ -1,8 +1,13 @@
 #[allow(non_camel_case_types)]
-struct IF_ICMPGE {
+pub struct IF_ICMPGE {
     base: BranchInstruction
 }
 
+impl IF_ICMPGE {
+    pub fn new() -> Self {
+        Self { base: BranchInstruction::new() }
+    }
+}
 impl Instruction for IF_ICMPGE {
     fn fetch_operands(&mut self, reader: &mut BytecodeReader) {
         self.base.fetch_operands(reader);

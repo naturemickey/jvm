@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct FREM {}
+pub struct FREM {}
 
 impl Instruction for FREM {
     fn execute(&mut self, frame: &mut Frame) {

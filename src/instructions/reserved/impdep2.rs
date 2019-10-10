@@ -1,1 +1,2 @@
-struct IMPDEP2 {}
+#[allow(non_camel_case_types)]
+pub struct IMPDEP2 {}

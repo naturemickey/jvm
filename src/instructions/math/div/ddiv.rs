@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct DDIV {}
+pub struct DDIV {}
 
 impl Instruction for DDIV {
     fn execute(&mut self, frame: &mut Frame) {

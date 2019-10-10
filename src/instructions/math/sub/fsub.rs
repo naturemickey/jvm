@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct FSUB {}
+pub struct FSUB {}
 
 impl Instruction for FSUB {
     fn execute(&mut self, frame: &mut Frame) {

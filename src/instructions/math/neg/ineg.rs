@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct INEG {}
+pub struct INEG {}
 
 impl Instruction for INEG {
     fn execute(&mut self, frame: &mut Frame) {

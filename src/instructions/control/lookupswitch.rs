@@ -1,8 +1,14 @@
 #[allow(non_camel_case_types)]
-struct LOOKUP_SWITCH {
+pub struct LOOKUP_SWITCH {
     default_offset: i32,
     npairs: i32,
     match_offsets: Vec<i32>,
+}
+
+impl LOOKUP_SWITCH {
+    pub fn new() -> Self {
+        Self { default_offset: 0, npairs: 0, match_offsets: Vec::with_capacity(0) }
+    }
 }
 
 impl Instruction for LOOKUP_SWITCH {

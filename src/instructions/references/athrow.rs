@@ -1,1 +1,2 @@
-struct ATHROW {}
+#[allow(non_camel_case_types)]
+pub struct ATHROW {}

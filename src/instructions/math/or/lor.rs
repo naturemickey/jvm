@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct LOR {}
+pub struct LOR {}
 
 impl Instruction for LOR {
     fn execute(&mut self, frame: &mut Frame) {

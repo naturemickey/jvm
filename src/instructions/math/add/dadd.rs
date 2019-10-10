@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct DADD {}
+pub struct DADD {}
 
 impl Instruction for DADD {
     fn execute(&mut self, frame: &mut Frame) {

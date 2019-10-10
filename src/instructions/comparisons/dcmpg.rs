@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct DCMPG {}
+pub struct DCMPG {}
 
 impl Instruction for DCMPG {
     fn execute(&mut self, frame: &mut Frame) {

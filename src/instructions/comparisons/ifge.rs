@@ -1,6 +1,11 @@
 #[allow(non_camel_case_types)]
-struct IFGE {
+pub struct IFGE {
     base: BranchInstruction,
+}
+impl IFGE {
+    pub fn new() -> Self {
+        Self { base: BranchInstruction::new() }
+    }
 }
 
 impl Instruction for IFGE {

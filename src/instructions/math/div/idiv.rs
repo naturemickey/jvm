@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct IDIV {}
+pub struct IDIV {}
 
 impl Instruction for IDIV {
     fn execute(&mut self, frame: &mut Frame) {

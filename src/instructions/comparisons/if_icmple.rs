@@ -1,6 +1,11 @@
 #[allow(non_camel_case_types)]
-struct IF_ICMPLE {
+pub struct IF_ICMPLE {
     base: BranchInstruction
+}
+impl IF_ICMPLE {
+    pub fn new() -> Self {
+        Self { base: BranchInstruction::new() }
+    }
 }
 
 impl Instruction for IF_ICMPLE {

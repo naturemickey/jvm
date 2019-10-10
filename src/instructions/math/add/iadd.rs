@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct IADD {}
+pub struct IADD {}
 
 impl Instruction for IADD {
     fn execute(&mut self, frame: &mut Frame) {

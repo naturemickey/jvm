@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct DUP {}
+pub struct DUP {}
 
 impl Instruction for DUP {
     /*

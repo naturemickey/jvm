@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct LREM {}
+pub struct LREM {}
 
 impl Instruction for LREM {
     fn execute(&mut self, frame: &mut Frame) {

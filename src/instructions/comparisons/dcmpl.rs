@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct DCMPL {}
+pub struct DCMPL {}
 
 impl Instruction for DCMPL {
     fn execute(&mut self, frame: &mut Frame) {

@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct DNEG {}
+pub struct DNEG {}
 
 impl Instruction for DNEG {
     fn execute(&mut self, frame: &mut Frame) {

@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct IOR {}
+pub struct IOR {}
 
 impl Instruction for IOR {
     fn execute(&mut self, frame: &mut Frame) {

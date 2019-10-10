@@ -1,8 +1,13 @@
 #[allow(non_camel_case_types)]
-struct GOTO {
+pub struct GOTO {
     base:BranchInstruction,
 }
 
+impl GOTO {
+    pub fn new() -> Self {
+        Self { base: BranchInstruction::new() }
+    }
+}
 impl Instruction for GOTO {
     fn fetch_operands(&mut self, reader: &mut BytecodeReader) {
         self.base.fetch_operands(reader);

@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct ACONST_NULL {}
+pub struct ACONST_NULL {}
 
 impl Instruction for ACONST_NULL {
     fn execute(&mut self,  frame: &mut Frame) {

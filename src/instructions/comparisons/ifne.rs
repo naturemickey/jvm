@@ -1,6 +1,11 @@
 #[allow(non_camel_case_types)]
-struct IFNE {
+pub struct IFNE {
     base: BranchInstruction,
+}
+impl IFNE {
+    pub fn new() -> Self {
+        Self { base: BranchInstruction::new() }
+    }
 }
 
 impl Instruction for IFNE {

@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct LADD {}
+pub struct LADD {}
 
 impl Instruction for LADD {
     fn execute(&mut self, frame: &mut Frame) {

@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct I2S {}
+pub struct I2S {}
 
 impl Instruction for I2S {
     fn execute(&mut self, frame: &mut Frame) {

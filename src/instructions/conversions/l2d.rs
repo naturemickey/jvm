@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct L2D {}
+pub struct L2D {}
 
 impl Instruction for L2D {
     fn execute(&mut self, frame: &mut Frame) {

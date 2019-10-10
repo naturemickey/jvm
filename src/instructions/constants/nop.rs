@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct NOP {}
+pub struct NOP {}
 
 impl Instruction for NOP {
 

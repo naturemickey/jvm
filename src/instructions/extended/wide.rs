@@ -1,6 +1,12 @@
 #[allow(non_camel_case_types)]
-struct WIDE {
+pub struct WIDE {
     modified_instruction: Box<dyn Instruction>
+}
+
+impl WIDE {
+    pub fn new() -> Self {
+        Self { modified_instruction: Box::default() }
+    }
 }
 
 impl Instruction for WIDE {

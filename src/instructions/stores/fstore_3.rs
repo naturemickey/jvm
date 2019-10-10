@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct FSTORE_3 {}
+pub struct FSTORE_3 {}
 
 impl Instruction for FSTORE_3 {
     fn execute(&mut self, frame: &mut Frame) {

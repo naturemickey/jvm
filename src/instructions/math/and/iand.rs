@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct IAND {}
+pub struct IAND {}
 
 impl Instruction for IAND {
     fn execute(&mut self, frame: &mut Frame) {

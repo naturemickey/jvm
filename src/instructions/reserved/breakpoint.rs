@@ -1,1 +1,2 @@
-struct BREAK_POINT {}
+#[allow(non_camel_case_types)]
+pub struct BREAK_POINT {}

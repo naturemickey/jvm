@@ -1,1 +1,2 @@
-struct INVOKE_DYNAMIC {}
+#[allow(non_camel_case_types)]
+pub struct INVOKE_DYNAMIC {}

@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct LCMP {}
+pub struct LCMP {}
 
 impl Instruction for LCMP {
     fn execute(&mut self, frame: &mut Frame) {

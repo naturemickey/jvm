@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct ISUB {}
+pub struct ISUB {}
 
 impl Instruction for ISUB {
     fn execute(&mut self, frame: &mut Frame) {

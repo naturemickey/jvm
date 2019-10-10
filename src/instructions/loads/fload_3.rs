@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct FLOAD_3 {}
+pub struct FLOAD_3 {}
 
 impl Instruction for FLOAD_3 {
     fn execute(&mut self, frame: &mut Frame) {

@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct LSHR {}
+pub struct LSHR {}
 
 impl Instruction for LSHR {
     fn execute(&mut self, frame: &mut Frame) {

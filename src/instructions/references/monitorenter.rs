@@ -1,1 +1,2 @@
-struct MONITOR_ENTER {}
+#[allow(non_camel_case_types)]
+pub struct MONITOR_ENTER {}

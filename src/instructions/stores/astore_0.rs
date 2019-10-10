@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct ASTORE_0 {}
+pub struct ASTORE_0 {}
 
 impl Instruction for ASTORE_0 {
     fn execute(&mut self, frame: &mut Frame) {

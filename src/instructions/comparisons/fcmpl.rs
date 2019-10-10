@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct FCMPL {}
+pub struct FCMPL {}
 
 impl Instruction for FCMPL {
     fn execute(&mut self, frame: &mut Frame) {

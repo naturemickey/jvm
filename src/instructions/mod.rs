@@ -10,6 +10,18 @@ pub mod reserved;
 pub mod stack;
 pub mod stores;
 
+use comparisons::*;
+use constants::*;
+use control::*;
+use conversions::*;
+use extended::*;
+use loads::*;
+use math::*;
+use references::*;
+use reserved::*;
+use stack::*;
+use stores::*;
+
 use crate::rtda::Frame;
 
 include!("instruction.rs");

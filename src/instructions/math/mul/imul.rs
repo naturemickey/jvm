@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct IMUL {}
+pub struct IMUL {}
 
 impl Instruction for IMUL {
     fn execute(&mut self, frame: &mut Frame) {

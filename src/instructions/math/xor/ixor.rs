@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct IXOR {}
+pub struct IXOR {}
 
 impl Instruction for IXOR {
     fn execute(&mut self, frame: &mut Frame) {

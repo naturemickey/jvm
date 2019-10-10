@@ -1,5 +1,5 @@
 #[allow(non_camel_case_types)]
-struct LXOR {}
+pub struct LXOR {}
 
 impl Instruction for LXOR {
     fn execute(&mut self, frame: &mut Frame) {
