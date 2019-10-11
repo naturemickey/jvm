@@ -6,3 +6,8 @@ impl Instruction for LSTORE_0 {
         LSTORE::_lstore(frame, 0);
     }
 }
+impl Debug for LSTORE_0 {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

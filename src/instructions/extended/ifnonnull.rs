@@ -2,6 +2,7 @@
 pub struct IFNONNULL {
     base: BranchInstruction
 }
+
 impl IFNONNULL {
     pub fn new() -> Self {
         Self { base: BranchInstruction::new() }
@@ -9,7 +10,7 @@ impl IFNONNULL {
 }
 
 impl Instruction for IFNONNULL {
-    fn fetch_operands(&mut self, _reader: &mut BytecodeReader){
+    fn fetch_operands(&mut self, _reader: &mut BytecodeReader) {
         self.base.fetch_operands(_reader);
     }
     fn execute(&mut self, frame: &mut Frame) {
@@ -17,5 +18,11 @@ impl Instruction for IFNONNULL {
         if obj != NULL {
             self.base.branch(frame);
         }
+    }
+}
+
+impl Debug for IFNONNULL {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "(offset={})", self.base.offset)
     }
 }

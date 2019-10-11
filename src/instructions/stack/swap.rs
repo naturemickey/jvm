@@ -19,3 +19,9 @@ impl Instruction for SWAP {
         stack.push_slot(slot2);
     }
 }
+
+impl Debug for SWAP {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

@@ -10,3 +10,9 @@ impl Instruction for LSHR {
         stack.push_long(v1 >> s);
     }
 }
+
+impl Debug for LSHR {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

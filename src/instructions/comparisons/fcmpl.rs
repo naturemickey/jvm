@@ -18,3 +18,8 @@ impl Instruction for FCMPL {
             });
     }
 }
+impl Debug for FCMPL {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "()")
+    }
+}

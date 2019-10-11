@@ -1,5 +1,5 @@
 pub struct ClassFile {
-    magic: u32,
+    _magic: u32,
     minor_version: u16,
     major_version: u16,
     constant_pool: Arc<ConstantPool>,
@@ -21,7 +21,7 @@ impl ClassFile {
     }
 
     fn read(reader: &mut ClassReader) -> ClassFile {
-        let magic = ClassFile::read_and_check_magic(reader);
+        let _magic = ClassFile::read_and_check_magic(reader);
         let (minor_version, major_version) = ClassFile::read_and_check_version(reader);
         let cp = Arc::new(ConstantPool::read_constant_pool(reader));
         let access_flags = reader.read_u16();
@@ -32,7 +32,7 @@ impl ClassFile {
         let methods = MemberInfo::read_members(reader, cp.clone());
         let attributes = AttributeInfo::read_attributes(reader, cp.clone());
 
-        Self { magic, minor_version, major_version, constant_pool: cp.clone(), access_flags, this_class, super_class, interfaces, fields, methods, attributes }
+        Self { _magic, minor_version, major_version, constant_pool: cp.clone(), access_flags, this_class, super_class, interfaces, fields, methods, attributes }
     }
 
     fn read_and_check_magic(reader: &mut ClassReader) -> u32 {

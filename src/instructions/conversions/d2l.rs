@@ -9,3 +9,9 @@ impl Instruction for D2L {
         stack.push_long(l);
     }
 }
+
+impl Debug for D2L {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

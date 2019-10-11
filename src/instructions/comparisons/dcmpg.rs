@@ -18,3 +18,9 @@ impl Instruction for DCMPG {
             });
     }
 }
+
+impl Debug for DCMPG {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "()")
+    }
+}

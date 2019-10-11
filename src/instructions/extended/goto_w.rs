@@ -18,3 +18,9 @@ impl Instruction for GOTO_W {
         BranchInstruction::_branch(frame, self.offset);
     }
 }
+
+impl Debug for GOTO_W {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "(offset={})", self.offset)
+    }
+}

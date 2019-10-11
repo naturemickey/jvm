@@ -6,3 +6,8 @@ impl Instruction for ISTORE_0 {
         ISTORE::_istore(frame, 0);
     }
 }
+impl Debug for ISTORE_0 {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

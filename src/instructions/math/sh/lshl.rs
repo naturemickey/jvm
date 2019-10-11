@@ -10,3 +10,9 @@ impl Instruction for LSHL {
         stack.push_long(v1 << s);
     }
 }
+
+impl Debug for LSHL {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

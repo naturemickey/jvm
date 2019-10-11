@@ -1,5 +1,6 @@
 use super::*;
 use crate::rtda::*;
+use std::fmt::{Formatter, Error};
 
 include!("dcmpg.rs");
 include!("dcmpl.rs");

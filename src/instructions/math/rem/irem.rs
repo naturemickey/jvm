@@ -12,3 +12,9 @@ impl Instruction for IREM {
         stack.push_int(v1 % v2);
     }
 }
+
+impl Debug for IREM {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

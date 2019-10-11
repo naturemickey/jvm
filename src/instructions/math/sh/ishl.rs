@@ -10,3 +10,9 @@ impl Instruction for ISHL {
         stack.push_int(v1 << s);
     }
 }
+
+impl Debug for ISHL {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

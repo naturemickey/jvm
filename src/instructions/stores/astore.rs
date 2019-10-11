@@ -22,3 +22,9 @@ impl Instruction for ASTORE {
         Self::_astore(frame, self.index);
     }
 }
+
+impl Debug for ASTORE {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "(index={})", self.index)
+    }
+}

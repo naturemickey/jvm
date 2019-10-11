@@ -7,3 +7,9 @@ impl Instruction for NOP {
         // nothing to do.
     }
 }
+
+impl Debug for NOP {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "()")
+    }
+}

@@ -9,3 +9,9 @@ impl Instruction for DADD {
         stack.push_double(v1 + v2);
     }
 }
+
+impl Debug for DADD {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

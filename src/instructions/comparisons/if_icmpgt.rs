@@ -22,3 +22,9 @@ impl Instruction for IF_ICMPGT {
         }
     }
 }
+
+impl Debug for IF_ICMPGT {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "(offset={})", self.base.offset)
+    }
+}

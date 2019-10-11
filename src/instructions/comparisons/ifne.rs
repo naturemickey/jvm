@@ -20,3 +20,9 @@ impl Instruction for IFNE {
         }
     }
 }
+
+impl Debug for IFNE {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "(offset={})", self.base.offset)
+    }
+}

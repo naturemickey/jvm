@@ -6,3 +6,9 @@ impl Instruction for ACONST_NULL {
         frame.operand_stack().push_ref(NULL);
     }
 }
+
+impl Debug for ACONST_NULL {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "()")
+    }
+}

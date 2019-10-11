@@ -6,3 +6,9 @@ impl Instruction for ILOAD_0 {
         ILOAD::_iload(frame, 0)
     }
 }
+
+impl Debug for ILOAD_0 {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

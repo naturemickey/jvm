@@ -21,3 +21,9 @@ impl Instruction for IFEQ {
         }
     }
 }
+
+impl Debug for IFEQ {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "(offset={})", self.base.offset)
+    }
+}

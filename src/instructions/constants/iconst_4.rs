@@ -6,3 +6,9 @@ impl Instruction for ICONST_4 {
         frame.operand_stack().push_int(4);
     }
 }
+
+impl Debug for ICONST_4 {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "()")
+    }
+}

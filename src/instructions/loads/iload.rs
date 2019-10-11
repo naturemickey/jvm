@@ -22,3 +22,9 @@ impl Instruction for ILOAD {
         Self::_iload(frame, self.index);
     }
 }
+
+impl Debug for ILOAD {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "(index={})", self.index)
+    }
+}

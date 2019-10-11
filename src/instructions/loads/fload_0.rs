@@ -6,3 +6,9 @@ impl Instruction for FLOAD_0 {
         FLOAD::_fload(frame, 0)
     }
 }
+
+impl Debug for FLOAD_0 {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

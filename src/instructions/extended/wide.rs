@@ -3,6 +3,12 @@ pub struct WIDE {
     modified_instruction: Box<dyn Instruction>
 }
 
+impl Debug for WIDE {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        self.modified_instruction.as_ref().fmt(f)
+    }
+}
+
 impl WIDE {
     pub fn new() -> Self {
         Self { modified_instruction: Box::new(loads::ILOAD::new(0)) }

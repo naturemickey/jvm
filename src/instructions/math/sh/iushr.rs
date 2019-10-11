@@ -10,3 +10,9 @@ impl Instruction for IUSHR {
         stack.push_int(((v1 as u32) >> s) as i32);
     }
 }
+
+impl Debug for IUSHR {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

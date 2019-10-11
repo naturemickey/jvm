@@ -6,6 +6,12 @@ pub struct TABLE_SWITCH {
     jump_offsets: Vec<i32>,
 }
 
+impl Debug for TABLE_SWITCH {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "(default_offset={}, low={}, high={}, jump_offsets={})", self.default_offset, self.low, self.high, self.jump_offsets)
+    }
+}
+
 impl TABLE_SWITCH {
     pub fn new() -> Self {
         Self { default_offset: 0, low: 0, high: 0, jump_offsets: Vec::with_capacity(0) }

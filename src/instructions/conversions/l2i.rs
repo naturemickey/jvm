@@ -9,3 +9,9 @@ impl Instruction for L2I {
         stack.push_int(i);
     }
 }
+
+impl Debug for L2I {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

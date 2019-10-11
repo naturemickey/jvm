@@ -20,3 +20,9 @@ impl Instruction for IFLE {
         }
     }
 }
+
+impl Debug for IFLE {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "(offset={})", self.base.offset)
+    }
+}

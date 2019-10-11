@@ -9,3 +9,9 @@ impl Instruction for F2D {
         stack.push_double(d);
     }
 }
+
+impl Debug for F2D {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

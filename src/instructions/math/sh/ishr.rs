@@ -10,3 +10,9 @@ impl Instruction for ISHR {
         stack.push_int(v1 >> s);
     }
 }
+
+impl Debug for ISHR {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

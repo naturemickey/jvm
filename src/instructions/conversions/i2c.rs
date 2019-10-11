@@ -9,3 +9,9 @@ impl Instruction for I2C {
         stack.push_int(c);
     }
 }
+
+impl Debug for I2C {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

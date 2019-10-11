@@ -9,3 +9,9 @@ impl Instruction for I2S {
         stack.push_int(s);
     }
 }
+
+impl Debug for I2S {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

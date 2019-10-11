@@ -9,3 +9,9 @@ impl Instruction for LAND {
         stack.push_long(v1 & v2);
     }
 }
+
+impl Debug for LAND {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

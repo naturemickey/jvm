@@ -20,3 +20,9 @@ impl Instruction for IFLT {
         }
     }
 }
+
+impl Debug for IFLT {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "(offset={})", self.base.offset)
+    }
+}

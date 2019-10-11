@@ -10,3 +10,9 @@ impl Instruction for LUSHR {
         stack.push_long(((v1 as u64) >> s) as i64);
     }
 }
+
+impl Debug for LUSHR {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

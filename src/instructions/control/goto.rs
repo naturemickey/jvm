@@ -17,3 +17,9 @@ impl Instruction for GOTO {
         self.base.branch(frame);
     }
 }
+
+impl Debug for GOTO {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "(offset={})", self.base.offset)
+    }
+}

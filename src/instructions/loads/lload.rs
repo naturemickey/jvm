@@ -22,3 +22,9 @@ impl Instruction for LLOAD {
         Self::_lload(frame, self.index);
     }
 }
+
+impl Debug for LLOAD {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "(index={})", self.index)
+    }
+}

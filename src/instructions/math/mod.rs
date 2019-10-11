@@ -1,5 +1,7 @@
 use super::*;
 use crate::rtda::*;
+use std::fmt::Formatter;
+use std::error::Error;
 
 include!("add/dadd.rs");
 include!("div/ddiv.rs");

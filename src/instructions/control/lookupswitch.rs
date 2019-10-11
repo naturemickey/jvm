@@ -5,6 +5,12 @@ pub struct LOOKUP_SWITCH {
     match_offsets: Vec<i32>,
 }
 
+impl Debug for LOOKUP_SWITCH {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "(default_offset={}, npairs={}, match_offsets={:?})", self.default_offset, self.npairs, self.match_offsets)
+    }
+}
+
 impl LOOKUP_SWITCH {
     pub fn new() -> Self {
         Self { default_offset: 0, npairs: 0, match_offsets: Vec::with_capacity(0) }

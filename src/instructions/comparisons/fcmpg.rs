@@ -18,3 +18,8 @@ impl Instruction for FCMPG {
             });
     }
 }
+impl Debug for FCMPG {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "()")
+    }
+}

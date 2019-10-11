@@ -18,3 +18,9 @@ impl Instruction for BIPUSH {
         frame.operand_stack().push_int(self.val as i32);
     }
 }
+
+impl Debug for BIPUSH {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "(val={})", self.val)
+    }
+}

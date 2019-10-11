@@ -9,3 +9,9 @@ impl Instruction for FADD {
         stack.push_float(v1 + v2);
     }
 }
+
+impl Debug for FADD {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

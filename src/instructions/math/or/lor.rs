@@ -9,3 +9,9 @@ impl Instruction for LOR {
         stack.push_long(v1 | v2);
     }
 }
+
+impl Debug for LOR {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

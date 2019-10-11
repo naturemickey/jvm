@@ -8,3 +8,9 @@ impl Instruction for FNEG {
         stack.push_float(-val);
     }
 }
+
+impl Debug for FNEG {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

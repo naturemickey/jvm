@@ -10,3 +10,9 @@ impl Instruction for DREM {
         stack.push_double(result);
     }
 }
+
+impl Debug for DREM {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

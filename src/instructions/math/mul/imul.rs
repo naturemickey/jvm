@@ -9,3 +9,9 @@ impl Instruction for IMUL {
         stack.push_int(v1 * v2);
     }
 }
+
+impl Debug for IMUL {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

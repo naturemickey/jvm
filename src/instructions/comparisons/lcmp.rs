@@ -16,3 +16,9 @@ impl Instruction for LCMP {
             });
     }
 }
+
+impl Debug for LCMP {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "()")
+    }
+}

@@ -8,3 +8,9 @@ impl Instruction for INEG {
         stack.push_int(-val);
     }
 }
+
+impl Debug for INEG {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

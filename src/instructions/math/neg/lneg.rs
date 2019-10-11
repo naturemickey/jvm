@@ -8,3 +8,9 @@ impl Instruction for LNEG {
         stack.push_long(-val);
     }
 }
+
+impl Debug for LNEG {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

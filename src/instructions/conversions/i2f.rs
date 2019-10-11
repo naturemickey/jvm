@@ -9,3 +9,9 @@ impl Instruction for I2F {
         stack.push_float(f);
     }
 }
+
+impl Debug for I2F {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

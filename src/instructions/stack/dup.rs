@@ -17,3 +17,9 @@ impl Instruction for DUP {
         stack.push_slot(slot);
     }
 }
+
+impl Debug for DUP {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

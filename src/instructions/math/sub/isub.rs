@@ -9,3 +9,9 @@ impl Instruction for ISUB {
         stack.push_int(v1 - v2);
     }
 }
+
+impl Debug for ISUB {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

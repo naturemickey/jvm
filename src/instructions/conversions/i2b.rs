@@ -9,3 +9,9 @@ impl Instruction for I2B {
         stack.push_int(b);
     }
 }
+
+impl Debug for I2B {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

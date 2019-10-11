@@ -18,3 +18,9 @@ impl Instruction for SIPUSH {
         frame.operand_stack().push_int(self.val as i32);
     }
 }
+
+impl Debug for SIPUSH {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "(val={})", self.val)
+    }
+}

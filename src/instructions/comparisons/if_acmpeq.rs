@@ -2,6 +2,7 @@
 pub struct IF_ACMPEQ {
     base: BranchInstruction
 }
+
 impl IF_ACMPEQ {
     pub fn new() -> Self {
         Self { base: BranchInstruction::new() }
@@ -20,5 +21,11 @@ impl Instruction for IF_ACMPEQ {
         if val1 == val2 {
             self.base.branch(frame);
         }
+    }
+}
+
+impl Debug for IF_ACMPEQ {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "(offset={})", self.base.offset)
     }
 }

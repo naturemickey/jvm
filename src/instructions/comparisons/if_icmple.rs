@@ -22,3 +22,9 @@ impl Instruction for IF_ICMPLE {
         }
     }
 }
+
+impl Debug for IF_ICMPLE {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "(offset={})", self.base.offset)
+    }
+}

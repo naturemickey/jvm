@@ -21,3 +21,9 @@ impl Instruction for DUP_X2 {
         stack.push_slot(slot1);
     }
 }
+
+impl Debug for DUP_X2 {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

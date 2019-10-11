@@ -18,3 +18,8 @@ impl Instruction for DCMPL {
             });
     }
 }
+impl Debug for DCMPL {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "()")
+    }
+}

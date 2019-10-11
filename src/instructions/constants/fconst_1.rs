@@ -6,3 +6,9 @@ impl Instruction for FCONST_1 {
         frame.operand_stack().push_float(1f32);
     }
 }
+
+impl Debug for FCONST_1 {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "()")
+    }
+}

@@ -8,3 +8,9 @@ impl Instruction for POP2 {
         stack.pop_slot();
     }
 }
+
+impl Debug for POP2 {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

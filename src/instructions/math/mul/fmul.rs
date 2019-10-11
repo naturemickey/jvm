@@ -9,3 +9,9 @@ impl Instruction for FMUL {
         stack.push_float(v1 * v2);
     }
 }
+
+impl Debug for FMUL {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

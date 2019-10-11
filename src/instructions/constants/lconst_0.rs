@@ -6,3 +6,9 @@ impl Instruction for LCONST_0 {
         frame.operand_stack().push_long(0);
     }
 }
+
+impl Debug for LCONST_0 {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "()")
+    }
+}

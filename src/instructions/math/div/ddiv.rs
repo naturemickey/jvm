@@ -9,3 +9,9 @@ impl Instruction for DDIV {
         stack.push_double(v1 / v2);
     }
 }
+
+impl Debug for DDIV {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

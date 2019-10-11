@@ -22,3 +22,9 @@ impl Instruction for IF_ICMPNE {
         }
     }
 }
+
+impl Debug for IF_ICMPNE {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "(offset={})", self.base.offset)
+    }
+}

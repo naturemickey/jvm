@@ -22,3 +22,9 @@ impl Instruction for IF_ICMPLT {
         }
     }
 }
+
+impl Debug for IF_ICMPLT {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "(offset={})", self.base.offset)
+    }
+}

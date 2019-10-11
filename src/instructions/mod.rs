@@ -17,12 +17,11 @@ use conversions::*;
 use extended::*;
 use loads::*;
 use math::*;
-use references::*;
-use reserved::*;
 use stack::*;
 use stores::*;
 
 use crate::rtda::Frame;
+use std::fmt::Debug;
 
 include!("instruction.rs");
 include!("bytecode_reader.rs");

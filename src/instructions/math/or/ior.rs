@@ -9,3 +9,9 @@ impl Instruction for IOR {
         stack.push_int(v1 | v2);
     }
 }
+
+impl Debug for IOR {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

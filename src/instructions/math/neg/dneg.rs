@@ -8,3 +8,9 @@ impl Instruction for DNEG {
         stack.push_double(-val);
     }
 }
+
+impl Debug for DNEG {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

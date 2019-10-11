@@ -22,3 +22,9 @@ impl Instruction for IINC {
         local_vars.set_int(self.index, val + self._const);
     }
 }
+
+impl Debug for IINC {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "(index={}, _const={})", self.index, self._const)
+    }
+}

@@ -6,3 +6,9 @@ impl Instruction for FSTORE_1 {
         FSTORE::_fstore(frame, 1);
     }
 }
+
+impl Debug for FSTORE_1 {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

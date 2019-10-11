@@ -1,4 +1,4 @@
-pub trait Instruction {
+pub trait Instruction : Debug {
     fn fetch_operands(&mut self, _reader: &mut BytecodeReader) {
         // nothing to do
     }

@@ -20,3 +20,9 @@ impl Instruction for IFGE {
         }
     }
 }
+
+impl Debug for IFGE {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "(offset={})", self.base.offset)
+    }
+}

@@ -6,3 +6,9 @@ impl Instruction for ALOAD_0 {
         ALOAD::_aload(frame, 0)
     }
 }
+
+impl Debug for ALOAD_0 {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

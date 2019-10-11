@@ -12,3 +12,9 @@ impl Instruction for LDIV {
         stack.push_long(v1 / v2);
     }
 }
+
+impl Debug for LDIV {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

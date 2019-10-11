@@ -9,3 +9,9 @@ impl Instruction for L2D {
         stack.push_double(d);
     }
 }
+
+impl Debug for L2D {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

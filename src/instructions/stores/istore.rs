@@ -22,3 +22,9 @@ impl Instruction for ISTORE {
         Self::_istore(frame, self.index);
     }
 }
+
+impl Debug for ISTORE {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "(index={})", self.index)
+    }
+}

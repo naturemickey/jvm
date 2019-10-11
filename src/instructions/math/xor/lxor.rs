@@ -9,3 +9,9 @@ impl Instruction for LXOR {
         stack.push_long(v1 ^ v2);
     }
 }
+
+impl Debug for LXOR {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}

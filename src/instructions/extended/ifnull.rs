@@ -19,3 +19,9 @@ impl Instruction for IFNULL {
         }
     }
 }
+
+impl Debug for IFNULL {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "(offset={})", self.base.offset)
+    }
+}

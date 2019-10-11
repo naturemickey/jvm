@@ -22,3 +22,9 @@ impl Instruction for FSTORE {
         Self::_fstore(frame, self.index);
     }
 }
+
+impl Debug for FSTORE {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "(index={})", self.index)
+    }
+}

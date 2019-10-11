@@ -10,3 +10,9 @@ impl Instruction for FREM {
         stack.push_float(result);
     }
 }
+
+impl Debug for FREM {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+        write!(f, "()")
+    }
+}
