@@ -5,7 +5,7 @@ pub trait Instruction {
     fn execute(&mut self, frame: &mut Frame);
 }
 
-pub fn new_Instruction(opcode: u8) -> Box<dyn Instruction> {
+pub fn new_instruction(opcode: u8) -> Box<dyn Instruction> {
     match opcode {
         00 => Box::new(NOP {}),
         01 => Box::new(ACONST_NULL {}),

@@ -19,9 +19,9 @@ impl CodeAttribute {
 
     pub fn max_stack(&self) -> u16 { self.max_stack }
     pub fn max_locals(&self) -> u16 { self.max_locals }
-    pub fn code(&self) -> &Vec<u8> { self.code() }
-    pub fn exception_table(&self) -> &Vec<ExceptionTableEntry> { self.exception_table() }
-    pub fn attributes(&self) -> &Vec<AttributeInfo> { self.attributes() }
+    pub fn code(&self) -> &Vec<u8> { &self.code }
+    pub fn exception_table(&self) -> &Vec<ExceptionTableEntry> { &self.exception_table }
+    pub fn attributes(&self) -> &Vec<AttributeInfo> { &self.attributes }
 }
 
 pub struct ExceptionTableEntry {
