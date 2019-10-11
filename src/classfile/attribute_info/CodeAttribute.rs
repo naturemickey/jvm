@@ -7,7 +7,7 @@ pub struct CodeAttribute {
 }
 
 impl CodeAttribute {
-    fn new(reader: &mut ClassReader, cp: &ConstantPool) -> CodeAttribute {
+    fn new(reader: &mut ClassReader, cp: Arc<ConstantPool>) -> CodeAttribute {
         let max_stack = reader.read_u16();
         let max_locals = reader.read_u16();
         let code_length = reader.read_u32();

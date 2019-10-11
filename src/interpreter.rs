@@ -1,20 +1,21 @@
-
 use crate::classfile::MemberInfo;
 use crate::rtda::Thread;
 use crate::instructions::*;
 
-fn interpret(method_info: &MemberInfo) {
+pub fn interpret(method_info: &MemberInfo) {
     let code_attr = method_info.code_attribute().unwrap();
     let max_locals = code_attr.max_locals();
     let max_stack = code_attr.max_stack();
-    let bytecode = code_attr.code();
+    let bytecode = dbg!(code_attr.code());
 
     let mut thread = Thread::new();
     let frame = thread.new_frame(max_locals as usize, max_stack as usize);
     thread.push_frame(frame);
+
+    _loop(&mut thread, bytecode);
 }
 
-fn _loop(thread :&mut Thread, bytecode:&Vec<u8>) {
+fn _loop(thread: &mut Thread, bytecode: &Vec<u8>) {
     let mut frame = thread.pop_frame();
     let mut reader = BytecodeReader::new(bytecode, 0);
 

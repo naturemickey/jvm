@@ -12,21 +12,21 @@ pub enum AttributeInfo {
 }
 
 impl AttributeInfo {
-    fn read_attributes(reader: &mut ClassReader, cp: &ConstantPool) -> Vec<AttributeInfo> {
+    fn read_attributes(reader: &mut ClassReader, cp: Arc<ConstantPool>) -> Vec<AttributeInfo> {
         let count = reader.read_u16();
         let mut attributes = Vec::new();
         for _ in 0..count {
-            attributes.push(Self::read_attribute(reader, cp));
+            attributes.push(Self::read_attribute(reader, cp.clone()));
         }
         attributes
     }
-    fn read_attribute(reader: &mut ClassReader, cp: &ConstantPool) -> AttributeInfo {
+    fn read_attribute(reader: &mut ClassReader, cp: Arc<ConstantPool>) -> AttributeInfo {
         let attr_name_index = reader.read_u16();
         let attr_name = cp.get_utf8(attr_name_index);
         let attr_len = reader.read_u32();
-        Self::new(attr_name_index, attr_name, attr_len, reader, cp)
+        Self::new(attr_name_index, attr_name, attr_len, reader, cp.clone())
     }
-    fn new(name_index: u16, name: &str, length: u32, reader: &mut ClassReader, cp: &ConstantPool) -> AttributeInfo {
+    fn new(name_index: u16, name: &str, length: u32, reader: &mut ClassReader, cp: Arc<ConstantPool>) -> AttributeInfo {
         match name {
             "Code" => Self::Code(CodeAttribute::new(reader, cp)),
             "ConstantValue" => Self::ConstantValue(ConstantValueAttribute::new(reader)),

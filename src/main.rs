@@ -4,7 +4,7 @@ use java::cmd::Cmd;
 use java::classpath::Classpath;
 use java::util::file_util;
 use java::classfile::{ClassFile, MemberInfo};
-use java::rtda::Thread;
+use java::interpreter::*;
 
 fn main() {
     let cmd = Cmd::parse();
@@ -24,7 +24,7 @@ fn start_jvm(cmd: Cmd) {
 
     let class_name = file_util::classname_to_filename(&cmd.class);
 
-     println!("{}", class_name);
+    println!("{}", class_name);
 //    let class_data = classpath.read_class(class_name);
 //    match class_data {
 //        Some((data, _)) => println!("class data:{:?}", data),
@@ -33,11 +33,26 @@ fn start_jvm(cmd: Cmd) {
     let class_file = load_class(class_name, &classpath);
 
     print_class_info(&class_file);
+
+    let om = get_main_method(&class_file);
+    match om {
+        Some(m) => interpret(m),
+        None => println!("Main method not found in class {}", &cmd.class),
+    }
 }
 
 fn load_class(class_name: String, classpath: &Classpath) -> ClassFile {
     let (class_data, _) = classpath.read_class(class_name).unwrap();
     ClassFile::parse(class_data)
+}
+
+fn get_main_method(class_file: &ClassFile) -> Option<&MemberInfo> {
+    for m in class_file.methods() {
+        if m.name() == "main" && m.descriptor() == "([Ljava/lang/String;)V" {
+            return Some(dbg!(m));
+        }
+    }
+    None
 }
 
 fn print_class_info(class_file: &ClassFile) {
@@ -50,11 +65,11 @@ fn print_class_info(class_file: &ClassFile) {
     let fields = class_file.fields();
     println!("fields count: {}", fields.len());
     for field in fields {
-        println!("    {}", field.name(class_file.constant_pool()));
+        println!("    {}", field.name());
     }
     let methods = class_file.methods();
     println!("methods count: {}", methods.len());
     for method in methods {
-        println!("    {}", method.name(class_file.constant_pool()));
+        println!("    {}{}", method.name(), method.descriptor());
     }
 }
