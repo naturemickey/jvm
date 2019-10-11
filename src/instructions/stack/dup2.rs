@@ -23,7 +23,7 @@ impl Instruction for DUP2 {
 }
 
 impl Debug for DUP2 {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "()")
     }
 }

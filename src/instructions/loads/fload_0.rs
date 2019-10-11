@@ -8,7 +8,7 @@ impl Instruction for FLOAD_0 {
 }
 
 impl Debug for FLOAD_0 {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "()")
     }
 }

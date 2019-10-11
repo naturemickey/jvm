@@ -24,7 +24,7 @@ impl Instruction for FLOAD {
 }
 
 impl Debug for FLOAD {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "(index={})", self.index)
     }
 }

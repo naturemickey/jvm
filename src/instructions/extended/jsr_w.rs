@@ -2,7 +2,7 @@
 pub struct JSR_W {}
 
 impl Debug for JSR_W {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "()")
     }
 }

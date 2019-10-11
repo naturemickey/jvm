@@ -20,7 +20,7 @@ impl Instruction for GOTO_W {
 }
 
 impl Debug for GOTO_W {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "(offset={})", self.offset)
     }
 }

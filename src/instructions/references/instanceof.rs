@@ -2,7 +2,7 @@
 pub struct INSTANCE_OF {}
 
 impl Debug for INSTANCE_OF {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "()")
     }
 }

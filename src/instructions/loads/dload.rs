@@ -24,7 +24,7 @@ impl Instruction for DLOAD {
 }
 
 impl Debug for DLOAD {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "(index={})", self.index)
     }
 }

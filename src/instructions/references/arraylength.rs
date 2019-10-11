@@ -2,7 +2,7 @@
 pub struct ARRAY_LENGTH {}
 
 impl Debug for ARRAY_LENGTH {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "()")
     }
 }

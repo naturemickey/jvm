@@ -6,7 +6,7 @@ pub struct LOOKUP_SWITCH {
 }
 
 impl Debug for LOOKUP_SWITCH {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "(default_offset={}, npairs={}, match_offsets={:?})", self.default_offset, self.npairs, self.match_offsets)
     }
 }

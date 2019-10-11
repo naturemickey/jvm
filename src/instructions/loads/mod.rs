@@ -1,6 +1,6 @@
 use super::*;
 use std::fmt::Formatter;
-use std::error::Error;
+use std::fmt::Error;
 
 include!("aaload.rs");
 include!("aload.rs");

@@ -11,7 +11,7 @@ impl Instruction for D2F {
 }
 
 impl Debug for D2F {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "()")
     }
 }

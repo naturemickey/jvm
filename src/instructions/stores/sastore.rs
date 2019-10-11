@@ -2,7 +2,7 @@
 pub struct SASTORE {}
 
 impl Debug for SASTORE {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "()")
     }
 }

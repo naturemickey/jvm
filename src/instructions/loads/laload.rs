@@ -2,7 +2,7 @@
 pub struct LALOAD {}
 
 impl Debug for LALOAD {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "()")
     }
 }

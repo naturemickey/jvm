@@ -10,3 +10,12 @@ impl Clone for Slot {
         *self
     }
 }
+
+impl Debug for Slot {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        match self {
+            Self::Num(num) => write!(f, "Slot::Num({})", num),
+            Self::Ref(num) => write!(f, "Slot::Ref()"),
+        }
+    }
+}

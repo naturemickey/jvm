@@ -2,7 +2,7 @@
 pub struct SALOAD {}
 
 impl Debug for SALOAD {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "()")
     }
 }

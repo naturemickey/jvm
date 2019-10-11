@@ -21,7 +21,7 @@ impl Instruction for DUP_X1 {
 }
 
 impl Debug for DUP_X1 {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "()")
     }
 }

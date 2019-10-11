@@ -7,7 +7,7 @@ impl Instruction for LSTORE_0 {
     }
 }
 impl Debug for LSTORE_0 {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "()")
     }
 }

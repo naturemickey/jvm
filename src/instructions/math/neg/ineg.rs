@@ -10,7 +10,7 @@ impl Instruction for INEG {
 }
 
 impl Debug for INEG {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "()")
     }
 }

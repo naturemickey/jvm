@@ -8,7 +8,7 @@ impl Instruction for ASTORE_1 {
 }
 
 impl Debug for ASTORE_1 {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "()")
     }
 }

@@ -11,7 +11,7 @@ impl Instruction for LAND {
 }
 
 impl Debug for LAND {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "()")
     }
 }

@@ -24,7 +24,7 @@ impl Instruction for IINC {
 }
 
 impl Debug for IINC {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "(index={}, _const={})", self.index, self._const)
     }
 }

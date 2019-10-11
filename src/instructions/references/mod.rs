@@ -1,5 +1,5 @@
 use std::fmt::{Debug, Formatter};
-use std::error::Error;
+use std::fmt::Error;
 include!("anewarray.rs");
 include!("arraylength.rs");
 include!("athrow.rs");

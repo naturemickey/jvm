@@ -2,7 +2,7 @@
 pub struct PUT_FIELD {}
 
 impl Debug for PUT_FIELD {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "()")
     }
 }

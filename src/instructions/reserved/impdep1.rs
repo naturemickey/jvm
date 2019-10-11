@@ -2,7 +2,7 @@
 pub struct IMPDEP1 {}
 
 impl Debug for IMPDEP1 {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "()")
     }
 }

@@ -27,9 +27,12 @@ fn _loop(thread: &mut Thread, bytecode: &Vec<u8>) {
         let opcode = reader.read_u8();
 
         let mut inst = new_instruction(opcode);
-        dbg!(inst).fetch_operands(&mut reader);
+        inst.fetch_operands(&mut reader);
         frame.set_next_pc(reader.pc());
+
         // println!("pc:{}, inst:{}", pc, inst);
         inst.execute(&mut frame);
+
+        frame.operand_stack().dbg_print_top();
     }
 }

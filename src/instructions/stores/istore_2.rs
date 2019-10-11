@@ -7,7 +7,7 @@ impl Instruction for ISTORE_2 {
     }
 }
 impl Debug for ISTORE_2 {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "()")
     }
 }

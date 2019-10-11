@@ -107,6 +107,14 @@ impl OperandStack {
     pub fn pop_slot(&mut self) -> Slot {
         self.slots.pop().unwrap()
     }
+
+    pub fn dbg_print_top(&self) {
+        let top = self.slots.last();
+        match top {
+            Some(x) => Some(dbg!(x)),
+            None => None
+        };
+    }
 }
 
 #[test]

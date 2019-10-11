@@ -2,7 +2,7 @@
 pub struct INVOKE_SPECIAL {}
 
 impl Debug for INVOKE_SPECIAL {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "()")
     }
 }

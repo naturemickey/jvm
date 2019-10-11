@@ -4,7 +4,7 @@ pub struct WIDE {
 }
 
 impl Debug for WIDE {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         self.modified_instruction.as_ref().fmt(f)
     }
 }

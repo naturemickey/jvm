@@ -1,4 +1,4 @@
-
+use std::fmt::{Debug, Formatter, Error};
 include!("object.rs");
 include!("thread.rs");
 include!("stack.rs");

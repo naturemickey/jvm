@@ -2,7 +2,7 @@
 pub struct A_RETURN {}
 
 impl Debug for A_RETURN {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(),  Error> {
         write!(f, "()")
     }
 }

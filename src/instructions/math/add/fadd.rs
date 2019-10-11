@@ -11,7 +11,7 @@ impl Instruction for FADD {
 }
 
 impl Debug for FADD {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "()")
     }
 }

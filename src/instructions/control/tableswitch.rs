@@ -7,8 +7,8 @@ pub struct TABLE_SWITCH {
 }
 
 impl Debug for TABLE_SWITCH {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
-        write!(f, "(default_offset={}, low={}, high={}, jump_offsets={})", self.default_offset, self.low, self.high, self.jump_offsets)
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
+        write!(f, "(default_offset={}, low={}, high={}, jump_offsets={:?})", self.default_offset, self.low, self.high, self.jump_offsets)
     }
 }
 

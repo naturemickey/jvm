@@ -14,7 +14,7 @@ impl Instruction for IREM {
 }
 
 impl Debug for IREM {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), dyn Error> {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         write!(f, "()")
     }
 }
