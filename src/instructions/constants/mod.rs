@@ -1,6 +1,6 @@
 
 use super::*;
-use crate::rtda::NULL;
+use crate::rtda::heap::NULL;
 use std::fmt::{Formatter, Error};
 
 include!("nop.rs");

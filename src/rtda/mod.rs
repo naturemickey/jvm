@@ -1,5 +1,8 @@
 use std::fmt::{Debug, Formatter, Error};
-include!("object.rs");
+use crate::rtda::heap::Object;
+
+pub mod heap;
+
 include!("thread.rs");
 include!("stack.rs");
 include!("frame.rs");

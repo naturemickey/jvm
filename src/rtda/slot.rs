@@ -15,7 +15,7 @@ impl Debug for Slot {
     fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {
         match self {
             Self::Num(num) => write!(f, "Slot::Num({})", num),
-            Self::Ref(num) => write!(f, "Slot::Ref()"),
+            Self::Ref(_num) => write!(f, "Slot::Ref()"),
         }
     }
 }
