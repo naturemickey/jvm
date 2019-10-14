@@ -69,9 +69,26 @@ impl<'a> Class<'a> {
     pub fn package_name(&self) -> &str {
         match self.name.rfind("/") {
             Some(i) => {
-                self.name.get(.. i).unwrap()
-            },
+                self.name.get(..i).unwrap()
+            }
             None => "",
         }
+    }
+
+    pub fn get_main_method(&self) -> Option<&Method> {
+        self.get_static_method("main", "([Ljava/lang/String;)V")
+    }
+
+    pub fn get_static_method(&self, name: &str, descriptor: &str) -> Option<&Method> {
+        for method in &self.methods {
+            if method.is_static() && method.name() == name && method.descriptor() == descriptor {
+                return Some(method);
+            }
+        }
+        None
+    }
+
+    pub fn new_object(&self) -> Arc<Object> {
+        Object::new(self)
     }
 }

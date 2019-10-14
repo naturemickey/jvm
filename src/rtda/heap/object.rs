@@ -16,3 +16,9 @@ impl PartialEq for Object {
         (self as *const Self) == (other as *const Self)
     }
 }
+
+impl Object {
+    fn new(class: &Class) -> Arc<Object> {
+        unimplemented!()
+    }
+}
