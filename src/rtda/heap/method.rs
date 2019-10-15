@@ -47,7 +47,6 @@ impl<'a> Method<'a> {
         self.member.access_flags & ACC_STRICT != 0
     }
 
-
     fn is_public(&self) -> bool {
         self.member.is_public()
     }

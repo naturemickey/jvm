@@ -4,7 +4,7 @@ pub struct Class<'a> {
     super_class_name: &'a str,
     interface_names: Vec<&'a str>,
     constant_pool: Arc<ConstantPool>,
-    fields: Vec<Field>,
+    fields: Vec<Field<'a>>,
     methods: Vec<Method<'a>>,
     //    loader: &'a ClassLoader,
 //    super_class: &'a Class<'a>,
@@ -20,8 +20,8 @@ impl<'a> Class<'a> {
         let name = cf.class_name();
         let super_class_name = cf.super_class_name();
         let interface_names = cf.interface_names();
-        let fields = Field::new_fields();
-        let methods = Vec::new();
+        let fields = Vec::with_capacity(0);
+        let methods = Vec::with_capacity(0);
         // todo loader
         // todo super_class
         // todo interfaces
@@ -34,6 +34,7 @@ impl<'a> Class<'a> {
 
         let class:&mut Self = Arc::get_mut(&mut arc_class).unwrap();
         class.methods = methods;
+        class.fields = Field::new_fields();
 
         arc_class
     }
