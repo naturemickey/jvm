@@ -1,11 +1,11 @@
-struct Class<'a> {
+pub struct Class<'a> {
     access_flags: u16,
     name: &'a str,
     super_class_name: &'a str,
     interface_names: Vec<&'a str>,
     constant_pool: Arc<ConstantPool>,
     fields: Vec<Field>,
-    methods: Vec<Method>,
+    methods: Vec<Method<'a>>,
     //    loader: &'a ClassLoader,
 //    super_class: &'a Class<'a>,
 //    interfaces: Vec<&'a Class<'a>>,
@@ -15,20 +15,27 @@ struct Class<'a> {
 }
 
 impl<'a> Class<'a> {
-    pub fn new(cf: &'a ClassFile) -> Box<Class<'a>> {
+    pub fn new(cf: &'a ClassFile) -> Arc<Class<'a>> {
         let access_flags = cf.access_flags();
         let name = cf.class_name();
         let super_class_name = cf.super_class_name();
         let interface_names = cf.interface_names();
         let fields = Field::new_fields();
-        let methods = Method::new_methods();
+        let methods = Vec::new();
         // todo loader
         // todo super_class
         // todo interfaces
         // todo instance_slot_count
         // todo static_slot_count
         let static_vars = Slots::new();
-        Box::new(Self { access_flags, name, super_class_name, interface_names, constant_pool: cf.constant_pool(), fields, methods, static_vars })
+        let mut arc_class = Arc::new(Self { access_flags, name, super_class_name, interface_names, constant_pool: cf.constant_pool(), fields, methods, static_vars });
+
+        let methods = Method::new_methods(arc_class.clone(), cf.methods());
+
+        let class:&mut Self = Arc::get_mut(&mut arc_class).unwrap();
+        class.methods = methods;
+
+        arc_class
     }
 
     pub fn is_public(&self) -> bool {
@@ -90,5 +97,24 @@ impl<'a> Class<'a> {
 
     pub fn new_object(&self) -> Arc<Object> {
         Object::new(self)
+    }
+
+    pub fn is_assignable_from(&self, other: &Class) -> bool {
+        unimplemented!()
+    }
+    pub fn is_sub_class_of(&self, other: &Class) -> bool {
+        unimplemented!()
+    }
+    pub fn is_implements(&self, iface: &Class) -> bool {
+        unimplemented!()
+    }
+    pub fn is_sub_insterface_of(&self, iface: &Class) -> bool {
+        unimplemented!()
+    }
+}
+
+impl <'a> PartialEq for Class<'a> {
+    fn eq(&self, other: &Self) -> bool {
+        self.name == other.name // todo need to compare classloader
     }
 }

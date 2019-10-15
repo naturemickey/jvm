@@ -1,6 +1,8 @@
 use crate::classfile::MemberInfo;
 use crate::rtda::Thread;
 use crate::instructions::*;
+use std::sync::Arc;
+use std::borrow::Borrow;
 
 pub fn interpret(method_info: &MemberInfo) {
     let code_attr = method_info.code_attribute().unwrap();
@@ -15,9 +17,9 @@ pub fn interpret(method_info: &MemberInfo) {
     _loop(&mut thread, bytecode);
 }
 
-fn _loop(thread: &mut Thread, bytecode: &Vec<u8>) {
+fn _loop(thread: &mut Thread, bytecode: Arc<Vec<u8>>) {
     let mut frame = thread.pop_frame();
-    let mut reader = BytecodeReader::new(bytecode, 0);
+    let mut reader = BytecodeReader::new(bytecode.borrow(), 0);
 
     loop {
         let pc = frame.next_pc();

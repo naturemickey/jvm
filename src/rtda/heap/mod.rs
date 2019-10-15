@@ -1,7 +1,6 @@
-use crate::classfile::{ConstantPool, ClassFile};
+use crate::classfile::{ConstantPool, ClassFile, MemberInfo};
 use std::sync::Arc;
-use crate::rtda::Slot;
-use std::ops::Index;
+use std::borrow::{Borrow, BorrowMut};
 
 include!("object.rs");
 include!("class.rs");

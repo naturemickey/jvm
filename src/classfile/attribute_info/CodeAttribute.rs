@@ -1,7 +1,7 @@
 pub struct CodeAttribute {
     max_stack: u16,
     max_locals: u16,
-    code: Vec<u8>,
+    code: Arc<Vec<u8>>,
     exception_table: Vec<ExceptionTableEntry>,
     attributes: Vec<AttributeInfo>,
 }
@@ -11,7 +11,7 @@ impl CodeAttribute {
         let max_stack = reader.read_u16();
         let max_locals = reader.read_u16();
         let code_length = reader.read_u32();
-        let code = reader.read_bytes(code_length);
+        let code = Arc::new(reader.read_bytes(code_length));
         let exception_table = ExceptionTableEntry::read_exception_table(reader);
         let attributes = AttributeInfo::read_attributes(reader, cp);
         Self { max_stack, max_locals, code, exception_table, attributes }
@@ -19,7 +19,7 @@ impl CodeAttribute {
 
     pub fn max_stack(&self) -> u16 { self.max_stack }
     pub fn max_locals(&self) -> u16 { self.max_locals }
-    pub fn code(&self) -> &Vec<u8> { &self.code }
+    pub fn code(&self) -> Arc<Vec<u8>> { self.code.clone() }
     pub fn exception_table(&self) -> &Vec<ExceptionTableEntry> { &self.exception_table }
     pub fn attributes(&self) -> &Vec<AttributeInfo> { &self.attributes }
 }
