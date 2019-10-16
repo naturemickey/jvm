@@ -46,6 +46,16 @@ impl MemberInfo {
         }
         None
     }
+
+    pub fn constant_value_attribute(&self) -> Option<&ConstantValueAttribute> {
+        for attr in &self.attributes {
+            match attr {
+                AttributeInfo::ConstantValue(cva) => return Some(cva),
+                _ => {}
+            };
+        }
+        None
+    }
 }
 
 impl Debug for MemberInfo {

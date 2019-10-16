@@ -6,7 +6,7 @@ impl ConstantValueAttribute {
     fn new(reader: &mut ClassReader) -> ConstantValueAttribute {
         Self { value_index: reader.read_u16() }
     }
-    fn value_index(&self) -> u16 {
+    pub fn value_index(&self) -> u16 {
         self.value_index
     }
 }

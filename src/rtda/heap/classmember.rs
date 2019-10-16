@@ -6,11 +6,11 @@ struct ClassMember<'a> {
 }
 
 impl<'a> ClassMember<'a> {
-    fn new(class: Arc<Class<'a>>, cf_method: &'a MemberInfo) -> ClassMember<'a> {
-        let access_flags = cf_method.access_flgs();
-        let name = cf_method.name();
-        let descriptor = cf_method.descriptor();
-        Self { access_flags, name, descriptor, class }
+    fn new(arc_class: Arc<Class<'a>>, member_info: &'a MemberInfo) -> ClassMember<'a> {
+        let access_flags = member_info.access_flgs();
+        let name = member_info.name();
+        let descriptor = member_info.descriptor();
+        Self { access_flags, name, descriptor, class: arc_class }
     }
 
     fn is_public(&self) -> bool {

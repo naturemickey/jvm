@@ -31,10 +31,11 @@ impl<'a> Class<'a> {
         let mut arc_class = Arc::new(Self { access_flags, name, super_class_name, interface_names, constant_pool: cf.constant_pool(), fields, methods, static_vars });
 
         let methods = Method::new_methods(arc_class.clone(), cf.methods());
+        let fields = Field::new_fields(arc_class.clone(), cf.fields());
 
-        let class:&mut Self = Arc::get_mut(&mut arc_class).unwrap();
+        let class: &mut Self = Arc::get_mut(&mut arc_class).unwrap();
         class.methods = methods;
-        class.fields = Field::new_fields();
+        class.fields = fields;
 
         arc_class
     }
@@ -114,7 +115,7 @@ impl<'a> Class<'a> {
     }
 }
 
-impl <'a> PartialEq for Class<'a> {
+impl<'a> PartialEq for Class<'a> {
     fn eq(&self, other: &Self) -> bool {
         self.name == other.name // todo need to compare classloader
     }
