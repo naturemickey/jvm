@@ -18,6 +18,25 @@ impl<'a> Field<'a> {
         fields
     }
 
+    fn const_value_index(&self) -> u16 {
+        self.const_value_index
+    }
+    fn slot_id(&self) -> usize {
+        self.slot_id
+    }
+    fn is_long_or_double(&self) -> bool {
+        self.descriptor() == "J" || self.descriptor() == "D"
+    }
+
+    fn is_volatile(&self) -> bool {
+        self.member.access_flags & ACC_VOLATILE != 0
+    }
+    fn is_transient(&self) -> bool {
+        self.member.access_flags & ACC_TRANSIENT != 0
+    }
+    fn is_enum(&self) -> bool {
+        self.member.access_flags & ACC_ENUM != 0
+    }
 
     fn is_public(&self) -> bool {
         self.member.is_public()
