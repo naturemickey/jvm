@@ -6,7 +6,7 @@ pub struct Class<'a> {
     constant_pool: Arc<ConstantPool>,
     fields: Vec<Field<'a>>,
     methods: Vec<Method<'a>>,
-    //    loader: &'a ClassLoader,
+//    loader: &'a ClassLoader,
 //    super_class: &'a Class<'a>,
 //    interfaces: Vec<&'a Class<'a>>,
 //    instance_slot_count: usize,
