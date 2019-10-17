@@ -3,7 +3,7 @@ pub struct Class<'a> {
     name: &'a str,
     super_class_name: &'a str,
     interface_names: Vec<&'a str>,
-    constant_pool: Arc<ConstantPool<'a>>,
+    constant_pool: Arc<ConstantPool>,
     fields: Vec<Field<'a>>,
     methods: Vec<Method<'a>>,
 //    loader: &'a ClassLoader,
@@ -20,7 +20,7 @@ impl<'a> Class<'a> {
         let name = cf.class_name();
         let super_class_name = cf.super_class_name();
         let interface_names = cf.interface_names();
-        let constant_pool = ConstantPool::new()
+        let constant_pool = Arc::new(ConstantPool::new(cf.constant_pool()));
         let fields = Vec::with_capacity(0);
         let methods = Vec::with_capacity(0);
         // todo loader
@@ -29,7 +29,7 @@ impl<'a> Class<'a> {
         // todo instance_slot_count
         // todo static_slot_count
         let static_vars = Slots::new();
-        let mut arc_class = Arc::new(Self { access_flags, name, super_class_name, interface_names, constant_pool: cf.constant_pool(), fields, methods, static_vars });
+        let mut arc_class = Arc::new(Self { access_flags, name, super_class_name, interface_names, constant_pool, fields, methods, static_vars });
 
         let methods = Method::new_methods(arc_class.clone(), cf.methods());
         let fields = Field::new_fields(arc_class.clone(), cf.fields());
