@@ -1,4 +1,5 @@
-use crate::classfile::{ConstantPool, ClassFile, MemberInfo};
+use crate::classfile;
+use crate::classfile::{ClassFile, MemberInfo};
 use std::sync::Arc;
 use std::borrow::{Borrow, BorrowMut};
 
@@ -10,6 +11,8 @@ include!("access_flags.rs");
 include!("field.rs");
 include!("method.rs");
 include!("classmember.rs");
+
+include!("cp/constant.rs");
 include!("cp/classref.rs");
 include!("cp/constant_pool.rs");
 include!("cp/fieldref.rs");

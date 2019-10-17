@@ -3,7 +3,7 @@ pub struct Class<'a> {
     name: &'a str,
     super_class_name: &'a str,
     interface_names: Vec<&'a str>,
-    constant_pool: Arc<ConstantPool>,
+    constant_pool: Arc<ConstantPool<'a>>,
     fields: Vec<Field<'a>>,
     methods: Vec<Method<'a>>,
 //    loader: &'a ClassLoader,
@@ -20,6 +20,7 @@ impl<'a> Class<'a> {
         let name = cf.class_name();
         let super_class_name = cf.super_class_name();
         let interface_names = cf.interface_names();
+        let constant_pool = ConstantPool::new()
         let fields = Vec::with_capacity(0);
         let methods = Vec::with_capacity(0);
         // todo loader
