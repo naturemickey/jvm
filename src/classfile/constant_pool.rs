@@ -1,16 +1,16 @@
 pub struct ConstantPool {
-    constant_info_s: Vec<ConstantInfo>
+    constant_infos: Vec<ConstantInfo>
 }
 
 impl ConstantPool {
     fn read_constant_pool(reader: &mut ClassReader) -> ConstantPool {
         let cp_count = reader.read_u16();
-        let mut constant_info_s: Vec<ConstantInfo> = Vec::new();
+        let mut constant_infos: Vec<ConstantInfo> = Vec::new();
 
         //println!("debug log : cp_count is {}", cp_count);
 
         // 索引从1开始
-        constant_info_s.push(ConstantInfo::Empty);
+        constant_infos.push(ConstantInfo::Empty);
         let mut i = 1u16;
         while i < cp_count {
             //println!("debug log : cp_index is {}", i);
@@ -18,27 +18,27 @@ impl ConstantPool {
             let constant_info = ConstantInfo::read_constant_info(reader);
             match &constant_info {
                 ConstantInfo::Long(_) => {
-                    constant_info_s.push(ConstantInfo::Empty);
+                    constant_infos.push(ConstantInfo::Empty);
                     i += 1;
                     //println!("debug log : ConstantInfo::Long");
                 }
                 ConstantInfo::Double(_) => {
-                    constant_info_s.push(ConstantInfo::Empty);
+                    constant_infos.push(ConstantInfo::Empty);
                     i += 1;
                     //println!("debug log : ConstantInfo::Double");
                 }
                 _ => {}
             }
-            constant_info_s.push(constant_info);
+            constant_infos.push(constant_info);
 
             i += 1;
         }
 
-        ConstantPool { constant_info_s }
+        ConstantPool { constant_infos }
     }
 
-    fn get_constant_info(&self, index: u16) -> &ConstantInfo {
-        self.constant_info_s.get(index as usize).unwrap()
+    pub fn get_constant_info(&self, index: u16) -> &ConstantInfo {
+        self.constant_infos.get(index as usize).unwrap()
     }
 
     fn name_and_type(&self, index: u16) -> (&str, &str) {
@@ -72,7 +72,7 @@ impl ConstantPool {
         }
     }
 
-    pub fn constants_count(&self) -> usize {
-        self.constant_info_s.len()
+    pub fn constants_count(&self) -> u16 {
+        self.constant_infos.len() as u16
     }
 }

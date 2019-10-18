@@ -1,9 +1,13 @@
 struct ConstantLongInfo {
-    integer64: i64,
+    value: i64,
 }
 
 impl ConstantLongInfo {
     fn new(reader: &mut ClassReader) -> ConstantLongInfo {
-        Self { integer64: reader.read_u64() as i64 }
+        Self { value: reader.read_u64() as i64 }
+    }
+
+    pub fn value(&self) -> i64 {
+        self.value
     }
 }

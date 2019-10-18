@@ -1,9 +1,13 @@
 struct ConstantDoubleInfo {
-    float64: f64,
+    value: f64,
 }
 
 impl ConstantDoubleInfo {
     fn new(reader: &mut ClassReader) -> ConstantDoubleInfo {
-        Self { float64: f64::from_bits(reader.read_u64()) }
+        Self { value: f64::from_bits(reader.read_u64()) }
+    }
+
+    pub fn value(&self) -> f64 {
+        self.value
     }
 }

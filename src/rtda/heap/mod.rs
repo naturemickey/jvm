@@ -1,5 +1,5 @@
 use crate::classfile;
-use crate::classfile::{ClassFile, MemberInfo};
+use crate::classfile::{ClassFile, MemberInfo, ConstantInfo};
 use std::sync::Arc;
 use std::borrow::{Borrow, BorrowMut};
 

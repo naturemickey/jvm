@@ -16,7 +16,7 @@ const CONSTANT_INVOKE_DYNAMIC______: u8 = 18;
 const CONSTANT_MODULE______________: u8 = 19;
 const CONSTANT_PACKAGE_____________: u8 = 20;
 
-enum ConstantInfo {
+pub enum ConstantInfo {
     Empty,
     Utf8(ConstantUtf8Info),
     Integer(ConstantIntegerInfo),
