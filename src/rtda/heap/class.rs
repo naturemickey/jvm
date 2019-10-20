@@ -3,7 +3,7 @@ pub struct Class<'a> {
     name: &'a str,
     super_class_name: &'a str,
     interface_names: Vec<&'a str>,
-    constant_pool: Arc<ConstantPool>,
+    constant_pool: Arc<ConstantPool<'a>>,
     fields: Vec<Field<'a>>,
     methods: Vec<Method<'a>>,
 //    loader: &'a ClassLoader,

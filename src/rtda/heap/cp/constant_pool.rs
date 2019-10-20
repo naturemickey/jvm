@@ -1,10 +1,10 @@
-pub struct ConstantPool {
-    // class: &'a Class<'a>,
+pub struct ConstantPool<'a> {
+     class: &'a Class<'a>,
     consts: Vec<Constant>,
 }
 
-impl ConstantPool {
-    fn new(cf_cp: Arc<classfile::ConstantPool>) -> ConstantPool {
+impl<'a> ConstantPool <'a> {
+    fn new(cf_cp: Arc<classfile::ConstantPool>, class:&'a Class<'a>) -> ConstantPool {
         let cp_count = cf_cp.constants_count();
         let mut consts = Vec::with_capacity(cp_count as usize);
         let mut i = 1;
@@ -22,22 +22,22 @@ impl ConstantPool {
                     Constant::Double(info.value())
                 }
                 ConstantInfo::String(info) => Constant::String(info.string(cf_cp.borrow()).to_string()),
-                ConstantInfo::Class(info) => {}
-                ConstantInfo::FieldRef(info) => {}
-                ConstantInfo::MethodRef(info) => {}
-                ConstantInfo::InterfaceMethodRef(info) => {}
-                ConstantInfo::Utf8(info) => {}
-                ConstantInfo::NameAndType(info) => {}
-                ConstantInfo::MethodHandle(info) => {}
-                ConstantInfo::MethodType(info) => {}
-                ConstantInfo::Dynamic(info) => {}
-                ConstantInfo::InvokeDynamic(info) => {}
-                ConstantInfo::Module(info) => {}
-                ConstantInfo::Package(info) => {}
-                ConstantInfo::Empty => {}
+                ConstantInfo::Class(info) => {unimplemented!()}
+                ConstantInfo::FieldRef(info) => {unimplemented!()}
+                ConstantInfo::MethodRef(info) => {unimplemented!()}
+                ConstantInfo::InterfaceMethodRef(info) => {unimplemented!()}
+                ConstantInfo::Utf8(info) => {unimplemented!()}
+                ConstantInfo::NameAndType(info) => {unimplemented!()}
+                ConstantInfo::MethodHandle(info) => {unimplemented!()}
+                ConstantInfo::MethodType(info) => {unimplemented!()}
+                ConstantInfo::Dynamic(info) => {unimplemented!()}
+                ConstantInfo::InvokeDynamic(info) => {unimplemented!()}
+                ConstantInfo::Module(info) => {unimplemented!()}
+                ConstantInfo::Package(info) => {unimplemented!()}
+                ConstantInfo::Empty => {unimplemented!()}
             };
             i += more;
         }
-        consts
+        Self{class, consts}
     }
 }
