@@ -7,7 +7,9 @@
   <component name="ChangeListManager">
     <list default="true" id="49ff3ef2-99c0-4972-84de-2a7e2714ca46" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/instructions/instruction.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/instructions/instruction.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rtda/heap/class.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/rtda/heap/class.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rtda/heap/cp/constant_pool.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/rtda/heap/cp/constant_pool.rs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rtda/heap/cp/symref.rs" beforeDir="false" afterPath="$PROJECT_DIR$/src/rtda/heap/cp/symref.rs" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -37,6 +39,7 @@
     <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="org.rust.cargo.project.model.PROJECT_DISCOVERY" value="true" />
     <property name="org.rust.hideDetachedFileNotificationsD:/GitHub/jvm/src/cmd.rs" value="true" />
@@ -48,6 +51,7 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\GitHub\jvm\src\rtda\heap" />
       <recent name="D:\GitHub\jvm\src\classfile\attribute_info" />
       <recent name="D:\GitHub\jvm\src\classfile\constantinfo" />
       <recent name="D:\GitHub\jvm\src\classFile" />
@@ -114,5 +118,8 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
   </component>
 </project>
