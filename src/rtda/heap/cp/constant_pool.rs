@@ -21,7 +21,7 @@ impl<'a> ConstantPool<'a> {
                     more = 2;
                     Constant::Double(info.value())
                 }
-                ConstantInfo::String(info) => Constant::String(info.string(cf_cp.borrow()).to_string()),
+                ConstantInfo::String(info) => Constant::String(info.string().to_string()),
                 ConstantInfo::Class(info) => { unimplemented!() }
                 ConstantInfo::FieldRef(info) => { unimplemented!() }
                 ConstantInfo::MethodRef(info) => { unimplemented!() }
@@ -43,5 +43,12 @@ impl<'a> ConstantPool<'a> {
 
     fn set_class(&mut self, class: Option<Arc<Class<'a>>>) {
         self.class = class;
+    }
+
+    fn class(&'a self) -> Arc<Class<'a>> {
+        match &self.class {
+            Some(c) => c.clone(),
+            None => panic!("impossible.")
+        }
     }
 }

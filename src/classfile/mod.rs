@@ -1,5 +1,6 @@
 use std::fmt::{Debug, Formatter, Error};
 use std::sync::Arc;
+use std::borrow::{Borrow, BorrowMut};
 include!("class_reader.rs");
 include!("class_file.rs");
 include!("constant_pool.rs");

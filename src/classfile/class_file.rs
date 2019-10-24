@@ -23,7 +23,7 @@ impl ClassFile {
     fn read(reader: &mut ClassReader) -> ClassFile {
         let _magic = ClassFile::read_and_check_magic(reader);
         let (minor_version, major_version) = ClassFile::read_and_check_version(reader);
-        let cp = Arc::new(ConstantPool::read_constant_pool(reader));
+        let cp = ConstantPool::read_constant_pool(reader);
         let access_flags = reader.read_u16();
         let this_class = reader.read_u16();
         let super_class = reader.read_u16();

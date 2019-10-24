@@ -18,6 +18,8 @@ impl<'a> SymRef<'a> {
     }
 
     fn resoved_class_ref(&mut self) -> &'a Class<'a> {
+//        let d = self.cp.class();
+//        let c = d.lo
         unimplemented!()
     }
 }

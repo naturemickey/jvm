@@ -3,9 +3,13 @@ pub struct ConstantPool {
 }
 
 impl ConstantPool {
-    fn read_constant_pool(reader: &mut ClassReader) -> ConstantPool {
+    fn read_constant_pool(reader: &mut ClassReader) -> Arc<ConstantPool> {
         let cp_count = reader.read_u16();
-        let mut constant_infos: Vec<ConstantInfo> = Vec::new();
+
+        let mut cp = Arc::new(ConstantPool { constant_infos: Vec::with_capacity(0) });
+
+
+        let mut constant_infos = Vec::with_capacity(cp_count as usize);
 
         //println!("debug log : cp_count is {}", cp_count);
 
@@ -15,7 +19,7 @@ impl ConstantPool {
         while i < cp_count {
             //println!("debug log : cp_index is {}", i);
 
-            let constant_info = ConstantInfo::read_constant_info(reader);
+            let constant_info = ConstantInfo::read_constant_info(reader, cp.clone());
             match &constant_info {
                 ConstantInfo::Long(_) => {
                     constant_infos.push(ConstantInfo::Empty);
@@ -34,7 +38,9 @@ impl ConstantPool {
             i += 1;
         }
 
-        ConstantPool { constant_infos }
+        Arc::get_mut(&mut cp).unwrap().constant_infos = constant_infos;
+
+        cp
     }
 
     pub fn get_constant_info(&self, index: u16) -> &ConstantInfo {
@@ -58,7 +64,7 @@ impl ConstantPool {
         let constant_info = self.get_constant_info(class_index);
 
         match constant_info {
-            ConstantInfo::Class(info) => info.name(self),
+            ConstantInfo::Class(info) => info.name(),
             _ => panic!("impossible.")
         }
     }

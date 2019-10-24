@@ -38,21 +38,21 @@ pub enum ConstantInfo {
 }
 
 impl ConstantInfo {
-    fn read_constant_info(reader: &mut ClassReader) -> ConstantInfo {
+    fn read_constant_info(reader: &mut ClassReader, cp: Arc<ConstantPool>) -> ConstantInfo {
         let tag = reader.read_u8();
-        Self::new_constant_info(tag, reader)
+        Self::new_constant_info(tag, reader, cp.clone())
     }
 
-    fn new_constant_info(tag: u8, reader: &mut ClassReader) -> ConstantInfo {
+    fn new_constant_info(tag: u8, reader: &mut ClassReader, cp: Arc<ConstantPool>) -> ConstantInfo {
         match tag {
             CONSTANT_UTF8________________ => Self::Utf8(ConstantUtf8Info::new(reader)),
             CONSTANT_INTEGER_____________ => Self::Integer(ConstantIntegerInfo::new(reader)),
             CONSTANT_FLOAT_______________ => Self::Float(ConstantFloatInfo::new(reader)),
             CONSTANT_LONG________________ => Self::Long(ConstantLongInfo::new(reader)),
             CONSTANT_DOUBLE______________ => Self::Double(ConstantDoubleInfo::new(reader)),
-            CONSTANT_CLASS_______________ => Self::Class(ConstantClassInfo::new(reader)),
-            CONSTANT_STRING______________ => Self::String(ConstantStringInfo::new(reader)),
-            CONSTANT_FIELD_REF___________ => Self::FieldRef(ConstantFieldrefInfo::new(reader)),
+            CONSTANT_CLASS_______________ => Self::Class(ConstantClassInfo::new(reader, cp.clone())),
+            CONSTANT_STRING______________ => Self::String(ConstantStringInfo::new(reader, cp.clone())),
+            CONSTANT_FIELD_REF___________ => Self::FieldRef(ConstantFieldrefInfo::new(reader, cp.clone())),
             CONSTANT_METHOD_REF__________ => Self::MethodRef(ConstantMethodrefInfo::new(reader)),
             CONSTANT_INTERFACE_METHOD_REF => Self::InterfaceMethodRef(ConstantInterfaceMethodrefInfo::new(reader)),
             CONSTANT_NAME_AND_TYPE_______ => Self::NameAndType(ConstantNameAndTypeInfo::new(reader)),
