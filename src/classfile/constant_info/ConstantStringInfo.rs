@@ -1,4 +1,4 @@
-struct ConstantStringInfo {
+pub struct ConstantStringInfo {
     string_index: u16,
 }
 

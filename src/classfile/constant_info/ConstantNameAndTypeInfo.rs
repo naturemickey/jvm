@@ -1,4 +1,4 @@
-struct ConstantNameAndTypeInfo {
+pub struct ConstantNameAndTypeInfo {
     name_index: u16,
     descriptor_index: u16,
 }

@@ -1,4 +1,4 @@
-struct ConstantMethodrefInfo {
+pub struct ConstantMethodrefInfo {
     member: ConstantMemberrefInfo,
 }
 

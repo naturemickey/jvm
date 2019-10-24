@@ -1,4 +1,4 @@
-struct ConstantFloatInfo {
+pub struct ConstantFloatInfo {
     value: f32,
 }
 

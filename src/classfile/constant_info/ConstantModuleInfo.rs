@@ -1,4 +1,4 @@
-struct ConstantModuleInfo {
+pub struct ConstantModuleInfo {
     name_index: u16
 }
 

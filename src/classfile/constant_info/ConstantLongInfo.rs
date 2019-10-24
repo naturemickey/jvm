@@ -1,4 +1,4 @@
-struct ConstantLongInfo {
+pub struct ConstantLongInfo {
     value: i64,
 }
 

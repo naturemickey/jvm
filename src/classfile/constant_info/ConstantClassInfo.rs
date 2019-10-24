@@ -1,4 +1,4 @@
-struct ConstantClassInfo {
+pub struct ConstantClassInfo {
     string_info: ConstantStringInfo,
 }
 

@@ -1,4 +1,4 @@
-struct ConstantUtf8Info {
+pub struct ConstantUtf8Info {
     string: String,
 }
 

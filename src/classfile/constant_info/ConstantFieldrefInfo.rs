@@ -1,4 +1,4 @@
-struct ConstantFieldrefInfo {
+pub struct ConstantFieldrefInfo {
     member: ConstantMemberrefInfo,
 }
 

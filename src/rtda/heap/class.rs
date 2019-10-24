@@ -20,7 +20,7 @@ impl<'a> Class<'a> {
         let name = cf.class_name();
         let super_class_name = cf.super_class_name();
         let interface_names = cf.interface_names();
-        let constant_pool = Arc::new(ConstantPool::new(cf.constant_pool()));
+        let mut constant_pool = Arc::new(ConstantPool::new(cf.constant_pool(),None));
         let fields = Vec::with_capacity(0);
         let methods = Vec::with_capacity(0);
         // todo loader
@@ -29,7 +29,9 @@ impl<'a> Class<'a> {
         // todo instance_slot_count
         // todo static_slot_count
         let static_vars = Slots::new();
-        let mut arc_class = Arc::new(Self { access_flags, name, super_class_name, interface_names, constant_pool, fields, methods, static_vars });
+        let mut arc_class = Arc::new(Self { access_flags, name, super_class_name, interface_names, constant_pool:constant_pool.clone(), fields, methods, static_vars });
+
+        Arc::get_mut(&mut constant_pool).unwrap().set_class(Some(arc_class.clone()));
 
         let methods = Method::new_methods(arc_class.clone(), cf.methods());
         let fields = Field::new_fields(arc_class.clone(), cf.fields());

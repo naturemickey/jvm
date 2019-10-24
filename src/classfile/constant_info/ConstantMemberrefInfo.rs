@@ -1,4 +1,4 @@
-struct ConstantMemberrefInfo {
+pub struct ConstantMemberrefInfo {
     class_index: u16,
     name_and_type_index: u16,
 }

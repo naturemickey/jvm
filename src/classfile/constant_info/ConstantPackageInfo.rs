@@ -1,4 +1,4 @@
-struct ConstantPackageInfo {
+pub struct ConstantPackageInfo {
     name_index: u16
 }
 

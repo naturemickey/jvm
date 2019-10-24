@@ -1,4 +1,4 @@
-struct ConstantIntegerInfo {
+pub struct ConstantIntegerInfo {
     value: i32,
 }
 

@@ -1,4 +1,4 @@
-struct ConstantMethodTypeInfo {
+pub struct ConstantMethodTypeInfo {
     descriptor_index: u16
 }
 

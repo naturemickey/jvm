@@ -1,4 +1,4 @@
-struct ConstantDoubleInfo {
+pub struct ConstantDoubleInfo {
     value: f64,
 }
 

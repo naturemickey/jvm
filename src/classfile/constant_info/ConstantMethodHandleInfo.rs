@@ -1,4 +1,4 @@
-struct ConstantMethodHandleInfo {
+pub struct ConstantMethodHandleInfo {
     reference_kind: u8,
     reference_index: u16,
 }
