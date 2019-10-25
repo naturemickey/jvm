@@ -10,10 +10,10 @@ impl ConstantMemberrefInfo {
         let name_and_type_index = reader.read_u16();
         Self { class_index, name_and_type_index, cp: cp.clone() }
     }
-    fn class_name<'a>(&'a self) -> &'a str {
+    pub fn class_name<'a>(&'a self) -> &'a str {
         self.cp.class_name(self.class_index)
     }
-    fn name_and_descriptor<'a>(&'a self) -> (&'a str, &'a str) {
+    pub fn name_and_descriptor<'a>(&'a self) -> (&'a str, &'a str) {
         self.cp.name_and_type(self.name_and_type_index)
     }
 }
