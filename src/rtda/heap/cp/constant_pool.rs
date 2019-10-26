@@ -36,6 +36,7 @@ impl<'a> ConstantPool<'a> {
                 ConstantInfo::Package(info) => { unimplemented!() }
                 ConstantInfo::Empty => { unimplemented!() }
             };
+            consts.push(const_);
             i += more;
         }
         Self { class, consts }

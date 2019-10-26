@@ -19,4 +19,12 @@ impl<'a> MemberRef<'a> {
     pub fn descriptor(&self) -> &str {
         self.descriptor
     }
+
+    fn cp(&'a self) -> Arc<ConstantPool<'a>> {
+        self.sym.cp.clone()
+    }
+
+    fn resoved_class(&'a mut self) -> &'a Class<'a> {
+        self.sym.resoved_class()
+    }
 }

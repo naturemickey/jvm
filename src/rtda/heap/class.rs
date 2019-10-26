@@ -6,7 +6,7 @@ pub struct Class<'a> {
     constant_pool: Arc<ConstantPool<'a>>,
     fields: Vec<Field<'a>>,
     methods: Vec<Method<'a>>,
-//    loader: &'a ClassLoader,
+    //    loader: &'a ClassLoader,
 //    super_class: &'a Class<'a>,
 //    interfaces: Vec<&'a Class<'a>>,
 //    instance_slot_count: usize,
@@ -20,7 +20,7 @@ impl<'a> Class<'a> {
         let name = cf.class_name();
         let super_class_name = cf.super_class_name();
         let interface_names = cf.interface_names();
-        let mut constant_pool = Arc::new(ConstantPool::new(cf.constant_pool(),None));
+        let mut constant_pool = Arc::new(ConstantPool::new(cf.constant_pool(), None));
         let fields = Vec::with_capacity(0);
         let methods = Vec::with_capacity(0);
         // todo loader
@@ -29,7 +29,7 @@ impl<'a> Class<'a> {
         // todo instance_slot_count
         // todo static_slot_count
         let static_vars = Slots::new();
-        let mut arc_class = Arc::new(Self { access_flags, name, super_class_name, interface_names, constant_pool:constant_pool.clone(), fields, methods, static_vars });
+        let mut arc_class = Arc::new(Self { access_flags, name, super_class_name, interface_names, constant_pool: constant_pool.clone(), fields, methods, static_vars });
 
         Arc::get_mut(&mut constant_pool).unwrap().set_class(Some(arc_class.clone()));
 
@@ -68,14 +68,14 @@ impl<'a> Class<'a> {
         self.access_flags & ACC_ENUM != 0
     }
 
-    pub fn constant_pool(&self) -> Arc<ConstantPool> {
+    pub fn constant_pool(&'a self) -> Arc<ConstantPool<'a>> {
         self.constant_pool.clone()
     }
     fn static_vars(&self) -> &Slots {
         &self.static_vars
     }
 
-    pub fn is_accessible_to(&self, other: &Class) -> bool {
+    pub fn is_accessible_to(&'a self, other: &'a Class<'a>) -> bool {
         self.is_public() || self.package_name() == other.package_name()
     }
     pub fn package_name(&self) -> &str {
@@ -87,11 +87,11 @@ impl<'a> Class<'a> {
         }
     }
 
-    pub fn get_main_method(&self) -> Option<&Method> {
+    pub fn get_main_method(&'a self) -> Option<&'a Method<'a>> {
         self.get_static_method("main", "([Ljava/lang/String;)V")
     }
 
-    pub fn get_static_method(&self, name: &str, descriptor: &str) -> Option<&Method> {
+    pub fn get_static_method(&'a self, name: &'a str, descriptor: &'a str) -> Option<&'a Method<'a>> {
         for method in &self.methods {
             if method.is_static() && method.name() == name && method.descriptor() == descriptor {
                 return Some(method);
@@ -104,22 +104,22 @@ impl<'a> Class<'a> {
         Object::new(self)
     }
 
-    pub fn is_assignable_from(&self, other: &Class) -> bool {
+    pub fn is_assignable_from(&'a self, other: &'a Class<'a>) -> bool {
         unimplemented!()
     }
-    pub fn is_sub_class_of(&self, other: &Class) -> bool {
+    pub fn is_sub_class_of(&'a self, other: &'a Class<'a>) -> bool {
         unimplemented!()
     }
-    pub fn is_implements(&self, iface: &Class) -> bool {
+    pub fn is_implements(&'a self, iface: &'a Class<'a>) -> bool {
         unimplemented!()
     }
-    pub fn is_sub_insterface_of(&self, iface: &Class) -> bool {
+    pub fn is_sub_insterface_of(&'a self, iface: &'a Class<'a>) -> bool {
         unimplemented!()
     }
 }
 
 impl<'a> PartialEq for Class<'a> {
-    fn eq(&self, other: &Self) -> bool {
+    fn eq(&self, other: &Class<'a>) -> bool {
         self.name == other.name // todo need to compare classloader
     }
 }
