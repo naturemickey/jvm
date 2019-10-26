@@ -65,4 +65,7 @@ impl<'a> Field<'a> {
     fn is_accessible_to(&'a self, d: &'a Class<'a>) -> bool {
         self.member.is_accessible_to(d)
     }
+    fn is_accessible_to2(&'a self, d: Arc<Class<'a>>) -> bool {
+        self.member.is_accessible_to(d.borrow())
+    }
 }
