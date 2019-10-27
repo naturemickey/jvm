@@ -24,7 +24,7 @@ impl<'a> MemberRef<'a> {
         self.sym.cp.clone()
     }
 
-    fn resoved_class(&'a mut self) -> &'a Class<'a> {
+    fn resoved_class(&'a mut self) -> Arc<Class<'a>> {
         self.sym.resoved_class()
     }
 }

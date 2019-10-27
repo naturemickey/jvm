@@ -48,8 +48,8 @@ impl<'a> FieldRef<'a> {
     }
 
     fn lookup_field(&'a mut self) -> Option<Arc<Field<'a>>> {
-//         let c = self.member.resoved_class();
-//        let name = self.member.name();
+         let c = {self.member.resoved_class().clone()};
+        let name = self.member.name();
 //        let descriptor = self.member.descriptor();
 //        panic!("todo")
         unimplemented!()

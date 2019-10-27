@@ -2,7 +2,7 @@
 struct SymRef<'a> {
     cp: Arc<ConstantPool<'a>>,
     class_name: &'a str,
-    option_class: Option<&'a Class<'a>>,
+    option_class: Option<Arc<Class<'a>>>,
 }
 
 impl<'a> SymRef<'a> {
@@ -10,14 +10,14 @@ impl<'a> SymRef<'a> {
         Self { cp, class_name, option_class: None }
     }
 
-    pub fn resoved_class(&'a mut self) -> &'a Class<'a> {
+    pub fn resoved_class(&'a mut self) -> Arc<Class<'a>> {
         match &self.option_class {
-            Some(class) => class,
+            Some(class) => class.clone(),
             None => self.resoved_class_ref()
         }
     }
 
-    fn resoved_class_ref(&'a mut self) -> &'a Class<'a> {
+    fn resoved_class_ref(&'a mut self) -> Arc<Class<'a>> {
 //        let d = self.cp.class();
 //        let c = d.lo
         unimplemented!()
