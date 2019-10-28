@@ -1,11 +1,11 @@
-struct FieldRef {
+pub struct FieldRef {
     member: MemberRef,
     field: Option<Arc<Field>>,
 }
 
 impl FieldRef {
-    fn new(ref_info: &classfile::ConstantFieldrefInfo, cp: Arc<ConstantPool>) -> FieldRef {
-        let member = MemberRef::new(ref_info.member(), cp.clone());
+    fn new(ref_info: &classfile::ConstantFieldrefInfo, cp: *const ConstantPool) -> FieldRef {
+        let member = MemberRef::new(ref_info.member(), cp);
         Self { member, field: None }
     }
 

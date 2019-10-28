@@ -23,10 +23,10 @@ impl ConstantPool {
                     Constant::Double(info.value())
                 }
                 ConstantInfo::String(info) => Constant::String(info.string().to_string()),
-                ConstantInfo::Class(info) => Constant::Class(ClassRef::new(rt_cp.clone(), info)),
-                ConstantInfo::FieldRef(info) => { unimplemented!() }
-                ConstantInfo::MethodRef(info) => { unimplemented!() }
-                ConstantInfo::InterfaceMethodRef(info) => { unimplemented!() }
+                ConstantInfo::Class(info) => Constant::Class(ClassRef::new(info, &rt_cp)),
+                ConstantInfo::FieldRef(info) => Constant::FieldRef(FieldRef::new(info, &rt_cp)),
+                ConstantInfo::MethodRef(info) => Constant::MethodRef(MethodRef::new(info, &rt_cp)),
+                ConstantInfo::InterfaceMethodRef(info) => Constant::InterfaceMethodRef(InterfaceMethodRef::new(info, &rt_cp)),
                 ConstantInfo::Utf8(info) => { unimplemented!() }
                 ConstantInfo::NameAndType(info) => { unimplemented!() }
                 ConstantInfo::MethodHandle(info) => { unimplemented!() }
@@ -37,12 +37,10 @@ impl ConstantPool {
                 ConstantInfo::Package(info) => { unimplemented!() }
                 ConstantInfo::Empty => { unimplemented!() }
             };
-//            rt_cp.borrow_mut().consts.push(const_);
-
-            Arc::make_mut(&mut rt_cp).consts.push(const_);
+            rt_cp.consts.push(const_);
             i += more;
         }
-        rt_cp
+        Arc::new(rt_cp)
     }
 
     fn set_class(&mut self, class: Option<Arc<Class>>) {

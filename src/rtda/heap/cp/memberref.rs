@@ -5,12 +5,12 @@ pub struct MemberRef {
 }
 
 impl MemberRef {
-    pub fn new(ref_info: &classfile::ConstantMemberrefInfo, cp: Arc<ConstantPool>) -> MemberRef {
+    pub fn new(ref_info: &classfile::ConstantMemberrefInfo, cp: *const ConstantPool) -> MemberRef {
         let class_name = ref_info.class_name();
         let (name, descriptor) = ref_info.name_and_descriptor();
-        let sym = SymRef::new(cp.clone(), class_name);
+        let sym = SymRef::new(cp, class_name);
 
-        let (name, descriptor) =  (name.to_string(), descriptor.to_string());
+        let (name, descriptor) = (name.to_string(), descriptor.to_string());
         Self { sym, name, descriptor }
     }
 
@@ -22,8 +22,8 @@ impl MemberRef {
         &self.descriptor
     }
 
-    fn cp(&self) -> Arc<ConstantPool> {
-        self.sym.cp.clone()
+    fn cp(&self) -> &ConstantPool {
+        unsafe { &*self.sym.cp }
     }
 
     fn resoved_class(&mut self) -> Arc<Class> {

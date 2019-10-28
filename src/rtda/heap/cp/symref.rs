@@ -1,13 +1,13 @@
 // symbolic reference
 struct SymRef {
-    cp: Arc<ConstantPool>,
+    cp: *const ConstantPool,
     class_name: String,
     option_class: Option<Arc<Class>>,
 }
 
 impl SymRef {
-    pub fn new(cp: Arc<ConstantPool>, class_name: &str) -> SymRef {
-        let class_name= class_name.to_string();
+    pub fn new(cp: *const ConstantPool, class_name: &str) -> SymRef {
+        let class_name = class_name.to_string();
         Self { cp, class_name, option_class: None }
     }
 

@@ -1,10 +1,10 @@
-struct InterfaceMethodRef {
+pub struct InterfaceMethodRef {
     member: MemberRef,
     method: Option<Arc<Method>>,
 }
 
 impl InterfaceMethodRef {
-    fn new(cp: Arc<ConstantPool>, ref_info: &classfile::ConstantInterfaceMethodrefInfo) -> InterfaceMethodRef {
+    fn new(ref_info: &classfile::ConstantInterfaceMethodrefInfo, cp: *const ConstantPool) -> InterfaceMethodRef {
         let member = MemberRef::new(ref_info.member(), cp);
         Self { member, method: None }
     }
