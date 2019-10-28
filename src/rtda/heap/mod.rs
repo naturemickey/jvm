@@ -1,7 +1,7 @@
 use crate::classfile;
 use crate::classfile::{ClassFile, MemberInfo, ConstantInfo};
 use std::sync::Arc;
-use std::borrow::Borrow;
+use std::borrow::{Borrow, BorrowMut};
 
 include!("object.rs");
 include!("class.rs");

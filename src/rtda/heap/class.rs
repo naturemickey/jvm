@@ -20,7 +20,7 @@ impl Class {
         let name = cf.class_name().to_string();
         let super_class_name = cf.super_class_name().to_string();
         let interface_names = crate::util::coll::strvec_to_stringvec(&cf.interface_names());
-        let mut constant_pool = Arc::new(ConstantPool::new(cf.constant_pool(), None));
+        let mut constant_pool = ConstantPool::new(cf.constant_pool(), None);
         let fields = Vec::with_capacity(0);
         let methods = Vec::with_capacity(0);
         // todo loader
@@ -68,7 +68,7 @@ impl Class {
         self.access_flags & ACC_ENUM != 0
     }
 
-    pub fn constant_pool(& self) -> Arc<ConstantPool> {
+    pub fn constant_pool(&self) -> Arc<ConstantPool> {
         self.constant_pool.clone()
     }
     fn static_vars(&self) -> &Slots {

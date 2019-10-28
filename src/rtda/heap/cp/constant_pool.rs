@@ -4,10 +4,11 @@ pub struct ConstantPool {
 }
 
 impl ConstantPool {
-    fn new(cf_cp: Arc<classfile::ConstantPool>, class: Option<Arc<Class>>) -> ConstantPool {
+    fn new(cf_cp: Arc<classfile::ConstantPool>, class: Option<Arc<Class>>) -> Arc<ConstantPool> {
         let cp_count = cf_cp.constants_count();
-        let mut consts = Vec::with_capacity(cp_count as usize);
         let mut i = 1;
+        let mut rt_cp = Self { class, consts: Vec::with_capacity(cp_count as usize) };
+
         while i < cp_count {
             let mut more = 1;
             let const_ = match cf_cp.get_constant_info(i) {
@@ -22,7 +23,7 @@ impl ConstantPool {
                     Constant::Double(info.value())
                 }
                 ConstantInfo::String(info) => Constant::String(info.string().to_string()),
-                ConstantInfo::Class(info) => { unimplemented!() }
+                ConstantInfo::Class(info) => Constant::Class(ClassRef::new(rt_cp.clone(), info)),
                 ConstantInfo::FieldRef(info) => { unimplemented!() }
                 ConstantInfo::MethodRef(info) => { unimplemented!() }
                 ConstantInfo::InterfaceMethodRef(info) => { unimplemented!() }
@@ -36,10 +37,12 @@ impl ConstantPool {
                 ConstantInfo::Package(info) => { unimplemented!() }
                 ConstantInfo::Empty => { unimplemented!() }
             };
-            consts.push(const_);
+//            rt_cp.borrow_mut().consts.push(const_);
+
+            Arc::make_mut(&mut rt_cp).consts.push(const_);
             i += more;
         }
-        Self { class, consts }
+        rt_cp
     }
 
     fn set_class(&mut self, class: Option<Arc<Class>>) {

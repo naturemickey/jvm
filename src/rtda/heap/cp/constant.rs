@@ -5,7 +5,7 @@ pub enum Constant {
     Float(f32),
     Long(i64),
     Double(f64),
-    Class(),
+    Class(ClassRef),
     String(String),
     FieldRef(),
     MethodRef(),
