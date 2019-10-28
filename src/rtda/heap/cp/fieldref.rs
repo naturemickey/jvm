@@ -1,22 +1,22 @@
-struct FieldRef<'a> {
-    member: MemberRef<'a>,
-    field: Option<Arc<Field<'a>>>,
+struct FieldRef {
+    member: MemberRef,
+    field: Option<Arc<Field>>,
 }
 
-impl<'a> FieldRef<'a> {
-    fn new(ref_info: &'a classfile::ConstantFieldrefInfo, cp: Arc<ConstantPool<'a>>) -> FieldRef<'a> {
+impl FieldRef {
+    fn new(ref_info: &classfile::ConstantFieldrefInfo, cp: Arc<ConstantPool>) -> FieldRef {
         let member = MemberRef::new(ref_info.member(), cp.clone());
         Self { member, field: None }
     }
 
-    fn resolved_field(&'a mut self) -> Arc<Field<'a>> {
+    fn resolved_field(&mut self) -> Arc<Field> {
         match &self.field {
             Some(f) => f.clone(),
             None => self.resolve_field_ref()
         }
     }
 
-    fn resolve_field_ref(&'a mut self) -> Arc<Field<'a>> {
+    fn resolve_field_ref(&mut self) -> Arc<Field> {
 //        unimplemented!()
         let field = self.lookup_field();
 
@@ -47,7 +47,7 @@ impl<'a> FieldRef<'a> {
 //        arc_field.clone()
     }
 
-    fn lookup_field(&'a mut self) -> Option<Arc<Field<'a>>> {
+    fn lookup_field(&mut self) -> Option<Arc<Field>> {
          let c = {self.member.resoved_class().clone()};
         let name = self.member.name();
 //        let descriptor = self.member.descriptor();

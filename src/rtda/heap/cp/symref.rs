@@ -1,23 +1,24 @@
 // symbolic reference
-struct SymRef<'a> {
-    cp: Arc<ConstantPool<'a>>,
-    class_name: &'a str,
-    option_class: Option<Arc<Class<'a>>>,
+struct SymRef {
+    cp: Arc<ConstantPool>,
+    class_name: String,
+    option_class: Option<Arc<Class>>,
 }
 
-impl<'a> SymRef<'a> {
-    pub fn new(cp: Arc<ConstantPool<'a>>, class_name: &'a str) -> SymRef<'a> {
+impl SymRef {
+    pub fn new(cp: Arc<ConstantPool>, class_name: &str) -> SymRef {
+        let class_name= class_name.to_string();
         Self { cp, class_name, option_class: None }
     }
 
-    pub fn resoved_class(&'a mut self) -> Arc<Class<'a>> {
+    pub fn resoved_class(&mut self) -> Arc<Class> {
         match &self.option_class {
             Some(class) => class.clone(),
             None => self.resoved_class_ref()
         }
     }
 
-    fn resoved_class_ref(&'a mut self) -> Arc<Class<'a>> {
+    fn resoved_class_ref(&mut self) -> Arc<Class> {
 //        let d = self.cp.class();
 //        let c = d.lo
         unimplemented!()

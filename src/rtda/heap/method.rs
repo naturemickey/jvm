@@ -1,12 +1,12 @@
-pub struct Method<'a> {
-    member: ClassMember<'a>,
+pub struct Method {
+    member: ClassMember,
     max_stack: u16,
     max_locals: u16,
     code: Arc<Vec<u8>>,
 }
 
-impl<'a> Method<'a> {
-    pub fn new_methods(arc_class: Arc<Class<'a>>, cf_methods: &'a Vec<MemberInfo>) -> Vec<Method<'a>> {
+impl Method {
+    pub fn new_methods(arc_class: Arc<Class>, cf_methods: &Vec<MemberInfo>) -> Vec<Method> {
         let mut methods = Vec::with_capacity(cf_methods.len());
         for cf_method in cf_methods {
             let member = ClassMember::new(arc_class.clone(), cf_method);
@@ -68,10 +68,10 @@ impl<'a> Method<'a> {
     fn descriptor(&self) -> &str {
         self.member.descriptor()
     }
-    fn class(&'a self) -> &'a Class<'a> {
+    fn class(&self) -> &Class {
         self.member.class()
     }
-    fn is_accessible_to(&'a self, d: &'a Class<'a>) -> bool {
+    fn is_accessible_to(&self, d: &Class) -> bool {
         self.member.is_accessible_to(d)
     }
 }

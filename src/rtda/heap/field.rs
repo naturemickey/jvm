@@ -1,11 +1,11 @@
-pub struct Field<'a> {
-    member: ClassMember<'a>,
+pub struct Field {
+    member: ClassMember,
     const_value_index: u16,
     slot_id: usize,
 }
 
-impl<'a> Field<'a> {
-    pub fn new_fields(arc_class: Arc<Class<'a>>, cf_fields: &'a Vec<MemberInfo>) -> Vec<Field<'a>> {
+impl Field {
+    pub fn new_fields(arc_class: Arc<Class>, cf_fields: &Vec<MemberInfo>) -> Vec<Field> {
         let mut fields = Vec::with_capacity(cf_fields.len());
         for cf_field in cf_fields {
             let member = ClassMember::new(arc_class.clone(), cf_field);
@@ -59,13 +59,13 @@ impl<'a> Field<'a> {
     fn descriptor(&self) -> &str {
         self.member.descriptor()
     }
-    fn class(&'a self) -> &'a Class<'a> {
+    fn class(&self) -> &Class {
         self.member.class()
     }
-    fn is_accessible_to(&'a self, d: &'a Class<'a>) -> bool {
+    fn is_accessible_to(&self, d: &Class) -> bool {
         self.member.is_accessible_to(d)
     }
-    fn is_accessible_to2(&'a self, d: Arc<Class<'a>>) -> bool {
+    fn is_accessible_to2(&self, d: Arc<Class>) -> bool {
         self.member.is_accessible_to(d.borrow())
     }
 }

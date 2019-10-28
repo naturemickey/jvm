@@ -1,15 +1,15 @@
-struct ClassMember<'a> {
+struct ClassMember {
     access_flags: u16,
-    name: &'a str,
-    descriptor: &'a str,
-    class: Arc<Class<'a>>,
+    name: String,
+    descriptor: String,
+    class: Arc<Class>,
 }
 
-impl<'a> ClassMember<'a> {
-    fn new(arc_class: Arc<Class<'a>>, member_info: &'a MemberInfo) -> ClassMember<'a> {
+impl ClassMember {
+    fn new(arc_class: Arc<Class>, member_info: &MemberInfo) -> ClassMember {
         let access_flags = member_info.access_flgs();
-        let name = member_info.name();
-        let descriptor = member_info.descriptor();
+        let name = member_info.name().to_string();
+        let descriptor = member_info.descriptor().to_string();
         Self { access_flags, name, descriptor, class: arc_class }
     }
 
@@ -30,16 +30,16 @@ impl<'a> ClassMember<'a> {
     }
 
     fn name(&self) -> &str {
-        self.name
+        &self.name
     }
     fn descriptor(&self) -> &str {
-        self.descriptor
+        &self.descriptor
     }
-    fn class(&'a self) -> &'a Class<'a> {
+    fn class(&self) -> &Class {
         self.class.borrow()
     }
 
-    fn is_accessible_to(&'a self, d: &'a Class<'a>) -> bool {
+    fn is_accessible_to(&self, d: &Class) -> bool {
         if self.is_public() {
             true
         } else {

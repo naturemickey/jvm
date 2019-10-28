@@ -1,10 +1,10 @@
-pub struct ConstantPool<'a> {
-    class: Option<Arc<Class<'a>>>,
+pub struct ConstantPool {
+    class: Option<Arc<Class>>,
     consts: Vec<Constant>,
 }
 
-impl<'a> ConstantPool<'a> {
-    fn new(cf_cp: Arc<classfile::ConstantPool>, class: Option<Arc<Class<'a>>>) -> ConstantPool {
+impl ConstantPool {
+    fn new(cf_cp: Arc<classfile::ConstantPool>, class: Option<Arc<Class>>) -> ConstantPool {
         let cp_count = cf_cp.constants_count();
         let mut consts = Vec::with_capacity(cp_count as usize);
         let mut i = 1;
@@ -42,11 +42,11 @@ impl<'a> ConstantPool<'a> {
         Self { class, consts }
     }
 
-    fn set_class(&mut self, class: Option<Arc<Class<'a>>>) {
+    fn set_class(&mut self, class: Option<Arc<Class>>) {
         self.class = class;
     }
 
-    fn class(&'a self) -> Arc<Class<'a>> {
+    fn class(&self) -> Arc<Class> {
         match &self.class {
             Some(c) => c.clone(),
             None => panic!("impossible.")
