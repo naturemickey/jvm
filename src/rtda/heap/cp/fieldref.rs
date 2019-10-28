@@ -17,41 +17,38 @@ impl FieldRef {
     }
 
     fn resolve_field_ref(&mut self) -> Arc<Field> {
-//        unimplemented!()
-        let field = self.lookup_field();
+        let c = self.member.resoved_class();
+        let name = self.member.name();
+        let descriptor = self.member.descriptor();
 
-        match field {
+        let field = self.lookup_field(c, name, descriptor);
+
+        match &field {
             Some(arc_field) => {
-                //self.field = Some(arc_field.clone());
+                let d = self.member.cp().class();
+                if !arc_field.is_accessible_to2(d) {
+                    panic!("java.lang.IllegalAccessError");
+                }
+                self.field = Some(arc_field.clone());
                 arc_field.clone()
-            },
+            }
             None => {
                 panic!("java.lang.NoSuchFieldError")
             }
         }
-//
-//        let arc_field = match &field {
-//            Some(arc_field) => {
-//                let cp = self.member.cp();
-//                let d = cp.class();
-//                if arc_field.is_accessible_to2(d) {
-//                    panic!("java.lang.IllegalAccessError");
-//                }
-//                arc_field.clone()
-//            }
-//            None => panic!("java.lang.NoSuchFieldError")
-//        };
-//
-//        self.field = field;
-//
-//        arc_field.clone()
     }
 
-    fn lookup_field(&mut self) -> Option<Arc<Field>> {
-         let c = {self.member.resoved_class().clone()};
-        let name = self.member.name();
-//        let descriptor = self.member.descriptor();
-//        panic!("todo")
-        unimplemented!()
+    fn lookup_field(&self, c: Arc<Class>, name: &str, descriptor: &str) -> Option<Arc<Field>> {
+        for field in &c.fields {
+            if field.name().eq(name) && field.descriptor().eq(descriptor) {
+                return Some(field.clone());
+            }
+        }
+
+        // todo for c.interfaces
+
+        // todo c.super_class
+
+        None
     }
 }
