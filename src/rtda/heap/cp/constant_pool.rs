@@ -7,7 +7,7 @@ impl ConstantPool {
     fn new(cf_cp: Arc<classfile::ConstantPool>, class: Option<Arc<Class>>) -> Arc<ConstantPool> {
         let cp_count = cf_cp.constants_count();
         let mut i = 1;
-        let mut rt_cp = Self { class, consts: Vec::with_capacity(cp_count as usize) };
+        let mut rt_cp = Arc::new(Self { class, consts: Vec::with_capacity(cp_count as usize) });
 
         while i < cp_count {
             let mut more = 1;
@@ -23,10 +23,10 @@ impl ConstantPool {
                     Constant::Double(info.value())
                 }
                 ConstantInfo::String(info) => Constant::String(info.string().to_string()),
-                ConstantInfo::Class(info) => Constant::Class(ClassRef::new(info, &rt_cp)),
-                ConstantInfo::FieldRef(info) => Constant::FieldRef(FieldRef::new(info, &rt_cp)),
-                ConstantInfo::MethodRef(info) => Constant::MethodRef(MethodRef::new(info, &rt_cp)),
-                ConstantInfo::InterfaceMethodRef(info) => Constant::InterfaceMethodRef(InterfaceMethodRef::new(info, &rt_cp)),
+                ConstantInfo::Class(info) => Constant::Class(ClassRef::new(info, rt_cp.borrow())),
+                ConstantInfo::FieldRef(info) => Constant::FieldRef(FieldRef::new(info, rt_cp.borrow())),
+                ConstantInfo::MethodRef(info) => Constant::MethodRef(MethodRef::new(info, rt_cp.borrow())),
+                ConstantInfo::InterfaceMethodRef(info) => Constant::InterfaceMethodRef(InterfaceMethodRef::new(info, rt_cp.borrow())),
                 ConstantInfo::Utf8(info) => { unimplemented!() }
                 ConstantInfo::NameAndType(info) => { unimplemented!() }
                 ConstantInfo::MethodHandle(info) => { unimplemented!() }
@@ -37,10 +37,11 @@ impl ConstantPool {
                 ConstantInfo::Package(info) => { unimplemented!() }
                 ConstantInfo::Empty => { unimplemented!() }
             };
-            rt_cp.consts.push(const_);
+            // need confirm there is only one pointer to pc.
+            Arc::get_mut(&mut rt_cp).unwrap().consts.push(const_);
             i += more;
         }
-        Arc::new(rt_cp)
+        rt_cp
     }
 
     fn set_class(&mut self, class: Option<Arc<Class>>) {

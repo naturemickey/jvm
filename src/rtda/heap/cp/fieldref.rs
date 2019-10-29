@@ -4,8 +4,8 @@ pub struct FieldRef {
 }
 
 impl FieldRef {
-    fn new(ref_info: &classfile::ConstantFieldrefInfo, cp: *const ConstantPool) -> FieldRef {
-        let member = MemberRef::new(ref_info.member(), cp);
+    fn new(info: &classfile::ConstantFieldrefInfo, cp: *const ConstantPool) -> FieldRef {
+        let member = MemberRef::new(info.member(), cp);
         Self { member, field: None }
     }
 

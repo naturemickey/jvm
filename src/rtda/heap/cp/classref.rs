@@ -3,8 +3,8 @@ pub struct ClassRef {
 }
 
 impl ClassRef {
-    fn new(class_info: &classfile::ConstantClassInfo, cp: *const ConstantPool) -> ClassRef {
-        let class_name = class_info.name();
+    fn new(info: &classfile::ConstantClassInfo, cp: *const ConstantPool) -> ClassRef {
+        let class_name = info.name();
         let sym = SymRef::new(cp, class_name);
         Self { sym }
     }

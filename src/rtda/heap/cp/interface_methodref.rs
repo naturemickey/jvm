@@ -4,8 +4,8 @@ pub struct InterfaceMethodRef {
 }
 
 impl InterfaceMethodRef {
-    fn new(ref_info: &classfile::ConstantInterfaceMethodrefInfo, cp: *const ConstantPool) -> InterfaceMethodRef {
-        let member = MemberRef::new(ref_info.member(), cp);
+    fn new(info: &classfile::ConstantInterfaceMethodrefInfo, cp: *const ConstantPool) -> InterfaceMethodRef {
+        let member = MemberRef::new(info.member(), cp);
         Self { member, method: None }
     }
 

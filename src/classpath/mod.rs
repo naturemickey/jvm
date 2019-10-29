@@ -6,7 +6,7 @@ use std::io::{BufReader, Read};
 use std::error::Error;
 use std::fs::File;
 
-
+include!("classpath.rs");
 include!("entry.rs");
 include!("composite_entry.rs");
 include!("wildcard_entry.rs");
