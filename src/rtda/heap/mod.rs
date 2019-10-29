@@ -1,7 +1,9 @@
 use crate::classfile;
 use crate::classfile::{ClassFile, MemberInfo, ConstantInfo};
 use std::sync::Arc;
-use std::borrow::{Borrow, BorrowMut};
+use std::borrow::Borrow;
+use crate::classpath::{Classpath, Entry};
+use std::collections::HashMap;
 
 include!("object.rs");
 include!("class.rs");
