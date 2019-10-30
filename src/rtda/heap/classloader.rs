@@ -22,14 +22,14 @@ impl ClassLoader {
         let (data, entry) = self.read_class(name);
         let class = self.define_class(data);
         Self::link(class);
-        println!("[Loaded {} from {}", name, entry.to_string());
+        println!("[Loaded {} from {}", name, unsafe { &*entry }.to_string());
         return class;
     }
 
-    fn read_class(&self, name: &str) -> (Vec<u8>, &dyn Entry) {
+    fn read_class(&self, name: &str) -> (Vec<u8>, *const dyn Entry) {
         match self.classpath.read_class(name) {
             Some(res) => res,
-            None => panic!("java.lang.ClassNotFoundException: {}" , name)
+            None => panic!("java.lang.ClassNotFoundException: {}", name)
         }
     }
 

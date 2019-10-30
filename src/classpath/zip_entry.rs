@@ -9,7 +9,7 @@ impl ZipEntry {
 }
 
 impl Entry for ZipEntry {
-    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, &dyn Entry)> {
+    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, *const dyn Entry)> {
         let file = File::open(Path::new(&self.abs_path)).unwrap();
         let reader = BufReader::new(file);
         let mut za = zip::ZipArchive::new(reader).unwrap();

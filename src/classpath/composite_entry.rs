@@ -1,5 +1,5 @@
 struct CompositeEntry {
-    entrys: Vec<Box<dyn Entry>>
+    entrys: Vec<Arc<dyn Entry>>
 }
 
 impl CompositeEntry {
@@ -19,13 +19,13 @@ impl CompositeEntry {
         }
         Self::new_by_entrys(entrys)
     }
-    fn new_by_entrys(entrys: Vec<Box<dyn Entry>>) -> CompositeEntry {
+    fn new_by_entrys(entrys: Vec<Arc<dyn Entry>>) -> CompositeEntry {
         Self { entrys }
     }
 }
 
 impl Entry for CompositeEntry {
-    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, &dyn Entry)> {
+    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, *const dyn Entry)> {
         for entry in &self.entrys {
             let res = entry.read_class(class_name);
             if res.is_some() {

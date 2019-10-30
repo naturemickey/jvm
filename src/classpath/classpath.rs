@@ -1,14 +1,14 @@
 pub struct Classpath {
     // boot_classpath,
     // ext_classpath,
-    user_classpath: Box<dyn Entry>
+    user_classpath: Arc<dyn Entry>
 }
 
 impl Classpath {
     pub fn parse(cp_option: &str) -> Classpath {
         Self { user_classpath: new_entry(cp_option) }
     }
-    pub fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, &dyn Entry)> {
+    pub fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, *const dyn Entry)> {
         self.user_classpath.read_class(class_name)
     }
 }

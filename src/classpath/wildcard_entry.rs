@@ -27,7 +27,7 @@ impl WildcardEntry {
 }
 
 impl Entry for WildcardEntry {
-    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, &dyn Entry)> {
+    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, *const dyn Entry)> {
         self.entry.read_class(class_name)
     }
 }
