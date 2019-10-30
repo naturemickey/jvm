@@ -131,6 +131,10 @@ impl Class {
     pub fn is_sub_insterface_of(&self, iface: &Class) -> bool {
         unimplemented!()
     }
+
+    fn loader_mut(&mut self) -> &mut ClassLoader {
+        unsafe { &mut *(self.loader as *mut ClassLoader) }
+    }
 }
 
 impl PartialEq for Class {

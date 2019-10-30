@@ -22,3 +22,5 @@ impl Object {
         unimplemented!()
     }
 }
+
+const OBJECT_CLASS_NAME:&str = "java/lang/Object";
