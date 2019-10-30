@@ -3,13 +3,13 @@ struct DirEntry {
 }
 
 impl DirEntry {
-    fn new(path: String) -> DirEntry {
-        Self { abs_dir: path }
+    fn new(path: &str) -> DirEntry {
+        Self { abs_dir: path.to_string() }
     }
 }
 
 impl Entry for DirEntry {
-    fn read_class(&self, class_name: String) -> Option<(Vec<u8>, &dyn Entry)> {
+    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, &dyn Entry)> {
         let pb = Path::new(&self.abs_dir).join(class_name);
         let path = pb.as_path();
         if path.is_file() {

@@ -26,11 +26,14 @@ impl ClassLoader {
         return class;
     }
 
-    fn read_class(&self, name: &str) -> (Vec<u8>, Box<dyn Entry>) {
-        unimplemented!()
+    fn read_class(&self, name: &str) -> (Vec<u8>, &dyn Entry) {
+        match self.classpath.read_class(name) {
+            Some(res) => res,
+            None => panic!("java.lang.ClassNotFoundException: {}" , name)
+        }
     }
 
-    fn define_class(&self, data: Vec<u8>) -> &Class {
+    fn define_class(&mut self, data: Vec<u8>) -> &Class {
         unimplemented!()
     }
 

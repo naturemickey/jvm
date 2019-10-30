@@ -19,7 +19,7 @@ fn main() {
 }
 
 fn start_jvm(cmd: Cmd) {
-    let classpath = Classpath::parse(cmd.cp_option.to_string());
+    let classpath = Classpath::parse(&cmd.cp_option);
     println!(" classpath:{} class:{} args:{:?}\n", cmd.cp_option.to_string(), cmd.class.to_string(), cmd.args);
 
     let class_name = file_util::classname_to_filename(&cmd.class);
@@ -30,7 +30,7 @@ fn start_jvm(cmd: Cmd) {
 //        Some((data, _)) => println!("class data:{:?}", data),
 //        None => println!("could not find or load main class {}", cmd.class),
 //    }
-    let class_file = load_class(class_name, &classpath);
+    let class_file = load_class(&class_name, &classpath);
 
     print_class_info(&class_file);
 
@@ -41,7 +41,7 @@ fn start_jvm(cmd: Cmd) {
     }
 }
 
-fn load_class(class_name: String, classpath: &Classpath) -> ClassFile {
+fn load_class(class_name: &str, classpath: &Classpath) -> ClassFile {
     let (class_data, _) = classpath.read_class(class_name).unwrap();
     ClassFile::parse(class_data)
 }

@@ -1,8 +1,8 @@
 pub trait Entry: ToString {
-    fn read_class(&self, class_name: String) -> Option<(Vec<u8>, &dyn Entry)>;
+    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, &dyn Entry)>;
 }
 
-pub fn new_entry(path: String) -> Box<dyn Entry> {
+pub fn new_entry(path: &str) -> Box<dyn Entry> {
     if path.contains(if cfg!(windows) { ';' } else { ':' }) {
         Box::new(CompositeEntry::new(path))
     } else if path.ends_with("*") {

@@ -3,9 +3,9 @@ struct CompositeEntry {
 }
 
 impl CompositeEntry {
-    fn new(path: String) -> CompositeEntry {
+    fn new(path: &str) -> CompositeEntry {
         let paths: Vec<&str> = path.split(if cfg!(windows) { ';' } else { ':' }).collect();
-        let mut paths2: Vec<String> = Vec::new();
+        let mut paths2 = Vec::new();
         for p in paths {
             paths2.push(p.to_string());
         }
@@ -15,7 +15,7 @@ impl CompositeEntry {
         let mut entrys = Vec::new();
         for p in paths {
             // println!("{}", p);
-            entrys.push(new_entry(p));
+            entrys.push(new_entry(&p));
         }
         Self::new_by_entrys(entrys)
     }
@@ -25,9 +25,9 @@ impl CompositeEntry {
 }
 
 impl Entry for CompositeEntry {
-    fn read_class(&self, class_name: String) -> Option<(Vec<u8>, &dyn Entry)> {
+    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, &dyn Entry)> {
         for entry in &self.entrys {
-            let res = entry.read_class(class_name.clone());
+            let res = entry.read_class(class_name);
             if res.is_some() {
                 return res;
             }

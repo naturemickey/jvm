@@ -3,20 +3,20 @@ struct ZipEntry {
 }
 
 impl ZipEntry {
-    fn new(path: String) -> ZipEntry {
-        Self { abs_path: path }
+    fn new(path: &str) -> ZipEntry {
+        Self { abs_path: path.to_string() }
     }
 }
 
 impl Entry for ZipEntry {
-    fn read_class(&self, class_name: String) -> Option<(Vec<u8>, &dyn Entry)> {
+    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, &dyn Entry)> {
         let file = File::open(Path::new(&self.abs_path)).unwrap();
         let reader = BufReader::new(file);
         let mut za = zip::ZipArchive::new(reader).unwrap();
 
         // println!("aaaaaaaaaaaaaaaaaaaaaaaaa {}", class_name);
 
-        let zf = za.by_name(&class_name);
+        let zf = za.by_name(class_name);
         match zf {
             Err(_) => None,
             Ok(mut file) => {

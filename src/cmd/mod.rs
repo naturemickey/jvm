@@ -1,4 +1,3 @@
-
 use std::env;
 
 pub struct Cmd {
@@ -54,7 +53,6 @@ impl Cmd {
             } else {
                 panic!("error arguments.");
             }
-
         }
 
         cmd

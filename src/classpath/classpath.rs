@@ -5,11 +5,10 @@ pub struct Classpath {
 }
 
 impl Classpath {
-    pub fn parse(cp_option: String) -> Classpath {
-        let entry: Box<dyn Entry> = new_entry(cp_option);
-        Self { user_classpath: entry }
+    pub fn parse(cp_option: &str) -> Classpath {
+        Self { user_classpath: new_entry(cp_option) }
     }
-    pub fn read_class(&self, class_name: String) -> Option<(Vec<u8>, &dyn Entry)> {
+    pub fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, &dyn Entry)> {
         self.user_classpath.read_class(class_name)
     }
 }

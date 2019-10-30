@@ -3,12 +3,12 @@ struct WildcardEntry {
 }
 
 impl WildcardEntry {
-    fn new(path: String) -> WildcardEntry {
+    fn new(path: &str) -> WildcardEntry {
         let mut p = path.to_string();
         p.remove(path.len() - 1);
         let read_dir = std::fs::read_dir(p).unwrap();
 
-        let mut paths: Vec<String> = Vec::new();
+        let mut paths = Vec::new();
 
         for result_dir_entry in read_dir {
             let path_in = result_dir_entry.unwrap().path();
@@ -27,7 +27,7 @@ impl WildcardEntry {
 }
 
 impl Entry for WildcardEntry {
-    fn read_class(&self, class_name: String) -> Option<(Vec<u8>, &dyn Entry)> {
+    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, &dyn Entry)> {
         self.entry.read_class(class_name)
     }
 }

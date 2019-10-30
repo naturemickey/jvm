@@ -5,15 +5,6 @@ use std::borrow::Borrow;
 use crate::classpath::{Classpath, Entry};
 use std::collections::HashMap;
 
-include!("object.rs");
-include!("class.rs");
-include!("classloader.rs");
-include!("slots.rs");
-include!("access_flags.rs");
-include!("field.rs");
-include!("method.rs");
-include!("classmember.rs");
-
 include!("cp/constant.rs");
 include!("cp/classref.rs");
 include!("cp/constant_pool.rs");
@@ -22,3 +13,12 @@ include!("cp/interface_methodref.rs");
 include!("cp/memberref.rs");
 include!("cp/methodref.rs");
 include!("cp/symref.rs");
+
+include!("object.rs");
+include!("class.rs");
+include!("classloader.rs");
+include!("slots.rs");
+include!("access_flags.rs");
+include!("field.rs");
+include!("method.rs");
+include!("classmember.rs");
