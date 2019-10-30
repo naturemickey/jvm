@@ -34,18 +34,25 @@ impl ClassLoader {
     }
 
     fn define_class(&mut self, data: Vec<u8>) -> &Class {
+        let mut class = Self::parse_class(data, self);
+        Self::resolve_super_class(&mut class);
+        Self::resolve_interfaces(&mut class);
+
+        let class_name = class.name.to_string();
+        self.classmap.insert(class_name.clone(), class);
+        &self.classmap.get(&class_name).unwrap()
+    }
+
+    fn parse_class(data: Vec<u8>, loader: &Self) -> Class {
+        let cf = classfile::ClassFile::parse(data);
+        Class::new(&cf, loader)
+    }
+
+    fn resolve_super_class(class: &mut Class) {
         unimplemented!()
     }
 
-    fn parse_class(data: Vec<u8>) -> Class {
-        unimplemented!()
-    }
-
-    fn resolve_super_class(class: &Class) {
-        unimplemented!()
-    }
-
-    fn resolve_interfaces(class: &Class) {
+    fn resolve_interfaces(class: &mut Class) {
         unimplemented!()
     }
 

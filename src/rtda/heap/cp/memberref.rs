@@ -26,7 +26,7 @@ impl MemberRef {
         unsafe { &*self.sym.cp }
     }
 
-    fn resoved_class(&mut self) -> Arc<Class> {
+    fn resoved_class(&mut self) -> *const Class {
         self.sym.resoved_class()
     }
 }

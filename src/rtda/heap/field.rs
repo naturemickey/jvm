@@ -5,15 +5,15 @@ pub struct Field {
 }
 
 impl Field {
-    pub fn new_fields(arc_class: Arc<Class>, cf_fields: &Vec<MemberInfo>) -> Vec<Arc<Field>> {
+    pub fn new_fields(class: &Class, cf_fields: &Vec<MemberInfo>) -> Vec<Field> {
         let mut fields = Vec::with_capacity(cf_fields.len());
         for cf_field in cf_fields {
-            let member = ClassMember::new(arc_class.clone(), cf_field);
+            let member = ClassMember::new(class, cf_field);
             let field = match cf_field.constant_value_attribute() {
                 Some(cva) => Self { member, const_value_index: cva.value_index(), slot_id: 0 },
                 None => Self { member, const_value_index: 0, slot_id: 0 }
             };
-            fields.push(Arc::new(field));
+            fields.push(field);
         }
 
         fields
@@ -66,7 +66,7 @@ impl Field {
     fn is_accessible_to(&self, d: &Class) -> bool {
         self.member.is_accessible_to(d)
     }
-    fn is_accessible_to2(&self, d: Arc<Class>) -> bool {
-        self.member.is_accessible_to(d.borrow())
+    fn is_accessible_to2(&self, d: &Class) -> bool {
+        self.member.is_accessible_to(d)
     }
 }

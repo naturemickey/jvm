@@ -4,18 +4,18 @@ pub struct Class {
     super_class_name: String,
     interface_names: Vec<String>,
     constant_pool: Arc<ConstantPool>,
-    fields: Vec<Arc<Field>>,
-    methods: Vec<Arc<Method>>,
-    //    loader: &'a ClassLoader,
-//    super_class: &'a Class<'a>,
-//    interfaces: Vec<&'a Class<'a>>,
-//    instance_slot_count: usize,
-//    static_slot_count: usize,
+    fields: Vec<Field>,
+    methods: Vec<Method>,
+    loader: *const ClassLoader,
+    super_class: Option<*const Class>,
+    interfaces: Vec<*const Class>,
+    instance_slot_count: usize,
+    static_slot_count: usize,
     static_vars: Slots,
 }
 
 impl Class {
-    pub fn new(cf: &ClassFile) -> Arc<Class> {
+    pub fn new(cf: &ClassFile, loader: *const ClassLoader) -> Class {
         let access_flags = cf.access_flags();
         let name = cf.class_name().to_string();
         let super_class_name = cf.super_class_name().to_string();
@@ -29,18 +29,33 @@ impl Class {
         // todo instance_slot_count
         // todo static_slot_count
         let static_vars = Slots::new();
-        let mut arc_class = Arc::new(Self { access_flags, name, super_class_name, interface_names, constant_pool: constant_pool.clone(), fields, methods, static_vars });
+        let mut class =
+            Self {
+                access_flags,
+                name,
+                super_class_name,
+                interface_names,
+                constant_pool: constant_pool.clone(),
+                fields,
+                methods,
+                loader,
+                super_class: None,
+                interfaces: Vec::new(),
+                instance_slot_count: 0,
+                static_slot_count: 0,
+                static_vars,
+            };
 
-        Arc::get_mut(&mut constant_pool).unwrap().set_class(Some(arc_class.clone()));
+        Arc::get_mut(&mut constant_pool).unwrap().set_class(Some(&class));
 
-        let methods = Method::new_methods(arc_class.clone(), cf.methods());
-        let fields = Field::new_fields(arc_class.clone(), cf.fields());
+        let methods = Method::new_methods(&class, cf.methods());
+        let fields = Field::new_fields(&class, cf.fields());
 
-        let class: &mut Self = Arc::get_mut(&mut arc_class).unwrap();
+        // let class: &mut Self = Arc::get_mut(&mut arc_class).unwrap();
         class.methods = methods;
         class.fields = fields;
 
-        arc_class
+        class
     }
 
     pub fn is_public(&self) -> bool {

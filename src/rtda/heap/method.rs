@@ -6,12 +6,12 @@ pub struct Method {
 }
 
 impl Method {
-    pub fn new_methods(arc_class: Arc<Class>, cf_methods: &Vec<MemberInfo>) -> Vec<Arc<Method>> {
+    pub fn new_methods(class: &Class, cf_methods: &Vec<MemberInfo>) -> Vec<Method> {
         let mut methods = Vec::with_capacity(cf_methods.len());
         for cf_method in cf_methods {
-            let member = ClassMember::new(arc_class.clone(), cf_method);
+            let member = ClassMember::new(class, cf_method);
             let (max_stack, max_locals, code) = Self::copy_attributes(cf_method);
-            methods.push(Arc::new(Self { member, max_stack, max_locals, code }));
+            methods.push(Self { member, max_stack, max_locals, code });
         }
         methods
     }

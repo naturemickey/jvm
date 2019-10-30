@@ -2,15 +2,15 @@ struct ClassMember {
     access_flags: u16,
     name: String,
     descriptor: String,
-    class: Arc<Class>,
+    class: *const Class,
 }
 
 impl ClassMember {
-    fn new(arc_class: Arc<Class>, member_info: &MemberInfo) -> ClassMember {
+    fn new(class: &Class, member_info: &MemberInfo) -> ClassMember {
         let access_flags = member_info.access_flgs();
         let name = member_info.name().to_string();
         let descriptor = member_info.descriptor().to_string();
-        Self { access_flags, name, descriptor, class: arc_class }
+        Self { access_flags, name, descriptor, class }
     }
 
     fn is_public(&self) -> bool {
@@ -36,14 +36,14 @@ impl ClassMember {
         &self.descriptor
     }
     fn class(&self) -> &Class {
-        self.class.borrow()
+        unsafe { &*self.class }
     }
 
     fn is_accessible_to(&self, d: &Class) -> bool {
         if self.is_public() {
             true
         } else {
-            let c = self.class.borrow();
+            let c = self.class();
             if self.is_protected() {
                 d == c || d.is_sub_class_of(c) || c.package_name() == d.package_name()
             } else if !self.is_private() {
