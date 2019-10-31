@@ -33,14 +33,14 @@ impl ClassLoader {
         }
     }
 
-    fn define_class(&mut self, data: Vec<u8>) -> &Class {
+    fn define_class(&mut self, data: Vec<u8>) -> &mut Class {
         let mut class = Self::parse_class(data, self);
         Self::resolve_super_class(&mut class);
         Self::resolve_interfaces(&mut class);
 
         let class_name = class.name.to_string();
         self.class_map.insert(class_name.clone(), class);
-        &self.class_map.get(&class_name).unwrap()
+        &mut self.class_map.get(&class_name).unwrap()
     }
 
     fn parse_class(data: Vec<u8>, loader: &Self) -> Class {
@@ -60,7 +60,7 @@ impl ClassLoader {
         if interface_count > 0 {
             class.interfaces = Vec::with_capacity(interface_count);
 
-            for i in 0 .. interface_count {
+            for i in 0..interface_count {
                 let interface_name = &class.interface_names[i].clone();
                 let interface_ptr = class.loader_mut().load_class(interface_name);
                 class.interfaces.push(interface_ptr);
@@ -68,7 +68,7 @@ impl ClassLoader {
         }
     }
 
-    fn link(class: &Class) {
+    fn link(class: &mut Class) {
         Self::verify(class);
         Self::prepare(class);
     }
@@ -77,16 +77,31 @@ impl ClassLoader {
         // todo
     }
 
-    fn prepare(class: &Class) {
-        unimplemented!()
+    fn prepare(class: &mut Class) {
+        Self::calc_instance_field_slot_ids(class);
+        Self::calc_static_field_slot_ids(class);
+        Self::alloc_and_init_static_vars(class);
     }
 
-    fn calc_instance_field_slot_ids(class: &Class) {
-        unimplemented!()
+    fn calc_instance_field_slot_ids(class: &mut Class) {
+        let mut slot_id = match class.super_class {
+            None => 0,
+            Some(c) => c.instance_slot_count
+        };
+        for field in &mut class.fields {
+            if !field.is_static() {
+                field.slot_id = slot_id;
+                slot_id += if field.is_long_or_double() { 2 } else { 1 };
+            }
+        }
     }
 
-    fn calc_static_field_slot_ids(class: &Class) {
-        unimplemented!()
+    fn calc_static_field_slot_ids(class: &mut Class) {
+        let mut slot_id = 0usize;
+        for field in &mut class.fields {
+            field.slot_id = slot_id;
+            slot_id += if field.is_long_or_double() { 2 } else { 1 };
+        }
     }
 
     fn alloc_and_init_static_vars(class: &Class) {
