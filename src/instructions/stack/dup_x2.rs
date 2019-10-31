@@ -15,7 +15,7 @@ impl Instruction for DUP_X2 {
         let slot1 = stack.pop_slot();
         let slot2 = stack.pop_slot();
         let slot3 = stack.pop_slot();
-        stack.push_slot(slot1);
+        stack.push_slot(slot1.clone());
         stack.push_slot(slot3);
         stack.push_slot(slot2);
         stack.push_slot(slot1);

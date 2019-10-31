@@ -13,7 +13,7 @@ impl Instruction for DUP {
     fn execute(&mut self, frame: &mut Frame) {
         let stack = frame.operand_stack();
         let slot = stack.pop_slot();
-        stack.push_slot(slot);
+        stack.push_slot(slot.clone());
         stack.push_slot(slot);
     }
 }

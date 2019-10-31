@@ -86,14 +86,16 @@ impl OperandStack {
         f64::from_bits(long)
     }
 
-    pub fn push_ref(&mut self, obj: Object) {
+    pub fn push_ref(&mut self, obj: Rc<Object>) {
         if self.slots.len() >= self.max_stack {
             panic!("operand stack over flow in push_ref");
         }
         self.slots.push(Slot::Ref(obj))
     }
 
-    pub fn pop_ref(&mut self) -> Object {
+    pub fn pop_ref(&mut self) -> Rc<Object> {
+//        let rc_slot = self.slots.pop().unwrap();
+//        rc_slot.as_ref()
         match self.slots.pop().unwrap() {
             Slot::Ref(obj) => obj,
             _ => panic!("error local var operation for get pop_ref."),
@@ -107,6 +109,7 @@ impl OperandStack {
     pub fn pop_slot(&mut self) -> Slot {
         self.slots.pop().unwrap()
     }
+
     // #[cfg(test)]
     pub fn dbg_print_top(&self) {
         let top = self.slots.last();

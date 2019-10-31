@@ -1,15 +1,18 @@
 pub enum Slot {
     Num(u32),
-    Ref(Object),
+    Ref(Rc<Object>),
 }
-
-impl Copy for Slot {}
 
 impl Clone for Slot {
     fn clone(&self) -> Self {
-        *self
+        match self {
+            Slot::Num(n) => Slot::Num(*n),
+            Slot::Ref(rc_obj) => Slot::Ref(rc_obj.clone()),
+        }
     }
 }
+
+impl Slot {}
 
 impl Debug for Slot {
     fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), Error> {

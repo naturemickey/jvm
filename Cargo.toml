@@ -8,3 +8,4 @@ edition = "2018"
 
 [dependencies]
 zip = "0.5.3"
+lazy_static = "1.4.0"

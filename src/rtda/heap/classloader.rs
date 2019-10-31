@@ -74,7 +74,7 @@ impl ClassLoader {
     }
 
     fn verify(class: &Class) {
-        unimplemented!()
+        // todo
     }
 
     fn prepare(class: &Class) {

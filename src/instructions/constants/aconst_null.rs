@@ -3,7 +3,7 @@ pub struct ACONST_NULL {}
 
 impl Instruction for ACONST_NULL {
     fn execute(&mut self,  frame: &mut Frame) {
-        frame.operand_stack().push_ref(NULL);
+        frame.operand_stack().push_ref(Object::NULL());
     }
 }
 

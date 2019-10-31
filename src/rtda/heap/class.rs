@@ -28,7 +28,7 @@ impl Class {
         // todo interfaces
         // todo instance_slot_count
         // todo static_slot_count
-        let static_vars = Slots::new();
+        let static_vars = Slots::new(0);
         let mut class =
             Self {
                 access_flags,
