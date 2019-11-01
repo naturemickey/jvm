@@ -28,6 +28,7 @@ impl ClassMember {
     fn is_synthetic(&self) -> bool {
         self.access_flags & ACC_SYNTHETIC != 0
     }
+    fn is_final(&self) -> bool { self.access_flags & ACC_FINAL != 0 }
 
     fn name(&self) -> &str {
         &self.name

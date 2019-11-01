@@ -14,7 +14,7 @@ impl Instruction for IFNULL {
     }
     fn execute(&mut self, frame: &mut Frame) {
         let obj = frame.operand_stack().pop_ref();
-        if obj == Object::NULL() {
+        if obj == Object::null() {
             self.base.branch(frame);
         }
     }

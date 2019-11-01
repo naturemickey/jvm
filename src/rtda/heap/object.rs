@@ -18,7 +18,7 @@ impl Object {
     fn new(class: &Class) -> Arc<Object> {
         unimplemented!()
     }
-    pub fn NULL() -> Rc<Object> {
+    pub fn null() -> Rc<Object> {
         Rc::new(Object { class: null(), fields: Box::new(Slots::new(0)) })
     }
 }

@@ -54,6 +54,8 @@ impl Field {
     fn is_synthetic(&self) -> bool {
         self.member.is_synthetic()
     }
+    fn is_final(&self) -> bool { self.member.is_final() }
+
     fn name(&self) -> &str {
         self.member.name()
     }
