@@ -129,12 +129,36 @@ impl ClassLoader {
         let descriptor = field.descriptor();
         if cp_index > 0 {
             match descriptor {
-                "Z" | "B" | "C" | "S" | "I" => {}
-                "J" => {}
-                "F" => {}
-                "D" => {}
-                "Ljava/lang/String" => {}
-                _ => {}
+                "Z" | "B" | "C" | "S" | "I" => {
+                    match cp.get_constant(cp_index) {
+                        Constant::Integer(val) => vars.set_int(slot_id, *val),
+                        _ => panic!("impossible.")
+                    }
+                }
+                "J" => {
+                    match cp.get_constant(cp_index) {
+                        Constant::Long(val) => vars.set_long(slot_id, *val),
+                        _ => panic!("impossible.")
+                    }
+                }
+                "F" => {
+                    match cp.get_constant(cp_index) {
+                        Constant::Float(val) => vars.set_float(slot_id, *val),
+                        _ => panic!("impossible.")
+                    }
+                }
+                "D" => {
+                    match cp.get_constant(cp_index) {
+                        Constant::Double(val) => vars.set_double(slot_id, *val),
+                        _ => panic!("impossible.")
+                    }
+                }
+                "Ljava/lang/String" => {
+                    panic!("todo")
+                }
+                _ => {
+                    panic!("impossible.")
+                }
             }
         }
         unimplemented!()
