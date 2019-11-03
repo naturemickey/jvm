@@ -55,6 +55,13 @@ impl ConstantPool {
         }
     }
 
+    fn class_mut(&self) -> &mut Class {
+        match &self.class {
+            Some(c) => unsafe { &mut *(*c as *mut Class) },
+            None => panic!("impossible.")
+        }
+    }
+
     pub fn get_constant(&self, cp_index: u16) -> &Constant {
         &self.consts[cp_index as usize]
     }

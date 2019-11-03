@@ -91,7 +91,7 @@ impl Class {
     }
 
     pub fn is_accessible_to(&self, other: &Class) -> bool {
-        self.is_public() || self.package_name() == other.package_name()
+        self.is_public() || self.package_name().eq(other.package_name())
     }
     pub fn package_name(&self) -> &str {
         match self.name.rfind("/") {
@@ -134,6 +134,9 @@ impl Class {
 
     fn loader_mut(&mut self) -> &mut ClassLoader {
         unsafe { &mut *(self.loader as *mut ClassLoader) }
+    }
+    fn loader(&self) -> &ClassLoader {
+        unsafe { &*self.loader }
     }
 }
 
