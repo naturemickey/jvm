@@ -68,7 +68,4 @@ impl Field {
     fn is_accessible_to(&self, d: &Class) -> bool {
         self.member.is_accessible_to(d)
     }
-    fn is_accessible_to2(&self, d: &Class) -> bool {
-        self.member.is_accessible_to(d)
-    }
 }

@@ -3,18 +3,19 @@ use crate::rtda::Thread;
 use crate::instructions::*;
 use std::sync::Arc;
 use std::borrow::Borrow;
+use crate::rtda::heap::Method;
 
-pub fn interpret(method_info: &MemberInfo) {
-    let code_attr = method_info.code_attribute().unwrap();
-    let max_locals = code_attr.max_locals();
-    let max_stack = code_attr.max_stack();
-    let bytecode = dbg!(code_attr.code());
+pub fn interpret(method: *const Method) {
+//    let code_attr = method_info.code_attribute().unwrap();
+//    let max_locals = code_attr.max_locals();
+//    let max_stack = code_attr.max_stack();
+//    let bytecode = dbg!(code_attr.code());
 
     let mut thread = Thread::new();
-    let frame = thread.new_frame(max_locals as usize, max_stack as usize);
+    let frame = thread.new_frame(method);
     thread.push_frame(frame);
 
-    _loop(&mut thread, bytecode);
+    _loop(&mut thread, unsafe { &*method }.code());
 }
 
 fn _loop(thread: &mut Thread, bytecode: Arc<Vec<u8>>) {

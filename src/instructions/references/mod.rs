@@ -1,5 +1,8 @@
 use std::fmt::{Debug, Formatter};
 use std::fmt::Error;
+use crate::instructions::{Instruction, BytecodeReader};
+use crate::rtda::Frame;
+use crate::rtda::heap::Constant;
 include!("anewarray.rs");
 include!("arraylength.rs");
 include!("athrow.rs");

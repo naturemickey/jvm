@@ -21,12 +21,12 @@ impl FieldRef {
         let name = self.member.name();
         let descriptor = self.member.descriptor();
 
-        let field = self.lookup_field(unsafe { &*c }, name, descriptor);
+        let field = Self::lookup_field(c, name, descriptor);
 
         match field {
             Some(field) => {
                 let d = self.member.cp().class();
-                if !unsafe { &*field }.is_accessible_to2(d) {
+                if !unsafe { &*field }.is_accessible_to(d) {
                     panic!("java.lang.IllegalAccessError");
                 }
                 self.field = Some(field);
@@ -38,17 +38,24 @@ impl FieldRef {
         }
     }
 
-    fn lookup_field(&self, c: &Class, name: &str, descriptor: &str) -> Option<*const Field> {
-        for field in &c.fields {
+    fn lookup_field(c: *const Class, name: &str, descriptor: &str) -> Option<*const Field> {
+        let class = unsafe { &*c };
+        for field in &class.fields {
             if field.name().eq(name) && field.descriptor().eq(descriptor) {
                 return Some(field);
             }
         }
 
-        // todo for c.interfaces
+        for iface in &class.interfaces {
+            let field = Self::lookup_field(*iface, name, descriptor);
+            if field != None {
+                return field;
+            }
+        }
 
-        // todo c.super_class
-
-        None
+        match &class.super_class {
+            Some(cptr) => Self::lookup_field(*cptr, name, descriptor),
+            None => None
+        }
     }
 }

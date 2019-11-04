@@ -46,9 +46,10 @@ impl ClassMember {
         } else {
             let c = self.class();
             if self.is_protected() {
-                d == c || d.is_sub_class_of(c) || c.package_name() == d.package_name()
+                d == c || d.is_sub_class_of(c) ||
+                    c.package_name().eq(d.package_name())
             } else if !self.is_private() {
-                c.package_name() == d.package_name()
+                c.package_name().eq(d.package_name())
             } else {
                 d == c
             }

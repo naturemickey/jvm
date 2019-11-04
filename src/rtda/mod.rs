@@ -1,5 +1,5 @@
 use std::fmt::{Debug, Formatter, Error};
-use crate::rtda::heap::{Object, Slots};
+use crate::rtda::heap::{Object, Slots, Method};
 use std::rc::Rc;
 
 pub mod heap;

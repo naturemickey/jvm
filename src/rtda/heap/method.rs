@@ -62,16 +62,27 @@ impl Method {
     fn is_synthetic(&self) -> bool {
         self.member.is_synthetic()
     }
-    fn name(&self) -> &str {
+
+    pub fn name(&self) -> &str {
         self.member.name()
     }
-    fn descriptor(&self) -> &str {
+    pub fn descriptor(&self) -> &str {
         self.member.descriptor()
     }
-    fn class(&self) -> &Class {
+    pub fn class(&self) -> &Class {
         self.member.class()
     }
-    fn is_accessible_to(&self, d: &Class) -> bool {
+    pub fn is_accessible_to(&self, d: &Class) -> bool {
         self.member.is_accessible_to(d)
+    }
+
+    pub fn max_locals(&self) -> u16 {
+        self.max_locals
+    }
+    pub fn max_stack(&self) -> u16 {
+        self.max_stack
+    }
+    pub fn code(&self) -> Arc<Vec<u8>> {
+        self.code.clone()
     }
 }

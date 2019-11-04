@@ -18,3 +18,18 @@ pub enum Constant {
     Module(),
     Package(),
 }
+
+impl Constant {
+    pub unsafe fn get_class_ref(&self) -> &ClassRef {
+        match self {
+            Constant::Class(class_ref) => class_ref,
+            _ => panic!("unsafe called.")
+        }
+    }
+    pub unsafe fn get_class_ref_mut(&mut self) -> &mut ClassRef {
+        match self {
+            Constant::Class(class_ref) => class_ref,
+            _ => panic!("unsafe called.")
+        }
+    }
+}

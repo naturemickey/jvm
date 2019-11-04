@@ -65,4 +65,8 @@ impl ConstantPool {
     pub fn get_constant(&self, cp_index: u16) -> &Constant {
         &self.consts[cp_index as usize]
     }
+
+    pub fn get_constant_mut(&mut self, cp_index: u16) -> &mut Constant {
+        &mut self.consts[cp_index as usize]
+    }
 }

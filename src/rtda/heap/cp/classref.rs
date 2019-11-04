@@ -8,4 +8,8 @@ impl ClassRef {
         let sym = SymRef::new(cp, class_name);
         Self { sym }
     }
+
+    pub fn resolved_class(&mut self) -> *const Class {
+        self.sym.resoved_class()
+    }
 }

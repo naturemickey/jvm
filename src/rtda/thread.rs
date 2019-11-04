@@ -28,7 +28,7 @@ impl Thread {
         self.stack.top()
     }
 
-    pub fn new_frame(& self, max_locals: usize, max_stack: usize) -> Box<Frame> {
-        Box::new(Frame::new(max_locals, max_stack, self))
+    pub fn new_frame(&self, method: *const Method) -> Box<Frame> {
+        Box::new(Frame::new( self, method))
     }
 }
