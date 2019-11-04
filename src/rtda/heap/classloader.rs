@@ -1,49 +1,50 @@
 pub struct ClassLoader {
     classpath: Classpath,
-    class_map: HashMap<String, Class>,
+    class_map: HashMap<String, Arc<Class>>,
 }
 
 impl ClassLoader {
-    pub fn new(classpath: Classpath) -> ClassLoader {
-        Self { classpath, class_map: HashMap::new() }
+    pub fn new(classpath: Classpath) -> Arc<ClassLoader> {
+        Arc::new(Self { classpath, class_map: HashMap::new() })
     }
 
-    pub fn load_class(&mut self, name: &str) -> *const Class {
-        match self.class_map.get(name) {
-            Some(class) => class,
+    pub fn load_class(loader:Arc<ClassLoader>, name: &str) -> Arc<Class> {
+        match loader.class_map.get(name) {
+            Some(class) => class.clone(),
             None => {
                 // todo array_class?
-                self.load_non_array_class(name)
+                Self::load_non_array_class(loader, name)
             }
         }
     }
 
-    fn load_non_array_class(&mut self, name: &str) -> &Class {
-        let (data, entry) = self.read_class(name);
-        let class = self.define_class(data);
-        Self::link(unsafe { &mut *(class as *mut Class) });
+    fn load_non_array_class(loader:Arc<ClassLoader>, name: &str) -> Arc<Class> {
+        let (data, entry) = loader.read_class(name);
+        let class = loader.define_class(data);
+        Self::link(class.clone());
         println!("[Loaded {} from {}", name, unsafe { &*entry }.to_string());
-        return unsafe { &*class };
+        return class.clone();
     }
 
-    fn read_class(&self, name: &str) -> (Vec<u8>, *const dyn Entry) {
+    fn read_class(&self, name: &str) -> (Vec<u8>, Arc<dyn Entry>) {
         match self.classpath.read_class(name) {
-            Some(res) => res,
+            Some(res) => res.clone(),
             None => panic!("java.lang.ClassNotFoundException: {}", name)
         }
     }
 
-    fn define_class(&mut self, data: Vec<u8>) -> *const Class {
-        let mut class = Self::parse_class(data, self);
+    fn define_class(loader: Arc<ClassLoader>, data: Vec<u8>) -> Arc<Class> {
+        let mut class = Self::parse_class(data, loader);
         Self::resolve_super_class(&mut class);
         Self::resolve_interfaces(&mut class);
 
         let class_name = class.name.to_string();
-        self.class_map.insert(class_name.clone(), class);
-        self.class_map.get(&class_name).unwrap()
+
+        loader.class_map.insert(class_name.clone(), class.clone());
+        class
     }
 
-    fn parse_class(data: Vec<u8>, loader: &Self) -> Class {
+    fn parse_class(data: Vec<u8>, loader: Arc<ClassLoader>) -> Arc<Class> {
         let cf = classfile::ClassFile::parse(data);
         Class::new(&cf, loader)
     }
@@ -68,7 +69,8 @@ impl ClassLoader {
         }
     }
 
-    fn link(class: &mut Class) {
+    fn link(class: Arc<Class>) {
+        let class = unsafe { &mut *(Arc::into_raw(class) as *mut Class) };
         Self::verify(class);
         Self::prepare(class);
     }
@@ -84,7 +86,7 @@ impl ClassLoader {
     }
 
     fn calc_instance_field_slot_ids(class: &mut Class) {
-        let mut slot_id = match class.super_class {
+        let mut slot_id = match &class.super_class {
             None => 0,
             Some(c) => unsafe { &*c }.instance_slot_count
         };

@@ -1,5 +1,5 @@
 pub trait Entry: ToString {
-    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, *const dyn Entry)>;
+    fn read_class(entry:Arc<dyn Entry>, class_name: &str) -> Option<(Vec<u8>, Arc<dyn Entry>)>;
 }
 
 pub fn new_entry(path: &str) -> Arc<dyn Entry> {

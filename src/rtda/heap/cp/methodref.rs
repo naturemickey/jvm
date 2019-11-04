@@ -4,7 +4,7 @@ pub struct MethodRef {
 }
 
 impl MethodRef {
-    fn new(info: &classfile::ConstantMethodrefInfo, cp: *const ConstantPool) -> MethodRef {
+    fn new(info: &classfile::ConstantMethodrefInfo, cp: Arc<ConstantPool>) -> MethodRef {
         let member = MemberRef::new(info.member(), cp);
         Self { member, method: None }
     }

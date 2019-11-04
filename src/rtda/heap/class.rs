@@ -4,33 +4,29 @@ pub struct Class {
     super_class_name: String,
     interface_names: Vec<String>,
     constant_pool: Arc<ConstantPool>,
-    fields: Vec<Field>,
-    methods: Vec<Method>,
-    loader: *const ClassLoader,
-    super_class: Option<*const Class>,
-    interfaces: Vec<*const Class>,
+    fields: Vec<Arc<Field>>,
+    methods: Vec<Arc<Method>>,
+    loader: Arc<ClassLoader>,
+    super_class: Option<Arc<Class>>,
+    interfaces: Vec<Arc<Class>>,
     instance_slot_count: usize,
     static_slot_count: usize,
     static_vars: Slots,
 }
 
 impl Class {
-    pub fn new(cf: &ClassFile, loader: *const ClassLoader) -> Class {
+    pub fn new(cf: &ClassFile, loader: Arc<ClassLoader>) -> Arc<Class> {
         let access_flags = cf.access_flags();
         let name = cf.class_name().to_string();
         let super_class_name = cf.super_class_name().to_string();
         let interface_names = crate::util::coll::strvec_to_stringvec(&cf.interface_names());
-        let mut constant_pool = ConstantPool::new(cf.constant_pool(), None);
+        let constant_pool = ConstantPool::new(cf.constant_pool(), None);
         let fields = Vec::with_capacity(0);
         let methods = Vec::with_capacity(0);
-        // todo loader
-        // todo super_class
-        // todo interfaces
-        // todo instance_slot_count
-        // todo static_slot_count
         let static_vars = Slots::new(0);
+
         let mut class =
-            Self {
+            Arc::new(Self {
                 access_flags,
                 name,
                 super_class_name,
@@ -44,12 +40,12 @@ impl Class {
                 instance_slot_count: 0,
                 static_slot_count: 0,
                 static_vars,
-            };
+            });
 
-        Arc::get_mut(&mut constant_pool).unwrap().set_class(Some(&class));
+        crate::util::arc_util::borrow_mut(constant_pool.clone()).set_class(Some(class.clone()));
 
-        let methods = Method::new_methods(&class, cf.methods());
-        let fields = Field::new_fields(&class, cf.fields());
+        let methods = Method::new_methods(class.clone(), cf.methods());
+        let fields = Field::new_fields(class.clone(), cf.fields());
 
         // let class: &mut Self = Arc::get_mut(&mut arc_class).unwrap();
         class.methods = methods;
@@ -119,24 +115,21 @@ impl Class {
         Object::new(self)
     }
 
-    pub fn is_assignable_from(&self, other: &Class) -> bool {
+    pub fn is_assignable_from(&self, other: Arc<Class>) -> bool {
         unimplemented!()
     }
-    pub fn is_sub_class_of(&self, other: &Class) -> bool {
+    pub fn is_sub_class_of(&self, other: Arc<Class>) -> bool {
         unimplemented!()
     }
-    pub fn is_implements(&self, iface: &Class) -> bool {
+    pub fn is_implements(&self, iface: Arc<Class>) -> bool {
         unimplemented!()
     }
-    pub fn is_sub_insterface_of(&self, iface: &Class) -> bool {
+    pub fn is_sub_insterface_of(&self, iface: Arc<Class>) -> bool {
         unimplemented!()
     }
 
-    fn loader_mut(&mut self) -> &mut ClassLoader {
-        unsafe { &mut *(self.loader as *mut ClassLoader) }
-    }
-    fn loader(&self) -> &ClassLoader {
-        unsafe { &*self.loader }
+    fn loader(&self) -> Arc<ClassLoader> {
+        self.loader.clone()
     }
 }
 

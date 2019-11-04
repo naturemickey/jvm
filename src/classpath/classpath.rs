@@ -8,7 +8,7 @@ impl Classpath {
     pub fn parse(cp_option: &str) -> Classpath {
         Self { user_classpath: new_entry(cp_option) }
     }
-    pub fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, *const dyn Entry)> {
+    pub fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, Arc<dyn Entry>)> {
         self.user_classpath.read_class(class_name)
     }
 }

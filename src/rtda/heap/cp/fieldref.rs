@@ -1,22 +1,22 @@
 pub struct FieldRef {
     member: MemberRef,
-    field: Option<*const Field>,
+    field: Option<Arc<Field>>,
 }
 
 impl FieldRef {
-    fn new(info: &classfile::ConstantFieldrefInfo, cp: *const ConstantPool) -> FieldRef {
+    fn new(info: &classfile::ConstantFieldrefInfo, cp: Arc<ConstantPool>) -> FieldRef {
         let member = MemberRef::new(info.member(), cp);
         Self { member, field: None }
     }
 
-    fn resolved_field(&mut self) -> *const Field {
-        match self.field {
-            Some(f) => f,
+    fn resolved_field(&mut self) -> Arc<Field> {
+        match &self.field {
+            Some(f) => f.clone(),
             None => self.resolve_field_ref()
         }
     }
 
-    fn resolve_field_ref(&mut self) -> *const Field {
+    fn resolve_field_ref(&mut self) -> Arc<Field> {
         let c = self.member.resoved_class();
         let name = self.member.name();
         let descriptor = self.member.descriptor();
@@ -29,8 +29,8 @@ impl FieldRef {
                 if !unsafe { &*field }.is_accessible_to(d) {
                     panic!("java.lang.IllegalAccessError");
                 }
-                self.field = Some(field);
-                field
+                self.field = Some(field.clone());
+                field.clone()
             }
             None => {
                 panic!("java.lang.NoSuchFieldError")
@@ -38,23 +38,23 @@ impl FieldRef {
         }
     }
 
-    fn lookup_field(c: *const Class, name: &str, descriptor: &str) -> Option<*const Field> {
-        let class = unsafe { &*c };
+    fn lookup_field(class: Arc<Class>, name: &str, descriptor: &str) -> Option<Arc<Field>> {
         for field in &class.fields {
             if field.name().eq(name) && field.descriptor().eq(descriptor) {
-                return Some(field);
+                return Some(field.clone());
             }
         }
 
         for iface in &class.interfaces {
-            let field = Self::lookup_field(*iface, name, descriptor);
-            if field != None {
-                return field;
+            let field = Self::lookup_field(iface.clone(), name, descriptor);
+            match field {
+                Some(f) => return field,
+                None => {}
             }
         }
 
         match &class.super_class {
-            Some(cptr) => Self::lookup_field(*cptr, name, descriptor),
+            Some(cptr) => Self::lookup_field(cptr.clone(), name, descriptor),
             None => None
         }
     }

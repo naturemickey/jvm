@@ -1,10 +1,10 @@
 pub struct ConstantPool {
-    class: Option<*const Class>,
+    class: Option<Arc<Class>>,
     consts: Vec<Constant>,
 }
 
 impl ConstantPool {
-    fn new(cf_cp: Arc<classfile::ConstantPool>, class: Option<*const Class>) -> Arc<ConstantPool> {
+    fn new(cf_cp: Arc<classfile::ConstantPool>, class: Option<Arc<Class>>) -> Arc<ConstantPool> {
         let cp_count = cf_cp.constants_count();
         let mut i = 1;
         let mut rt_cp = Arc::new(Self { class, consts: Vec::with_capacity(cp_count as usize) });
@@ -23,10 +23,10 @@ impl ConstantPool {
                     Constant::Double(info.value())
                 }
                 ConstantInfo::String(info) => Constant::String(info.string().to_string()),
-                ConstantInfo::Class(info) => Constant::Class(ClassRef::new(info, rt_cp.borrow())),
-                ConstantInfo::FieldRef(info) => Constant::FieldRef(FieldRef::new(info, rt_cp.borrow())),
-                ConstantInfo::MethodRef(info) => Constant::MethodRef(MethodRef::new(info, rt_cp.borrow())),
-                ConstantInfo::InterfaceMethodRef(info) => Constant::InterfaceMethodRef(InterfaceMethodRef::new(info, rt_cp.borrow())),
+                ConstantInfo::Class(info) => Constant::Class(ClassRef::new(info, rt_cp.clone())),
+                ConstantInfo::FieldRef(info) => Constant::FieldRef(FieldRef::new(info, rt_cp.clone())),
+                ConstantInfo::MethodRef(info) => Constant::MethodRef(MethodRef::new(info, rt_cp.clone())),
+                ConstantInfo::InterfaceMethodRef(info) => Constant::InterfaceMethodRef(InterfaceMethodRef::new(info, rt_cp.clone())),
                 ConstantInfo::Utf8(info) => { unimplemented!() }
                 ConstantInfo::NameAndType(info) => { unimplemented!() }
                 ConstantInfo::MethodHandle(info) => { unimplemented!() }
@@ -44,20 +44,13 @@ impl ConstantPool {
         rt_cp
     }
 
-    fn set_class(&mut self, class: Option<*const Class>) {
+    fn set_class(&mut self, class: Option<Arc<Class>>) {
         self.class = class;
     }
 
-    fn class(&self) -> &Class {
+    fn class(&self) -> Arc<Class> {
         match &self.class {
-            Some(c) => unsafe { &**c },
-            None => panic!("impossible.")
-        }
-    }
-
-    fn class_mut(&self) -> &mut Class {
-        match &self.class {
-            Some(c) => unsafe { &mut *(*c as *mut Class) },
+            Some(c) => c.clone(),
             None => panic!("impossible.")
         }
     }

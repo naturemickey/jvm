@@ -9,7 +9,7 @@ impl DirEntry {
 }
 
 impl Entry for DirEntry {
-    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, *const dyn Entry)> {
+    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, Arc<dyn Entry>)> {
         let pb = Path::new(&self.abs_dir).join(class_name);
         let path = pb.as_path();
         if path.is_file() {

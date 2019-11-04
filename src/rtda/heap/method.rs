@@ -6,12 +6,12 @@ pub struct Method {
 }
 
 impl Method {
-    pub fn new_methods(class: &Class, cf_methods: &Vec<MemberInfo>) -> Vec<Method> {
+    pub fn new_methods(class: Arc<Class>, cf_methods: &Vec<MemberInfo>) -> Vec<Arc<Method>> {
         let mut methods = Vec::with_capacity(cf_methods.len());
         for cf_method in cf_methods {
             let member = ClassMember::new(class, cf_method);
             let (max_stack, max_locals, code) = Self::copy_attributes(cf_method);
-            methods.push(Self { member, max_stack, max_locals, code });
+            methods.push(Arc::new(Self { member, max_stack, max_locals, code }));
         }
         methods
     }
@@ -69,10 +69,10 @@ impl Method {
     pub fn descriptor(&self) -> &str {
         self.member.descriptor()
     }
-    pub fn class(&self) -> &Class {
+    pub fn class(&self) -> Arc<Class> {
         self.member.class()
     }
-    pub fn is_accessible_to(&self, d: &Class) -> bool {
+    pub fn is_accessible_to(&self, d: Arc<Class>) -> bool {
         self.member.is_accessible_to(d)
     }
 

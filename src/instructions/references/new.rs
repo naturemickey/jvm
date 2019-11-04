@@ -15,9 +15,9 @@ impl Instruction for NEW {
     }
 
     fn execute(&mut self, frame: &mut Frame) {
-        let cp = frame.method().class().constant_pool();
-        let class_ref = unsafe { cp.get_constant(self.index).get_class_ref_mut() };
-        let class = class_ref.resolved_class();
+//        let cp = frame.method().class().constant_pool();
+//        let class_ref = unsafe { cp.get_constant(self.index).get_class_ref_mut() };
+//        let class = class_ref.resolved_class();
         // todo init class
         unimplemented!()
     }

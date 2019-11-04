@@ -2,11 +2,11 @@ struct ClassMember {
     access_flags: u16,
     name: String,
     descriptor: String,
-    class: *const Class,
+    class: Arc<Class>,
 }
 
 impl ClassMember {
-    fn new(class: &Class, member_info: &MemberInfo) -> ClassMember {
+    fn new(class: Arc<Class>, member_info: &MemberInfo) -> ClassMember {
         let access_flags = member_info.access_flgs();
         let name = member_info.name().to_string();
         let descriptor = member_info.descriptor().to_string();
@@ -36,11 +36,11 @@ impl ClassMember {
     fn descriptor(&self) -> &str {
         &self.descriptor
     }
-    fn class(&self) -> &Class {
-        unsafe { &*self.class }
+    fn class(&self) -> Arc<Class> {
+        self.class.clone()
     }
 
-    fn is_accessible_to(&self, d: &Class) -> bool {
+    fn is_accessible_to(&self, d: Arc<Class>) -> bool {
         if self.is_public() {
             true
         } else {

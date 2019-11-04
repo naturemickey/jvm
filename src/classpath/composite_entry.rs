@@ -25,7 +25,7 @@ impl CompositeEntry {
 }
 
 impl Entry for CompositeEntry {
-    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, *const dyn Entry)> {
+    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, Arc<dyn Entry>)> {
         for entry in &self.entrys {
             let res = entry.read_class(class_name);
             if res.is_some() {
