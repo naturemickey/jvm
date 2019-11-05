@@ -1,4 +1,4 @@
-struct ZipEntry {
+pub struct ZipEntry {
     abs_path: String
 }
 
@@ -6,10 +6,7 @@ impl ZipEntry {
     fn new(path: &str) -> ZipEntry {
         Self { abs_path: path.to_string() }
     }
-}
-
-impl Entry for ZipEntry {
-    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, Arc<dyn Entry>)> {
+    fn read_class(&self, class_name: &str) -> Option<Vec<u8>> {
         let file = File::open(Path::new(&self.abs_path)).unwrap();
         let reader = BufReader::new(file);
         let mut za = zip::ZipArchive::new(reader).unwrap();
@@ -25,11 +22,12 @@ impl Entry for ZipEntry {
                 if read_res.is_err() {
                     panic!("ZipEntry read file err {}", read_res.unwrap_err().description());
                 }
-                Some((v, self))
+                Some(v)
             }
         }
     }
 }
+
 
 impl ToString for ZipEntry {
     fn to_string(&self) -> String {

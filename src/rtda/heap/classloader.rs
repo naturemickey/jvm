@@ -8,7 +8,7 @@ impl ClassLoader {
         Arc::new(Self { classpath, class_map: HashMap::new() })
     }
 
-    pub fn load_class(loader:Arc<ClassLoader>, name: &str) -> Arc<Class> {
+    pub fn load_class(loader: Arc<ClassLoader>, name: &str) -> Arc<Class> {
         match loader.class_map.get(name) {
             Some(class) => class.clone(),
             None => {
@@ -18,29 +18,32 @@ impl ClassLoader {
         }
     }
 
-    fn load_non_array_class(loader:Arc<ClassLoader>, name: &str) -> Arc<Class> {
-        let (data, entry) = loader.read_class(name);
-        let class = loader.define_class(data);
+    fn load_non_array_class(loader: Arc<ClassLoader>, name: &str) -> Arc<Class> {
+        let data = loader.read_class(name);
+        let class = Self::define_class(loader, data);
         Self::link(class.clone());
-        println!("[Loaded {} from {}", name, unsafe { &*entry }.to_string());
+
         return class.clone();
     }
 
-    fn read_class(&self, name: &str) -> (Vec<u8>, Arc<dyn Entry>) {
+    fn read_class(&self, name: &str) -> Vec<u8> {
         match self.classpath.read_class(name) {
-            Some(res) => res.clone(),
+            Some(res) => res,
             None => panic!("java.lang.ClassNotFoundException: {}", name)
         }
     }
 
     fn define_class(loader: Arc<ClassLoader>, data: Vec<u8>) -> Arc<Class> {
-        let mut class = Self::parse_class(data, loader);
-        Self::resolve_super_class(&mut class);
-        Self::resolve_interfaces(&mut class);
+        let mut class = Self::parse_class(data, loader.clone());
+        let mut class_ref = crate::util::arc_util::borrow_mut(class.clone());
+        let mut loader_ref = crate::util::arc_util::borrow_mut(loader.clone());
 
-        let class_name = class.name.to_string();
+        Self::resolve_super_class(class_ref);
+        Self::resolve_interfaces(class_ref);
 
-        loader.class_map.insert(class_name.clone(), class.clone());
+        let class_name = class_ref.name.to_string();
+
+        loader_ref.class_map.insert(class_name.clone(), class.clone());
         class
     }
 
@@ -52,7 +55,7 @@ impl ClassLoader {
     fn resolve_super_class(class: &mut Class) {
         if class.name.ne(&OBJECT_CLASS_NAME.to_string()) {
             let super_class_name = class.super_class_name.clone();
-            class.super_class = Some(class.loader_mut().load_class(&super_class_name));
+            class.super_class = Some(Self::load_class(class.loader(), &super_class_name));
         }
     }
 
@@ -63,7 +66,7 @@ impl ClassLoader {
 
             for i in 0..interface_count {
                 let interface_name = &class.interface_names[i].clone();
-                let interface_ptr = class.loader_mut().load_class(interface_name);
+                let interface_ptr = Self::load_class(class.loader(), interface_name);
                 class.interfaces.push(interface_ptr);
             }
         }
@@ -92,7 +95,8 @@ impl ClassLoader {
         };
         for field in &mut class.fields {
             if !field.is_static() {
-                field.slot_id = slot_id;
+                let mut field_ref = crate::util::arc_util::borrow_mut(field.clone());
+                field_ref.slot_id = slot_id;
                 slot_id += if field.is_long_or_double() { 2 } else { 1 };
             }
         }
@@ -102,7 +106,8 @@ impl ClassLoader {
     fn calc_static_field_slot_ids(class: &mut Class) {
         let mut slot_id = 0usize;
         for field in &mut class.fields {
-            field.slot_id = slot_id;
+            let mut field_ref = crate::util::arc_util::borrow_mut(field.clone());
+            field_ref.slot_id = slot_id;
             slot_id += if field.is_long_or_double() { 2 } else { 1 };
         }
         class.static_slot_count = slot_id;

@@ -22,15 +22,15 @@ fn start_jvm(cmd: Cmd) {
     let classpath = Classpath::parse(&cmd.cp_option);
     println!(" classpath:{} class:{} args:{:?}\n", cmd.cp_option.to_string(), cmd.class.to_string(), cmd.args);
 
-    let mut classloader = ClassLoader::new(classpath);
+    let classloader = ClassLoader::new(classpath);
 
     let class_name = file_util::classname_to_filename(&cmd.class);
 
     println!("{}", class_name);
 
-    let main_class = classloader.load_class(&class_name);
+    let main_class = ClassLoader::load_class(classloader.clone(), &class_name);
 
-    let main_method = unsafe { &*main_class }.get_main_method();
+    let main_method = main_class.get_main_method();
 
     match main_method {
         Some(m) => interpret(m),

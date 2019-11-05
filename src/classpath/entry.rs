@@ -1,15 +1,44 @@
-pub trait Entry: ToString {
-    fn read_class(entry:Arc<dyn Entry>, class_name: &str) -> Option<(Vec<u8>, Arc<dyn Entry>)>;
+//pub trait Entry: ToString {
+//    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, Arc<dyn Entry>)>;
+//}
+
+pub enum Entry {
+    Composite(CompositeEntry),
+    Wildcard(WildcardEntry),
+    Zip(ZipEntry),
+    Dir(DirEntry),
 }
 
-pub fn new_entry(path: &str) -> Arc<dyn Entry> {
-    if path.contains(if cfg!(windows) { ';' } else { ':' }) {
-        Arc::new(CompositeEntry::new(path))
-    } else if path.ends_with("*") {
-        Arc::new(WildcardEntry::new(path))
-    } else if file_util::is_jar_name(&path) {
-        Arc::new(ZipEntry::new(path))
-    } else {
-        Arc::new(DirEntry::new(path))
+impl Entry {
+    pub fn new(path: &str) -> Entry {
+        if path.contains(if cfg!(windows) { ';' } else { ':' }) {
+            Entry::Composite(CompositeEntry::new(path))
+        } else if path.ends_with("*") {
+            Entry::Wildcard(WildcardEntry::new(path))
+        } else if file_util::is_jar_name(&path) {
+            Entry::Zip(ZipEntry::new(path))
+        } else {
+            Entry::Dir(DirEntry::new(path))
+        }
+    }
+
+    pub fn read_class(&self, class_name: &str) -> Option<Vec<u8>> {
+        match self {
+            Entry::Composite(e) => e.read_class(class_name),
+            Entry::Wildcard(e) => e.read_class(class_name),
+            Entry::Zip(e) => e.read_class(class_name),
+            Entry::Dir(e) => e.read_class(class_name),
+        }
+    }
+}
+
+impl ToString for Entry {
+    fn to_string(&self) -> String {
+        match self {
+            Entry::Composite(e) => "Entry::Composite[".to_owned() + &e.to_string() + "]",
+            Entry::Wildcard(e) => "Entry::Wildcard[".to_owned() + &e.to_string() + "]",
+            Entry::Zip(e) => "Entry::Zip[".to_owned() + &e.to_string() + "]",
+            Entry::Dir(e) => "Entry::Dir[".to_owned() + &e.to_string() + "]",
+        }
     }
 }

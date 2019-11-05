@@ -20,12 +20,12 @@ impl SymRef {
 
     fn resoved_class_ref(&mut self) -> Arc<Class> {
         let d = self.constant_pool().class();
-        let c = d.loader().load_class(&self.class_name);
+        let c = ClassLoader::load_class(d.loader(), &self.class_name);
         //let c_class = unsafe { &*c };
         if !c.is_accessible_to(d.borrow()) {
             panic!("java.lang.IllegalAccessError");
         }
-        self.class = Some(c);
+        self.class = Some(c.clone());
         c.clone()
     }
 

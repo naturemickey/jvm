@@ -48,7 +48,7 @@ impl FieldRef {
         for iface in &class.interfaces {
             let field = Self::lookup_field(iface.clone(), name, descriptor);
             match field {
-                Some(f) => return field,
+                Some(f) => return Some(f),
                 None => {}
             }
         }

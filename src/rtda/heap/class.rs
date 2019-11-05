@@ -48,8 +48,8 @@ impl Class {
         let fields = Field::new_fields(class.clone(), cf.fields());
 
         // let class: &mut Self = Arc::get_mut(&mut arc_class).unwrap();
-        class.methods = methods;
-        class.fields = fields;
+        crate::util::arc_util::borrow_mut(class.clone()).methods = methods;
+        crate::util::arc_util::borrow_mut(class.clone()).fields = fields;
 
         class
     }

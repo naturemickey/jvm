@@ -1,4 +1,4 @@
-struct WildcardEntry {
+pub struct WildcardEntry {
     entry: CompositeEntry
 }
 
@@ -24,10 +24,7 @@ impl WildcardEntry {
         // println!("{:?}", paths);
         Self { entry: CompositeEntry::new_by_paths(paths) }
     }
-}
-
-impl Entry for WildcardEntry {
-    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, Arc<dyn Entry>)> {
+    fn read_class(&self, class_name: &str) ->Option<Vec<u8>> {
         self.entry.read_class(class_name)
     }
 }

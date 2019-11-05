@@ -1,5 +1,5 @@
-struct CompositeEntry {
-    entrys: Vec<Arc<dyn Entry>>
+pub struct CompositeEntry {
+    entrys: Vec<Entry>
 }
 
 impl CompositeEntry {
@@ -15,17 +15,14 @@ impl CompositeEntry {
         let mut entrys = Vec::new();
         for p in paths {
             // println!("{}", p);
-            entrys.push(new_entry(&p));
+            entrys.push(Entry::new(&p));
         }
         Self::new_by_entrys(entrys)
     }
-    fn new_by_entrys(entrys: Vec<Arc<dyn Entry>>) -> CompositeEntry {
+    fn new_by_entrys(entrys: Vec<Entry>) -> CompositeEntry {
         Self { entrys }
     }
-}
-
-impl Entry for CompositeEntry {
-    fn read_class(&self, class_name: &str) -> Option<(Vec<u8>, Arc<dyn Entry>)> {
+    fn read_class(&self, class_name: &str) -> Option<Vec<u8>> {
         for entry in &self.entrys {
             let res = entry.read_class(class_name);
             if res.is_some() {
@@ -35,6 +32,7 @@ impl Entry for CompositeEntry {
         return None;
     }
 }
+
 
 impl ToString for CompositeEntry {
     fn to_string(&self) -> String {

@@ -8,7 +8,7 @@ impl Field {
     pub fn new_fields(class: Arc<Class>, cf_fields: &Vec<MemberInfo>) -> Vec<Arc<Field>> {
         let mut fields = Vec::with_capacity(cf_fields.len());
         for cf_field in cf_fields {
-            let member = ClassMember::new(class, cf_field);
+            let member = ClassMember::new(class.clone(), cf_field);
             let field = match cf_field.constant_value_attribute() {
                 Some(cva) => Self { member, const_value_index: cva.value_index(), slot_id: 0 },
                 None => Self { member, const_value_index: 0, slot_id: 0 }
