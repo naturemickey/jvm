@@ -73,16 +73,16 @@ impl ClassLoader {
     }
 
     fn link(class: Arc<Class>) {
-        let class = unsafe { &mut *(Arc::into_raw(class) as *mut Class) };
-        Self::verify(class);
+        Self::verify(class.clone());
         Self::prepare(class);
     }
 
-    fn verify(class: &Class) {
+    fn verify(class: Arc<Class>) {
         // todo
     }
 
-    fn prepare(class: &mut Class) {
+    fn prepare(class: Arc<Class>) {
+        let class = crate::util::arc_util::borrow_mut(class);
         Self::calc_instance_field_slot_ids(class);
         Self::calc_static_field_slot_ids(class);
         Self::alloc_and_init_static_vars(class);
@@ -91,7 +91,7 @@ impl ClassLoader {
     fn calc_instance_field_slot_ids(class: &mut Class) {
         let mut slot_id = match &class.super_class {
             None => 0,
-            Some(c) => unsafe { &*c }.instance_slot_count
+            Some(c) => c.instance_slot_count
         };
         for field in &mut class.fields {
             if !field.is_static() {

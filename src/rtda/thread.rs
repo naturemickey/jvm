@@ -4,8 +4,8 @@ pub struct Thread {
 }
 
 impl Thread {
-    pub fn new() -> Thread {
-        Self { pc: 0, stack: Stack::new1k() }
+    pub fn new() -> Arc<Thread> {
+        Arc::new(Self { pc: 0, stack: Stack::new1k() })
     }
 
     pub fn pc(&self) -> i32 {
@@ -28,7 +28,7 @@ impl Thread {
         self.stack.top()
     }
 
-    pub fn new_frame(&self, method: *const Method) -> Box<Frame> {
-        Box::new(Frame::new( self, method))
+    pub fn new_frame(thread: Arc<Thread>, method: Arc<Method>) {
+        crate::util::arc_util::borrow_mut(thread.clone()).push_frame(Frame::new(thread.clone(), method));
     }
 }

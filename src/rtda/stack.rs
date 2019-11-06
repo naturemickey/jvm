@@ -14,7 +14,7 @@ impl Stack {
         Self::new(1024 * 1024)
     }
 
-    fn push(& mut self, frame: Box<Frame>) {
+    fn push(&mut self, frame: Box<Frame>) {
         if self.vec.len() >= self.deep {
             panic!("java.lang.StackOverFlowError");
         }

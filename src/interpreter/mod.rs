@@ -5,17 +5,18 @@ use std::sync::Arc;
 use std::borrow::Borrow;
 use crate::rtda::heap::Method;
 
-pub fn interpret(method: *const Method) {
+pub fn interpret(method: Arc<Method>) {
 //    let code_attr = method_info.code_attribute().unwrap();
 //    let max_locals = code_attr.max_locals();
 //    let max_stack = code_attr.max_stack();
 //    let bytecode = dbg!(code_attr.code());
 
     let mut thread = Thread::new();
-    let frame = thread.new_frame(method);
-    thread.push_frame(frame);
+    Thread::new_frame(thread.clone(), method.clone());
 
-    _loop(&mut thread, unsafe { &*method }.code());
+    let mut thread = crate::util::arc_util::borrow_mut(thread);
+
+    _loop(thread, method.code());
 }
 
 fn _loop(thread: &mut Thread, bytecode: Arc<Vec<u8>>) {

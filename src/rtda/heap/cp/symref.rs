@@ -29,7 +29,7 @@ impl SymRef {
         c.clone()
     }
 
-    fn constant_pool(&self) -> &ConstantPool {
-        unsafe { &*self.cp }
+    fn constant_pool(&self) -> Arc<ConstantPool> {
+        self.cp.clone()
     }
 }

@@ -26,7 +26,7 @@ impl FieldRef {
         match field {
             Some(field) => {
                 let d = self.member.cp().class();
-                if !unsafe { &*field }.is_accessible_to(d) {
+                if !field.is_accessible_to(d) {
                     panic!("java.lang.IllegalAccessError");
                 }
                 self.field = Some(field.clone());

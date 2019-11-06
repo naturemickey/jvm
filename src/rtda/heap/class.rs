@@ -98,14 +98,14 @@ impl Class {
         }
     }
 
-    pub fn get_main_method(&self) -> Option<&Method> {
+    pub fn get_main_method(&self) -> Option<Arc<Method>> {
         self.get_static_method("main", "([Ljava/lang/String;)V")
     }
 
-    pub fn get_static_method(&self, name: &str, descriptor: &str) -> Option<&Method> {
+    pub fn get_static_method(&self, name: &str, descriptor: &str) -> Option<Arc<Method>> {
         for method in &self.methods {
             if method.is_static() && method.name() == name && method.descriptor() == descriptor {
-                return Some(method);
+                return Some(method.clone());
             }
         }
         None
