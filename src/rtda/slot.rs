@@ -1,6 +1,6 @@
 pub enum Slot {
     Num(u32),
-    Ref(Rc<Object>),
+    Ref(Arc<Object>),
 }
 
 impl Clone for Slot {

@@ -65,11 +65,11 @@ impl Slots {
         f64::from_bits(n)
     }
 
-    pub fn set_ref(&mut self, index: usize, reference: Rc<Object>) {
+    pub fn set_ref(&mut self, index: usize, reference: Arc<Object>) {
         self.slots[index] = Slot::Ref(reference)
     }
 
-    pub fn get_ref(&self, index: usize) -> Rc<Object> {
+    pub fn get_ref(&self, index: usize) -> Arc<Object> {
         match &self.slots[index] {
             Slot::Ref(obj) => obj.clone(),
             _ => panic!("error local var operation for get ref."),

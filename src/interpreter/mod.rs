@@ -1,4 +1,4 @@
-use crate::classfile::MemberInfo;
+
 use crate::rtda::Thread;
 use crate::instructions::*;
 use std::sync::Arc;

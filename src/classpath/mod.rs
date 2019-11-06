@@ -5,7 +5,6 @@ use std::string::ToString;
 use std::io::{BufReader, Read};
 use std::error::Error;
 use std::fs::File;
-use std::sync::Arc;
 
 include!("classpath.rs");
 include!("entry.rs");

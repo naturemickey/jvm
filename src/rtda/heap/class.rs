@@ -111,8 +111,8 @@ impl Class {
         None
     }
 
-    pub fn new_object(&self) -> Arc<Object> {
-        Object::new(self)
+    pub fn new_object(class: Arc<Class>) -> Arc<Object> {
+        Object::new(class)
     }
 
     pub fn is_assignable_from(&self, other: Arc<Class>) -> bool {
