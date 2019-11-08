@@ -11,7 +11,7 @@ pub enum Entry {
 
 impl Entry {
     pub fn new(path: &str) -> Entry {
-        if path.contains(if cfg!(windows) { ';' } else { ':' }) {
+        if path.contains(SEPARATOR) {
             Entry::Composite(CompositeEntry::new(path))
         } else if path.ends_with("*") {
             Entry::Wildcard(WildcardEntry::new(path))

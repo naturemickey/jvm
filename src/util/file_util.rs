@@ -14,7 +14,7 @@ pub fn read_file(file: &File) -> Vec<u8> {
 }
 
 pub fn classname_to_filename(classname: &str) -> String {
-    // classname.replace(".", if cfg!(windows) { "\\" } else { "/" }) + ".class"
+    // classname.replace(".", separator()) + ".class"
     // This works :
     classname.replace(".", "/") + ".class"
 }

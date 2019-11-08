@@ -4,7 +4,7 @@ pub struct CompositeEntry {
 
 impl CompositeEntry {
     fn new(path: &str) -> CompositeEntry {
-        let paths: Vec<&str> = path.split(if cfg!(windows) { ';' } else { ':' }).collect();
+        let paths: Vec<&str> = path.split(SEPARATOR).collect();
         let mut paths2 = Vec::new();
         for p in paths {
             paths2.push(p.to_string());
@@ -40,6 +40,6 @@ impl ToString for CompositeEntry {
         for entry in &self.entrys {
             strs.push(entry.to_string());
         }
-        strs.join(if cfg!(windows) { ";" } else { ":" })
+        strs.join(SEPARATOR_STR)
     }
 }

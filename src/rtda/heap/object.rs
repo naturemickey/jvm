@@ -1,6 +1,6 @@
 pub struct Object {
     class: Option<Arc<Class>>,
-    fields: Arc<Slots>,
+    fields: Slots,
 }
 
 //lazy_static! {
@@ -16,11 +16,11 @@ impl PartialEq for Object {
             true
         } else {
             let c1 = match &self.class {
-                Some (ac) => ac.clone(),
+                Some(ac) => ac.clone(),
                 None => return false
             };
             let c2 = match &other.class {
-                Some (ac) => ac.clone(),
+                Some(ac) => ac.clone(),
                 None => return false
             };
             c1.borrow() as *const Class == c2.borrow() as *const Class
@@ -31,10 +31,11 @@ impl PartialEq for Object {
 
 impl Object {
     fn new(class: Arc<Class>) -> Arc<Object> {
-        unimplemented!()
+        let fields = Slots::new(class.instance_slot_count);
+        Arc::new(Self { class: Some(class), fields })
     }
     pub fn null() -> Arc<Object> {
-        Arc::new(Object { class: None, fields: Arc::new(Slots::new(0)) })
+        Arc::new(Object { class: None, fields: Slots::new(0) })
     }
 }
 

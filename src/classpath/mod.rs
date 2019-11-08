@@ -5,6 +5,7 @@ use std::string::ToString;
 use std::io::{BufReader, Read};
 use std::error::Error;
 use std::fs::File;
+use crate::util::path::{SEPARATOR, SEPARATOR_STR};
 
 include!("classpath.rs");
 include!("entry.rs");

@@ -5,8 +5,6 @@ use std::borrow::Borrow;
 use crate::classpath::Classpath;
 use std::collections::HashMap;
 use crate::rtda::Slot;
-use std::ptr::null;
-use std::rc::Rc;
 
 include!("cp/constant.rs");
 include!("cp/classref.rs");
