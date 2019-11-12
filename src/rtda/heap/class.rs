@@ -82,8 +82,11 @@ impl Class {
     pub fn constant_pool(&self) -> Arc<ConstantPool> {
         self.constant_pool.clone()
     }
-    fn static_vars(&self) -> &Slots {
+    pub fn static_vars(&self) -> &Slots {
         &self.static_vars
+    }
+    pub fn static_vars_mut(&mut self) -> &mut Slots {
+        &mut self.static_vars
     }
 
     pub fn is_accessible_to(&self, other: &Class) -> bool {
@@ -135,6 +138,7 @@ impl Class {
 
 impl PartialEq for Class {
     fn eq(&self, other: &Class) -> bool {
-        self.name == other.name // todo need to compare classloader
+        self as *const Class == other as *const Class
+        // self.name == other.name // todo need to compare classloader
     }
 }

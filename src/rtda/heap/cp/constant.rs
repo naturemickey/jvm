@@ -32,4 +32,17 @@ impl Constant {
             _ => panic!("unsafe called.")
         }
     }
+
+    pub unsafe fn get_field_ref(&self) -> &FieldRef {
+        match self {
+            Constant::FieldRef(field_ref) => field_ref,
+            _ => panic!("unsafe called.")
+        }
+    }
+    pub unsafe fn get_field_ref_mut(&mut self) -> &mut FieldRef {
+        match self {
+            Constant::FieldRef(field_ref) => field_ref,
+            _ => panic!("unsafe called.")
+        }
+    }
 }

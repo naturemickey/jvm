@@ -9,7 +9,7 @@ impl FieldRef {
         Self { member, field: None }
     }
 
-    fn resolved_field(&mut self) -> Arc<Field> {
+    pub fn resolved_field(&mut self) -> Arc<Field> {
         match &self.field {
             Some(f) => f.clone(),
             None => self.resolve_field_ref()
