@@ -7,6 +7,9 @@ impl ASTORE {
     pub fn new(index: usize) -> Self {
         Self { index }
     }
+    pub fn new0() -> Self {
+        Self { index: 0 }
+    }
     fn _astore(frame: &mut Frame, index: usize) {
         let val = frame.operand_stack().pop_ref();
         frame.local_vars().set_ref(index as usize, val);

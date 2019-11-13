@@ -4,8 +4,11 @@ pub struct ILOAD {
 }
 
 impl ILOAD {
-    pub fn new(index: usize) -> ILOAD {
+    pub fn new(index: usize) -> Self {
         Self { index }
+    }
+    pub fn new0() -> Self {
+        Self { index: 0 }
     }
     fn _iload(frame: &mut Frame, index: usize) {
         let val = frame.local_vars().get_int(index);

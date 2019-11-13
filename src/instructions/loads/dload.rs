@@ -7,6 +7,9 @@ impl DLOAD {
     pub fn new(index: usize) -> Self {
         Self { index }
     }
+    pub fn new0() -> Self {
+        Self { index: 0 }
+    }
     fn _dload(frame: &mut Frame, index: usize) {
         let val = frame.local_vars().get_double(index);
         frame.operand_stack().push_double(val);

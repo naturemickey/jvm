@@ -7,6 +7,9 @@ impl DSTORE {
     pub fn new(index: usize) -> Self {
         Self { index }
     }
+    pub fn new0() -> Self {
+        Self { index: 0 }
+    }
     fn _dstore(frame: &mut Frame, index: usize) {
         let val = frame.operand_stack().pop_double();
         frame.local_vars().set_double(index as usize, val);

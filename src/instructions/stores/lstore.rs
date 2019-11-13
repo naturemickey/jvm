@@ -7,6 +7,9 @@ impl LSTORE {
     pub fn new(index: usize) -> Self {
         Self { index }
     }
+    pub fn new0() -> Self {
+        Self { index: 0 }
+    }
     fn _lstore(frame: &mut Frame, index: usize) {
         let val = frame.operand_stack().pop_long();
         frame.local_vars().set_long(index as usize, val);

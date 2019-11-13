@@ -4,8 +4,11 @@ pub struct ALOAD {
 }
 
 impl ALOAD {
-    pub fn new(index: usize) -> ALOAD {
+    pub fn new(index: usize) -> Self {
         Self { index }
+    }
+    pub fn new0() -> Self {
+        Self { index: 0 }
     }
     fn _aload(frame: &mut Frame, index: usize) {
         let val = frame.local_vars().get_ref(index);

@@ -7,6 +7,9 @@ impl FLOAD {
     pub fn new(index: usize) -> Self {
         Self { index }
     }
+    pub fn new0() -> Self {
+        Self { index: 0 }
+    }
     fn _fload(frame: &mut Frame, index: usize) {
         let val = frame.local_vars().get_float(index);
         frame.operand_stack().push_float(val);

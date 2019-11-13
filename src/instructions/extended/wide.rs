@@ -11,7 +11,7 @@ impl Debug for WIDE {
 
 impl WIDE {
     pub fn new() -> Self {
-        Self { modified_instruction: Box::new(loads::ILOAD::new(0)) }
+        Self { modified_instruction: Box::new(loads::ILOAD::new0()) }
     }
 }
 

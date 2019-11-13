@@ -4,8 +4,11 @@ pub struct LLOAD {
 }
 
 impl LLOAD {
-    pub fn new(index: usize) -> LLOAD {
+    pub fn new(index: usize) -> Self {
         Self { index }
+    }
+    pub fn new0() -> Self {
+        Self { index: 0 }
     }
     fn _lload(frame: &mut Frame, index: usize) {
         let val = frame.local_vars().get_long(index);

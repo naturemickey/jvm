@@ -2,7 +2,8 @@ use std::fmt::{Debug, Formatter};
 use std::fmt::Error;
 use crate::instructions::{Instruction, BytecodeReader};
 use crate::rtda::Frame;
-use crate::rtda::heap::Class;
+use crate::rtda::heap::{Class, Object};
+use std::borrow::Borrow;
 
 include!("anewarray.rs");
 include!("arraylength.rs");

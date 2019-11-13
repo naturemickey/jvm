@@ -25,7 +25,7 @@ impl Instruction for PUT_FIELD {
             panic!("java.lang.IncompatibleClassChangError");
         }
         if field.is_final() {
-            if current_class.borrow() != field.class().borrow() || current_method.name() != "<init>" {
+            if current_class != field.class() || current_method.name() != "<init>" {
                 panic!("java.lang.IllegalAccessError");
             }
         }

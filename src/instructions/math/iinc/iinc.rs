@@ -6,7 +6,10 @@ pub struct IINC {
 
 impl IINC {
     pub fn new(index: usize, _const: i32) -> Self {
-        Self { index, _const }
+        Self { index: 0, _const: 0 }
+    }
+    pub fn new00() -> Self {
+        Self { index: 0, _const: 0 }
     }
 }
 
