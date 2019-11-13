@@ -37,6 +37,9 @@ impl Object {
     pub fn null() -> Arc<Object> {
         Arc::new(Object { class: None, fields: Slots::new(0) })
     }
+    pub fn fields_mut(&mut self) -> &mut Slots {
+        &mut self.fields
+    }
 }
 
 const OBJECT_CLASS_NAME: &str = "java/lang/Object";

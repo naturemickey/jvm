@@ -4,8 +4,8 @@ pub struct GET_STATIC {
 }
 
 impl GET_STATIC {
-    fn new(index: u16) -> Self {
-        Self { index }
+    pub fn new() -> Self {
+        Self { index: 0 }
     }
 }
 

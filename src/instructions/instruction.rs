@@ -1,4 +1,4 @@
-pub trait Instruction : Debug {
+pub trait Instruction: Debug {
     fn fetch_operands(&mut self, _reader: &mut BytecodeReader) {
         // nothing to do
     }
@@ -185,16 +185,16 @@ pub fn new_instruction(opcode: u8) -> Box<dyn Instruction> {
 //        175 => Box::new(D_RETURN {}),
 //        176 => Box::new(A_RETURN {}),
 //        177 => Box::new(RETURN {}),
-//        178 => Box::new(GET_STATIC {}),
-//        179 => Box::new(PUT_STATIC {}),
-//        180 => Box::new(GET_FIELD {}),
-//        181 => Box::new(PUT_FIELD {}),
+        178 => Box::new(GET_STATIC::new()),
+        179 => Box::new(PUT_STATIC::new()),
+        180 => Box::new(GET_FIELD::new()),
+        181 => Box::new(PUT_FIELD::new()),
 //        182 => Box::new(INVOKE_VIRTUAL {}),
 //        183 => Box::new(INVOKE_SPECIAL {}),
 //        184 => Box::new(INVOKE_STATIC {}),
 //        185 => Box::new(INVOKE_INTERFACE {}),
 //        186 => Box::new(INVOKE_DYNAMIC {}),
-//        187 => Box::new(NEW {}),
+        187 => Box::new(NEW::new()),
 //        188 => Box::new(NEW_ARRAY {}),
 //        189 => Box::new(ANEW_ARRAY {}),
 //        190 => Box::new(ARRAY_LENGTH {}),
