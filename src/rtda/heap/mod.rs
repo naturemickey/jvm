@@ -1,7 +1,6 @@
 use crate::classfile;
 use crate::classfile::{ClassFile, MemberInfo, ConstantInfo};
 use std::sync::Arc;
-use std::borrow::Borrow;
 use crate::classpath::Classpath;
 use std::collections::HashMap;
 use crate::rtda::Slot;

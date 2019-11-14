@@ -19,10 +19,10 @@ impl Instruction for CHECK_CAST {
         let _ref = stack.pop_ref();
         if _ref != Object::null() {
             let cp = frame.method().class().constant_pool();
-            let class_ref = unsafe { crate::util::arc_util::borrow_mut(cp.clone()).get_constant_mut(self.index).get_class_ref_mut() };
+            let class_ref = unsafe { crate::util::arc_util::as_mut_ref(cp.clone()).get_constant_mut(self.index).get_class_ref_mut() };
             let class = class_ref.resolved_class();
 
-            if !_ref.is_instance_of(class.borrow()) {
+            if !_ref.is_instance_of(class.as_ref()) {
                 panic!("java.lang.ClassCastException")
             }
         }

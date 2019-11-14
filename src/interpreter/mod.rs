@@ -2,7 +2,6 @@
 use crate::rtda::Thread;
 use crate::instructions::*;
 use std::sync::Arc;
-use std::borrow::Borrow;
 use crate::rtda::heap::Method;
 
 pub fn interpret(method: Arc<Method>) {
@@ -14,14 +13,14 @@ pub fn interpret(method: Arc<Method>) {
     let mut thread = Thread::new();
     Thread::new_frame(thread.clone(), method.clone());
 
-    let mut thread = crate::util::arc_util::borrow_mut(thread);
+    let mut thread = crate::util::arc_util::as_mut_ref(thread);
 
     _loop(thread, method.code());
 }
 
 fn _loop(thread: &mut Thread, bytecode: Arc<Vec<u8>>) {
     let mut frame = thread.pop_frame();
-    let mut reader = BytecodeReader::new(bytecode.borrow(), 0);
+    let mut reader = BytecodeReader::new(bytecode.as_ref(), 0);
 
     loop {
         let pc = frame.next_pc();

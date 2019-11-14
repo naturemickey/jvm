@@ -18,7 +18,7 @@ impl Instruction for PUT_FIELD {
         let current_method = frame.method();
         let current_class = current_method.class();
         let cp = current_class.constant_pool();
-        let field_ref = unsafe { crate::util::arc_util::borrow_mut(cp.clone()).get_constant_mut(self.index).get_field_ref_mut() };
+        let field_ref = unsafe { crate::util::arc_util::as_mut_ref(cp.clone()).get_constant_mut(self.index).get_field_ref_mut() };
         let field = field_ref.resolved_field();
 
         if field.is_static() {
@@ -42,7 +42,7 @@ impl Instruction for PUT_FIELD {
                     if _ref == Object::null() {
                         panic!("java.lang.NullPointerException");
                     }
-                    crate::util::arc_util::borrow_mut(_ref.clone()).fields_mut().set_int(slot_id, val);
+                    crate::util::arc_util::as_mut_ref(_ref.clone()).fields_mut().set_int(slot_id, val);
                 }
                 'F' => {
                     let val = stack.pop_float();
@@ -50,7 +50,7 @@ impl Instruction for PUT_FIELD {
                     if _ref == Object::null() {
                         panic!("java.lang.NullPointerException");
                     }
-                    crate::util::arc_util::borrow_mut(_ref.clone()).fields_mut().set_float(slot_id, val);
+                    crate::util::arc_util::as_mut_ref(_ref.clone()).fields_mut().set_float(slot_id, val);
                 }
                 'J' => {
                     let val = stack.pop_long();
@@ -58,7 +58,7 @@ impl Instruction for PUT_FIELD {
                     if _ref == Object::null() {
                         panic!("java.lang.NullPointerException");
                     }
-                    crate::util::arc_util::borrow_mut(_ref.clone()).fields_mut().set_long(slot_id, val);
+                    crate::util::arc_util::as_mut_ref(_ref.clone()).fields_mut().set_long(slot_id, val);
                 }
                 'D' => {
                     let val = stack.pop_double();
@@ -66,7 +66,7 @@ impl Instruction for PUT_FIELD {
                     if _ref == Object::null() {
                         panic!("java.lang.NullPointerException");
                     }
-                    crate::util::arc_util::borrow_mut(_ref.clone()).fields_mut().set_double(slot_id, val);
+                    crate::util::arc_util::as_mut_ref(_ref.clone()).fields_mut().set_double(slot_id, val);
                 }
                 'L' | '[' => {
                     let val = stack.pop_ref();
@@ -74,7 +74,7 @@ impl Instruction for PUT_FIELD {
                     if _ref == Object::null() {
                         panic!("java.lang.NullPointerException");
                     }
-                    crate::util::arc_util::borrow_mut(_ref.clone()).fields_mut().set_ref(slot_id, val);
+                    crate::util::arc_util::as_mut_ref(_ref.clone()).fields_mut().set_ref(slot_id, val);
                 }
                 _ => panic!("impossible")
             },

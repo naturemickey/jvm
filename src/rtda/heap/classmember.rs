@@ -46,7 +46,7 @@ impl ClassMember {
         } else {
             let c = self.class();
             if self.is_protected() {
-                d == c || d.is_sub_class_of(c.clone()) ||
+                d == c || d.is_sub_class_of(c.as_ref()) ||
                     c.package_name().eq(d.package_name())
             } else if !self.is_private() {
                 c.package_name().eq(d.package_name())

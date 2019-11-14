@@ -10,22 +10,23 @@ pub struct Object {
 impl PartialEq for Object {
     // #[inline(always)]
     fn eq(&self, other: &Self) -> bool {
-        if self as *const Self == other as *const Self {
-            true
-        } else if self.class == None && other.class == None {
-            true
-        } else {
-            let c1 = match &self.class {
-                Some(ac) => ac.clone(),
-                None => return false
-            };
-            let c2 = match &other.class {
-                Some(ac) => ac.clone(),
-                None => return false
-            };
-            c1.borrow() as *const Class == c2.borrow() as *const Class
-                || (self.fields.borrow() as *const Slots) == (other.fields.borrow() as *const Slots)
-        }
+        self as *const Self == other as *const Self
+//        if self as *const Self == other as *const Self {
+//            true
+//        } else if self.class == None && other.class == None {
+//            true
+//        } else {
+//            let c1 = match &self.class {
+//                Some(ac) => ac.clone(),
+//                None => return false
+//            };
+//            let c2 = match &other.class {
+//                Some(ac) => ac.clone(),
+//                None => return false
+//            };
+//            c1.as_ref() as *const Class == c2.as_ref() as *const Class
+//                || (self.fields.borrow() as *const Slots) == (other.fields.borrow() as *const Slots)
+//        }
     }
 }
 
@@ -42,7 +43,7 @@ impl Object {
     }
     pub fn is_instance_of(&self, class: &Class) -> bool {
         match &self.class {
-            Some(c) => c.is_accessible_to(class),
+            Some(c) => c.is_assignable_from(class),
             None => true,
         }
     }

@@ -42,14 +42,14 @@ impl Class {
                 static_vars,
             });
 
-        crate::util::arc_util::borrow_mut(constant_pool.clone()).set_class(Some(class.clone()));
+        crate::util::arc_util::as_mut_ref(constant_pool.clone()).set_class(Some(class.clone()));
 
         let methods = Method::new_methods(class.clone(), cf.methods());
         let fields = Field::new_fields(class.clone(), cf.fields());
 
         // let class: &mut Self = Arc::get_mut(&mut arc_class).unwrap();
-        crate::util::arc_util::borrow_mut(class.clone()).methods = methods;
-        crate::util::arc_util::borrow_mut(class.clone()).fields = fields;
+        crate::util::arc_util::as_mut_ref(class.clone()).methods = methods;
+        crate::util::arc_util::as_mut_ref(class.clone()).fields = fields;
 
         class
     }
@@ -118,17 +118,56 @@ impl Class {
         Object::new(class)
     }
 
-    pub fn is_assignable_from(&self, other: Arc<Class>) -> bool {
-        unimplemented!()
+    pub fn is_assignable_from(&self, other: &Class) -> bool {
+        let (s, t) = (other, self);
+        if s == t {
+            true
+        } else {
+            if t.is_interface() {
+                return s.is_implements(t);
+            } else {
+                return s.is_sub_class_of(t);
+            }
+        }
     }
-    pub fn is_sub_class_of(&self, other: Arc<Class>) -> bool {
-        unimplemented!()
+    pub fn is_sub_class_of(&self, other: &Class) -> bool {
+        match &self.super_class {
+            None => false,
+            Some(c) => {
+                let c = c.as_ref();
+                c == other || c.is_sub_class_of(other)
+            }
+        }
+//        let c = self.super_class;
+//        while c != None {
+//            let c = c.unwrap().borrow();
+//            if c == other {
+//                return true;
+//            }
+//            let c = c.super_class;
+//        }
+//        return false;
     }
-    pub fn is_implements(&self, iface: Arc<Class>) -> bool {
-        unimplemented!()
+    pub fn is_implements(&self, iface: &Class) -> bool {
+        for interface in &self.interfaces {
+            let interface = interface.as_ref();
+            if interface == iface || interface.is_sub_insterface_of(iface) {
+                return true;
+            }
+        }
+        match &self.super_class {
+            None => false,
+            Some(c) => c.is_implements(iface)
+        }
     }
-    pub fn is_sub_insterface_of(&self, iface: Arc<Class>) -> bool {
-        unimplemented!()
+    pub fn is_sub_insterface_of(&self, iface: &Class) -> bool {
+        for super_interface in &self.interfaces {
+            let super_interface = super_interface.as_ref();
+            if super_interface == iface || super_interface.is_sub_insterface_of(iface) {
+                return true;
+            }
+        }
+        return false;
     }
 
     fn loader(&self) -> Arc<ClassLoader> {

@@ -22,7 +22,7 @@ impl SymRef {
         let d = self.constant_pool().class();
         let c = ClassLoader::load_class(d.loader(), &self.class_name);
         //let c_class = unsafe { &*c };
-        if !c.is_accessible_to(d.borrow()) {
+        if !c.is_accessible_to(d.as_ref()) {
             panic!("java.lang.IllegalAccessError");
         }
         self.class = Some(c.clone());

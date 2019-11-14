@@ -35,8 +35,8 @@ impl ClassLoader {
 
     fn define_class(loader: Arc<ClassLoader>, data: Vec<u8>) -> Arc<Class> {
         let mut class = Self::parse_class(data, loader.clone());
-        let mut class_ref = crate::util::arc_util::borrow_mut(class.clone());
-        let mut loader_ref = crate::util::arc_util::borrow_mut(loader.clone());
+        let mut class_ref = crate::util::arc_util::as_mut_ref(class.clone());
+        let mut loader_ref = crate::util::arc_util::as_mut_ref(loader.clone());
 
         Self::resolve_super_class(class_ref);
         Self::resolve_interfaces(class_ref);
@@ -82,7 +82,7 @@ impl ClassLoader {
     }
 
     fn prepare(class: Arc<Class>) {
-        let class = crate::util::arc_util::borrow_mut(class);
+        let class = crate::util::arc_util::as_mut_ref(class);
         Self::calc_instance_field_slot_ids(class);
         Self::calc_static_field_slot_ids(class);
         Self::alloc_and_init_static_vars(class);
@@ -95,7 +95,7 @@ impl ClassLoader {
         };
         for field in &mut class.fields {
             if !field.is_static() {
-                let mut field_ref = crate::util::arc_util::borrow_mut(field.clone());
+                let mut field_ref = crate::util::arc_util::as_mut_ref(field.clone());
                 field_ref.slot_id = slot_id;
                 slot_id += if field.is_long_or_double() { 2 } else { 1 };
             }
@@ -106,7 +106,7 @@ impl ClassLoader {
     fn calc_static_field_slot_ids(class: &mut Class) {
         let mut slot_id = 0usize;
         for field in &mut class.fields {
-            let mut field_ref = crate::util::arc_util::borrow_mut(field.clone());
+            let mut field_ref = crate::util::arc_util::as_mut_ref(field.clone());
             field_ref.slot_id = slot_id;
             slot_id += if field.is_long_or_double() { 2 } else { 1 };
         }

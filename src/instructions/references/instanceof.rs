@@ -22,10 +22,10 @@ impl Instruction for INSTANCE_OF {
         } else {
             let cp = frame.method().class().constant_pool();
             let stack = frame.operand_stack();
-            let class_ref = unsafe { crate::util::arc_util::borrow_mut(cp.clone()).get_constant_mut(self.index).get_class_ref_mut() };
+            let class_ref = unsafe { crate::util::arc_util::as_mut_ref(cp.clone()).get_constant_mut(self.index).get_class_ref_mut() };
             let class = class_ref.resolved_class();
 
-            if _ref.is_instance_of(class.borrow()) {
+            if _ref.is_instance_of(class.as_ref()) {
                 stack.push_int(1);
             } else {
                 stack.push_int(0);
