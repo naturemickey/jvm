@@ -11,6 +11,7 @@ impl PartialEq for Object {
     // #[inline(always)]
     fn eq(&self, other: &Self) -> bool {
         self as *const Self == other as *const Self
+            || (self.is_null() && other.is_null())
 //        if self as *const Self == other as *const Self {
 //            true
 //        } else if self.class == None && other.class == None {
@@ -46,6 +47,10 @@ impl Object {
             Some(c) => c.is_assignable_from(class),
             None => true,
         }
+    }
+
+    pub fn is_null(&self) -> bool {
+        self.class == None
     }
 }
 

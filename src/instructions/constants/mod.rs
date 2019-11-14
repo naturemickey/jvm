@@ -1,7 +1,7 @@
 
 use super::*;
 use std::fmt::{Formatter, Error};
-use crate::rtda::heap::Object;
+use crate::rtda::heap::{Object, Constant};
 
 include!("nop.rs");
 include!("aconst_null.rs");
