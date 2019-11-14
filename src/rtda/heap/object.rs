@@ -40,6 +40,12 @@ impl Object {
     pub fn fields_mut(&mut self) -> &mut Slots {
         &mut self.fields
     }
+    pub fn is_instance_of(&self, class: &Class) -> bool {
+        match &self.class {
+            Some(c) => c.is_accessible_to(class),
+            None => true,
+        }
+    }
 }
 
 const OBJECT_CLASS_NAME: &str = "java/lang/Object";

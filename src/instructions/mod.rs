@@ -22,7 +22,7 @@ use stores::*;
 
 use crate::rtda::Frame;
 use std::fmt::Debug;
-use crate::instructions::references::{GET_STATIC, PUT_STATIC, GET_FIELD, PUT_FIELD, NEW};
+use crate::instructions::references::{GET_STATIC, PUT_STATIC, GET_FIELD, PUT_FIELD, NEW, INSTANCE_OF, CHECK_CAST};
 
 include!("instruction.rs");
 include!("bytecode_reader.rs");
