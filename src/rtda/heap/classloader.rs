@@ -34,8 +34,8 @@ impl ClassLoader {
     }
 
     fn define_class(loader: Arc<ClassLoader>, data: Vec<u8>) -> Arc<Class> {
-        let mut class = Self::parse_class(data, loader.clone());
-        let mut class_ref = crate::util::arc_util::as_mut_ref(class.clone());
+        let class = Self::parse_class(data, loader.clone());
+        let class_ref = crate::util::arc_util::as_mut_ref(class.clone());
         let mut loader_ref = crate::util::arc_util::as_mut_ref(loader.clone());
 
         Self::resolve_super_class(class_ref);

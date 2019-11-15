@@ -19,4 +19,9 @@ impl MethodRef {
     fn resolve_method_ref(&mut self) -> Arc<Method> {
         unimplemented!()
     }
+
+    pub fn name(&self) -> &str {
+        self.member.name()
+    }
+    pub fn descriptor(&self) -> &str { self.member.descriptor() }
 }

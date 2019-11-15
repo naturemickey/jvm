@@ -25,7 +25,7 @@ impl Class {
         let methods = Vec::with_capacity(0);
         let static_vars = Slots::new(0);
 
-        let mut class =
+        let class =
             Arc::new(Self {
                 access_flags,
                 name,

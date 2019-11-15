@@ -45,4 +45,11 @@ impl Constant {
             _ => panic!("unsafe called.")
         }
     }
+
+    pub unsafe fn get_method_ref(&self) -> &MethodRef {
+        match self {
+            Constant::MethodRef(method_ref) => method_ref,
+            _ => panic!("unsafe called.")
+        }
+    }
 }
