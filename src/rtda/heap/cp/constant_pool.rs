@@ -38,7 +38,7 @@ impl ConstantPool {
                 ConstantInfo::Empty => { unimplemented!() }
             };
             // need confirm there is only one pointer to pc.
-            Arc::get_mut(&mut rt_cp).unwrap().consts.push(const_);
+            crate::util::arc_util::as_mut_ref(rt_cp.clone()).consts.push(const_);
             i += more;
         }
         rt_cp

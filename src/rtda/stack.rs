@@ -21,15 +21,15 @@ impl Stack {
         self.vec.push(frame);
     }
     fn pop(&mut self) -> Box<Frame> {
-        if self.vec.len() == 0 {
-            panic!("jvm stack is empty!");
+        match self.vec.pop() {
+            Some(f) => f,
+            None => panic!("jvm stack is empty!")
         }
-        self.vec.pop().unwrap()
     }
     fn top(&self) -> &Box<Frame> {
-        if self.vec.len() == 0 {
-            panic!("jvm stack is empty!");
+        match self.vec.last() {
+            Some(f) => f,
+            None => panic!("jvm stack is empty!")
         }
-        &self.vec.last().unwrap()
     }
 }

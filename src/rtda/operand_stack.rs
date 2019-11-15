@@ -107,7 +107,10 @@ impl OperandStack {
     }
 
     pub fn pop_slot(&mut self) -> Slot {
-        self.slots.pop().unwrap()
+        match self.slots.pop() {
+            Some(slot) => slot,
+            None => panic!("impossible.")
+        }
     }
 
     // #[cfg(test)]

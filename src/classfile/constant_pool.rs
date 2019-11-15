@@ -38,13 +38,16 @@ impl ConstantPool {
             i += 1;
         }
 
-        Arc::get_mut(&mut cp).unwrap().constant_infos = constant_infos;
+        crate::util::arc_util::as_mut_ref(cp.clone()).constant_infos = constant_infos;
 
         cp
     }
 
     pub fn get_constant_info(&self, index: u16) -> &ConstantInfo {
-        self.constant_infos.get(index as usize).unwrap()
+        match self.constant_infos.get(index as usize) {
+            Some(c) => c,
+            None => panic!("impossible.")
+        }
     }
 
     fn name_and_type(&self, index: u16) -> (&str, &str) {
