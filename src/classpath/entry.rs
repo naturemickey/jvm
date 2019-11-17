@@ -15,7 +15,7 @@ impl Entry {
             Entry::Composite(CompositeEntry::new(path))
         } else if path.ends_with("*") {
             Entry::Wildcard(WildcardEntry::new(path))
-        } else if file_util::is_jar_name(&path) {
+        } else if file_util::is_jar_name(path) {
             Entry::Zip(ZipEntry::new(path))
         } else {
             Entry::Dir(DirEntry::new(path))

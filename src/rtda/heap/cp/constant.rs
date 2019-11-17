@@ -1,6 +1,6 @@
 pub enum Constant {
     Empty,
-    Utf8(),
+    Utf8(String),
     Integer(i32),
     Float(f32),
     Long(i64),

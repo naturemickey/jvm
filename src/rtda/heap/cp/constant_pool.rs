@@ -27,15 +27,15 @@ impl ConstantPool {
                 ConstantInfo::FieldRef(info) => Constant::FieldRef(FieldRef::new(info, rt_cp.clone())),
                 ConstantInfo::MethodRef(info) => Constant::MethodRef(MethodRef::new(info, rt_cp.clone())),
                 ConstantInfo::InterfaceMethodRef(info) => Constant::InterfaceMethodRef(InterfaceMethodRef::new(info, rt_cp.clone())),
-                ConstantInfo::Utf8(info) => { unimplemented!() }
-                ConstantInfo::NameAndType(info) => { unimplemented!() }
-                ConstantInfo::MethodHandle(info) => { unimplemented!() }
-                ConstantInfo::MethodType(info) => { unimplemented!() }
-                ConstantInfo::Dynamic(info) => { unimplemented!() }
-                ConstantInfo::InvokeDynamic(info) => { unimplemented!() }
-                ConstantInfo::Module(info) => { unimplemented!() }
-                ConstantInfo::Package(info) => { unimplemented!() }
-                ConstantInfo::Empty => { unimplemented!() }
+                ConstantInfo::Utf8(info) => Constant::Utf8(info.string().to_string()),
+                ConstantInfo::NameAndType(info) => { Constant::Empty /*todo*/ }
+                ConstantInfo::MethodHandle(info) => { Constant::Empty /*todo*/ }
+                ConstantInfo::MethodType(info) => { Constant::Empty /*todo*/ }
+                ConstantInfo::Dynamic(info) => { Constant::Empty /*todo*/ }
+                ConstantInfo::InvokeDynamic(info) => { Constant::Empty /*todo*/ }
+                ConstantInfo::Module(info) => { Constant::Empty /*todo*/ }
+                ConstantInfo::Package(info) => { Constant::Empty /*todo*/ }
+                ConstantInfo::Empty => { Constant::Empty /*todo*/ }
             };
             // need confirm there is only one pointer to pc.
             crate::util::arc_util::as_mut_ref(rt_cp.clone()).consts.push(const_);

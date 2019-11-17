@@ -9,4 +9,8 @@ impl ConstantUtf8Info {
         let string = String::from_utf8(bytes).unwrap();
         Self { string }
     }
+
+    pub fn string(&self) -> &str {
+        &self.string
+    }
 }
