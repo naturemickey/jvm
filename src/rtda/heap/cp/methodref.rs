@@ -17,18 +17,44 @@ impl MethodRef {
     }
 
     fn resolve_method_ref(&mut self) -> Arc<Method> {
+        let d = self.cp().class();
+        let c = self.member.resoved_class();
+
+        if c.is_interface() {
+            panic!("java.lang.IncompatibleClassChangeError");
+        }
+
+        let method = Self::lookup_method(c.clone(), self.name(), self.descriptor());
+
+        match method {
+            Some(m) => {
+                if !m.is_accessible_to(d) {
+                    panic!("java.lang.IllegalAccessError");
+                }
+                self.method = Some(m.clone());
+
+                m.clone()
+            }
+            None => {
+                panic!("java.lang.NoSuchMethodError")
+            }
+        }
+    }
+
+    fn lookup_method(class: Arc<Class>, name: &str, descriptor: &str) -> Option<Arc<Method>> {
+        let method = Self::lookup_method_in_class(class.clone(), name, descriptor);
+        if method.is_none() {
+            Self::lookup_method_in_interfaces(&class.interfaces, name, descriptor)
+        } else {
+            method
+        }
+    }
+
+    fn lookup_method_in_class(class: Arc<Class>, name: &str, descriptor: &str) -> Option<Arc<Method>> {
         unimplemented!()
     }
 
-    fn lookup_method(class:Arc<Class>, name:&str, descriptor:&str)-> Arc<Method> {
-        unimplemented!()
-    }
-
-    fn lookup_method_in_class(class:Arc<Class>, name:&str, descriptor:&str) -> Arc<Method>{
-        unimplemented!()
-    }
-
-    fn lookup_method_in_interfaces(ifaces:Vec<Arc<Class>>, name:&str, descriptor:&str) -> Arc<Method> {
+    fn lookup_method_in_interfaces(ifaces: &Vec<Arc<Class>>, name: &str, descriptor: &str) -> Option<Arc<Method>> {
         unimplemented!()
     }
 
@@ -36,4 +62,5 @@ impl MethodRef {
         self.member.name()
     }
     pub fn descriptor(&self) -> &str { self.member.descriptor() }
+    fn cp(&self) -> Arc<ConstantPool> { self.member.cp() }
 }

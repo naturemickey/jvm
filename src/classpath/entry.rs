@@ -23,11 +23,11 @@ impl Entry {
     }
 
     pub fn read_class(&self, class_name: &str) -> Option<Vec<u8>> {
-        static classname_suffix: &str = ".class";
-        let class_name = &if class_name.ends_with(classname_suffix) {
+        static CLASSNAME_SUFFIX: &str = ".class";
+        let class_name = &if class_name.ends_with(CLASSNAME_SUFFIX) {
             class_name.to_string()
         } else {
-            class_name.to_string() + classname_suffix
+            class_name.to_string() + CLASSNAME_SUFFIX
         };
         match dbg!(self) {
             Entry::Composite(e) => e.read_class(class_name),
