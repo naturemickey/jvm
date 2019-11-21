@@ -13,10 +13,8 @@ pub fn read_file(file: &File) -> Vec<u8> {
     v
 }
 
-pub fn classname_to_filename(classname: &str) -> String {
-    // classname.replace(".", separator()) + ".class"
-    // This works :
-    classname.replace(".", "/") + ".class"
+pub fn convert_classname(classname: &str) -> String {
+    classname.replace(".", "/")
 }
 
 pub fn is_jar_name(file_name: &str) -> bool {

@@ -18,7 +18,7 @@ impl Class {
     pub fn new(cf: &ClassFile, loader: Arc<ClassLoader>) -> Arc<Class> {
         let access_flags = cf.access_flags();
         let name = cf.class_name().to_string();
-        let super_class_name = cf.super_class_name().to_string();
+        let super_class_name = dbg!(cf.super_class_name().to_string());
         let interface_names = crate::util::coll::strvec_to_stringvec(&cf.interface_names());
         let constant_pool = ConstantPool::new(cf.constant_pool(), None);
         let fields = Vec::with_capacity(0);

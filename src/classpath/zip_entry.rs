@@ -13,7 +13,7 @@ impl ZipEntry {
 
         // println!("aaaaaaaaaaaaaaaaaaaaaaaaa {}", class_name);
 
-        let zf = za.by_name(class_name);
+        let zf = za.by_name(dbg!(class_name));
         match zf {
             Err(_) => None,
             Ok(mut file) => {

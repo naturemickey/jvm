@@ -6,6 +6,7 @@ use std::io::{BufReader, Read};
 use std::error::Error;
 use std::fs::File;
 use crate::util::path::{SEPARATOR, SEPARATOR_STR};
+use std::fmt::{Debug, Formatter};
 
 include!("classpath.rs");
 include!("entry.rs");

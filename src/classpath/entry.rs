@@ -11,7 +11,7 @@ pub enum Entry {
 
 impl Entry {
     pub fn new(path: &str) -> Entry {
-        if path.contains(SEPARATOR) {
+        if dbg!(path).contains(SEPARATOR) {
             Entry::Composite(CompositeEntry::new(path))
         } else if path.ends_with("*") {
             Entry::Wildcard(WildcardEntry::new(path))
@@ -23,7 +23,13 @@ impl Entry {
     }
 
     pub fn read_class(&self, class_name: &str) -> Option<Vec<u8>> {
-        match self {
+        static classname_suffix: &str = ".class";
+        let class_name = &if class_name.ends_with(classname_suffix) {
+            class_name.to_string()
+        } else {
+            class_name.to_string() + classname_suffix
+        };
+        match dbg!(self) {
             Entry::Composite(e) => e.read_class(class_name),
             Entry::Wildcard(e) => e.read_class(class_name),
             Entry::Zip(e) => e.read_class(class_name),
@@ -40,5 +46,11 @@ impl ToString for Entry {
             Entry::Zip(e) => "Entry::Zip[".to_owned() + &e.to_string() + "]",
             Entry::Dir(e) => "Entry::Dir[".to_owned() + &e.to_string() + "]",
         }
+    }
+}
+
+impl Debug for Entry {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result<(), std::fmt::Error> {
+        write!(f, "{}", self.to_string())
     }
 }

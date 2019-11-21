@@ -20,6 +20,18 @@ impl MethodRef {
         unimplemented!()
     }
 
+    fn lookup_method(class:Arc<Class>, name:&str, descriptor:&str)-> Arc<Method> {
+        unimplemented!()
+    }
+
+    fn lookup_method_in_class(class:Arc<Class>, name:&str, descriptor:&str) -> Arc<Method>{
+        unimplemented!()
+    }
+
+    fn lookup_method_in_interfaces(ifaces:Vec<Arc<Class>>, name:&str, descriptor:&str) -> Arc<Method> {
+        unimplemented!()
+    }
+
     pub fn name(&self) -> &str {
         self.member.name()
     }

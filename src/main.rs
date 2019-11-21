@@ -24,11 +24,11 @@ fn start_jvm(cmd: Cmd) {
 
     let classloader = ClassLoader::new(classpath);
 
-    let class_name = file_util::classname_to_filename(&cmd.class);
+    let class_name = file_util::convert_classname(&cmd.class);
 
-    println!("{}", class_name);
+    //println!("{}", class_name);
 
-    let main_class = ClassLoader::load_class(classloader.clone(), &class_name);
+    let main_class = ClassLoader::load_class(classloader.clone(), &dbg!(class_name));
 
     let main_method = main_class.get_main_method();
 
