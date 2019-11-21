@@ -14,7 +14,7 @@ impl PartialEq for Object {
             || (self.is_null() && other.is_null())
 //        if self as *const Self == other as *const Self {
 //            true
-//        } else if self.class == None && other.class == None {
+//        } else if self.class.is_none() && other.class.is_none() {
 //            true
 //        } else {
 //            let c1 = match &self.class {
@@ -50,7 +50,7 @@ impl Object {
     }
 
     pub fn is_null(&self) -> bool {
-        self.class == None
+        self.class.is_none()
     }
 }
 
