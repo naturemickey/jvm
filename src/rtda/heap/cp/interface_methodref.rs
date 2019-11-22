@@ -46,6 +46,6 @@ impl InterfaceMethodRef {
             }
         }
 
-        MemberRef::lookup_method_in_interfaces(&iface.interfaces, name, descriptor);
+        MemberRef::lookup_method_in_interfaces(&iface.interfaces, name, descriptor)
     }
 }
