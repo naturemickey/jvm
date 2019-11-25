@@ -85,4 +85,7 @@ impl Method {
     pub fn code(&self) -> Arc<Vec<u8>> {
         self.code.clone()
     }
+    pub fn arg_slot_count(&self) -> usize {
+        unimplemented!()
+    }
 }

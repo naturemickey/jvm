@@ -28,7 +28,8 @@ impl Thread {
         self.stack.top()
     }
 
-    pub fn new_frame(thread: Arc<Thread>, method: Arc<Method>) {
-        crate::util::arc_util::as_mut_ref(thread.clone()).push_frame(Frame::new(thread.clone(), method));
+    pub fn new_frame(&mut self, method: &Method) -> &Box<Frame> {
+        self.push_frame(Frame::new(self, method));
+        self.stack.top()
     }
 }

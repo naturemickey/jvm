@@ -7,7 +7,7 @@ impl ConstantPool {
     fn new(cf_cp: Arc<classfile::ConstantPool>, class: Option<Arc<Class>>) -> Arc<ConstantPool> {
         let cp_count = cf_cp.constants_count();
         let mut i = 1;
-        let mut rt_cp = Arc::new(Self { class, consts: Vec::with_capacity(cp_count as usize) });
+        let rt_cp = Arc::new(Self { class, consts: Vec::with_capacity(cp_count as usize) });
 
         while i < cp_count {
             let mut more = 1;

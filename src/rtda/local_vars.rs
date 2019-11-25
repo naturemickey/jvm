@@ -48,6 +48,10 @@ impl LocalVars {
     pub fn get_ref(&self, index: usize) -> Arc<Object> {
         self.slots.get_ref(index)
     }
+
+    pub fn set_slot(&mut self, index: usize, slot: Slot) {
+        self.slots.set_slot(index, slot);
+    }
 }
 
 #[test]

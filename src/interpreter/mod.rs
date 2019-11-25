@@ -1,14 +1,13 @@
-
 use crate::rtda::Thread;
 use crate::instructions::*;
 use std::sync::Arc;
 use crate::rtda::heap::Method;
 
-pub fn interpret(method: Arc<Method>) {
-    let mut thread = Thread::new();
-    Thread::new_frame(thread.clone(), method.clone());
+pub fn interpret(method: &Method) {
+    let thread = Thread::new();
+    let thread = crate::util::arc_util::as_mut_ref(thread);
 
-    let mut thread = crate::util::arc_util::as_mut_ref(thread);
+    thread.new_frame(method);
 
     _loop(thread, method.code());
 }

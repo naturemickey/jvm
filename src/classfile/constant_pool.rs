@@ -6,7 +6,7 @@ impl ConstantPool {
     fn read_constant_pool(reader: &mut ClassReader) -> Arc<ConstantPool> {
         let cp_count = reader.read_u16();
 
-        let mut cp = Arc::new(ConstantPool { constant_infos: Vec::with_capacity(0) });
+        let cp = Arc::new(ConstantPool { constant_infos: Vec::with_capacity(0) });
 
 
         let mut constant_infos = Vec::with_capacity(cp_count as usize);

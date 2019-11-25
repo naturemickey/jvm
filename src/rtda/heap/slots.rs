@@ -75,4 +75,8 @@ impl Slots {
             _ => panic!("error local var operation for get ref."),
         }
     }
+
+    pub fn set_slot(&mut self, index: usize, slot: Slot) {
+        self.slots[index] = slot;
+    }
 }
