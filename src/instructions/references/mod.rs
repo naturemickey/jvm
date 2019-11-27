@@ -3,6 +3,7 @@ use std::fmt::Error;
 use crate::instructions::{Instruction, BytecodeReader};
 use crate::rtda::Frame;
 use crate::rtda::heap::{Class, Object};
+use std::ops::Deref;
 
 include!("anewarray.rs");
 include!("arraylength.rs");

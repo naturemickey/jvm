@@ -17,23 +17,23 @@ impl Instruction for PUT_STATIC {
     fn execute(&mut self, frame: &mut Frame) {
         let current_method = frame.method();
         let current_class = current_method.class();
-        let cp = current_class.constant_pool();
-        let field_ref = unsafe { crate::util::arc_util::as_mut_ref(cp.clone()).get_constant_mut(self.index).get_field_ref_mut() };
-        let field = field_ref.resolved_field();
+        let cp = current_class.write().unwrap().constant_pool();
+        let field_ref = unsafe { cp.write().unwrap().get_constant_mut(self.index).get_field_ref_mut() };
+        let field = field_ref.resolved_field().read().unwrap();
         let class = field.class();
 
         if !field.is_static() {
             panic!("java.lang.IncompatibleClassChangeError");
         }
         if field.is_final() {
-            if current_class == class || current_method.name() != "<clinit>" {
+            if current_class.read().unwrap().deref() == class.read().unwrap().deref() || current_method.name() != "<clinit>" {
                 panic!("java.lang.IllegalAccessError");
             }
         }
 
         let descriptor = field.descriptor();
         let slot_id = field.slot_id();
-        let slots = crate::util::arc_util::as_mut_ref(class.clone()).static_vars_mut();
+        let slots = class.write().unwrap().static_vars_mut();
         let stack = frame.operand_stack();
         match descriptor.chars().next() {
             Some(c) => match c {

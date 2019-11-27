@@ -1,5 +1,5 @@
 pub struct MemberInfo {
-    cp: Arc<ConstantPool>,
+    cp: Arc<RwLock<ConstantPool>>,
     access_flags: u16,
     name_index: u16,
     descriptor_index: u16,
@@ -7,7 +7,7 @@ pub struct MemberInfo {
 }
 
 impl MemberInfo {
-    fn read_member(reader: &mut ClassReader, cp: Arc<ConstantPool>) -> MemberInfo {
+    fn read_member(reader: &mut ClassReader, cp: Arc<RwLock<ConstantPool>>) -> MemberInfo {
         let access_flags = reader.read_u16();
         let name_index = reader.read_u16();
         let descriptor_index = reader.read_u16();
@@ -16,7 +16,7 @@ impl MemberInfo {
         Self { cp:cp.clone(), access_flags, name_index, descriptor_index, attributes }
     }
 
-    fn read_members(reader: &mut ClassReader, cp: Arc<ConstantPool>) -> Vec<MemberInfo> {
+    fn read_members(reader: &mut ClassReader, cp: Arc<RwLock<ConstantPool>>) -> Vec<MemberInfo> {
         let member_count = reader.read_u16();
         let mut members = Vec::new();
         for _ in 0..member_count {
@@ -30,11 +30,11 @@ impl MemberInfo {
     }
 
     pub fn name(&self) -> &str {
-        self.cp.get_utf8(self.name_index)
+        self.cp.read().unwrap().get_utf8(self.name_index)
     }
 
     pub fn descriptor(&self) -> &str {
-        self.cp.get_utf8(self.descriptor_index)
+        self.cp.read().unwrap().get_utf8(self.descriptor_index)
     }
 
     pub fn code_attribute(&self) -> Option<&CodeAttribute> {

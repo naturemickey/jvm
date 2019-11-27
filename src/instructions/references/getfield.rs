@@ -15,23 +15,23 @@ impl Instruction for GET_FIELD {
     }
 
     fn execute(&mut self, frame: &mut Frame) {
-        let cp = frame.method().class().constant_pool();
-        let field_ref = unsafe { crate::util::arc_util::as_mut_ref(cp.clone()).get_constant_mut(self.index).get_field_ref_mut() };
-        let field = field_ref.resolved_field();
+        let cp = frame.method().class().read().unwrap().constant_pool();
+        let field_ref = unsafe { cp.write().unwrap().get_constant_mut(self.index).get_field_ref_mut() };
+        let field = field_ref.resolved_field().read().unwrap();
 
         if field.is_static() {
             panic!("java.lang.IncompatibleClassChangError");
         }
 
         let stack = frame.operand_stack();
-        let _ref = stack.pop_ref();
-        if _ref == Object::null() {
+        let mut _ref = stack.pop_ref().write().unwrap();
+        if _ref.deref() == Object::null().read().unwrap().deref() {
             panic!("java.lang.NullPointerException");
         }
 
         let descriptor = field.descriptor();
         let slot_id = field.slot_id();
-        let slots = crate::util::arc_util::as_mut_ref(_ref.clone()).fields_mut();
+        let slots = _ref.fields_mut();
 
         match descriptor.chars().next() {
             Some(c) => match c {

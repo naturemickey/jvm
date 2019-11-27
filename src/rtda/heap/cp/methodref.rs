@@ -4,7 +4,7 @@ pub struct MethodRef {
 }
 
 impl MethodRef {
-    fn new(info: &classfile::ConstantMethodrefInfo, cp: Arc<ConstantPool>) -> MethodRef {
+    fn new(info: &classfile::ConstantMethodrefInfo, cp: Arc<RwLock<ConstantPool>>) -> MethodRef {
         let member = MemberRef::new(info.member(), cp);
         Self { member, method: None }
     }
@@ -17,10 +17,10 @@ impl MethodRef {
     }
 
     fn resolve_method_ref(&mut self) -> Arc<Method> {
-        let d = self.member.cp().class();
+        let d = self.member.cp().read().unwrap().class();
         let c = self.member.resoved_class();
 
-        if c.is_interface() {
+        if c.read().unwrap().is_interface() {
             panic!("java.lang.IncompatibleClassChangeError");
         }
 
@@ -41,10 +41,10 @@ impl MethodRef {
         }
     }
 
-    fn lookup_method(class: Arc<Class>, name: &str, descriptor: &str) -> Option<Arc<Method>> {
+    fn lookup_method(class: Arc<RwLock<Class>>, name: &str, descriptor: &str) -> Option<Arc<Method>> {
         let method = MemberRef::lookup_method_in_class(class.clone(), name, descriptor);
         if method.is_none() {
-            MemberRef::lookup_method_in_interfaces(&class.interfaces, name, descriptor)
+            MemberRef::lookup_method_in_interfaces(&class.read().unwrap().interfaces, name, descriptor)
         } else {
             method
         }

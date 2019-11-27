@@ -3,7 +3,7 @@ pub struct ConstantClassInfo {
 }
 
 impl ConstantClassInfo {
-    fn new(reader: &mut ClassReader, cp:Arc<ConstantPool>) -> ConstantClassInfo {
+    fn new(reader: &mut ClassReader, cp:Arc<RwLock<ConstantPool>>) -> ConstantClassInfo {
         Self { string_info: ConstantStringInfo::new(reader, cp.clone()) }
     }
     pub fn name<'a>(&'a self) -> &'a str {

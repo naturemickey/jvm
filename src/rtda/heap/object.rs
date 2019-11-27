@@ -1,5 +1,5 @@
 pub struct Object {
-    class: Option<Arc<Class>>,
+    class: Option<Arc<RwLock<Class>>>,
     fields: Slots,
 }
 
@@ -32,19 +32,20 @@ impl PartialEq for Object {
 }
 
 impl Object {
-    fn new(class: Arc<Class>) -> Arc<Object> {
-        let fields = Slots::new(class.instance_slot_count);
-        Arc::new(Self { class: Some(class), fields })
+    fn new(class: Arc<RwLock<Class>>) -> Arc<RwLock<Object>> {
+        let fields = Slots::new(class.read().unwrap().instance_slot_count);
+        Arc::new(RwLock::new(Self { class: Some(class), fields }))
     }
-    pub fn null() -> Arc<Object> {
-        Arc::new(Object { class: None, fields: Slots::new(0) })
+    pub fn null() -> Arc<RwLock<Object>> {
+        // todo
+        Arc::new(RwLock::new(Object { class: None, fields: Slots::new(0) }))
     }
     pub fn fields_mut(&mut self) -> &mut Slots {
         &mut self.fields
     }
     pub fn is_instance_of(&self, class: &Class) -> bool {
         match &self.class {
-            Some(c) => c.is_assignable_from(class),
+            Some(c) => c.read().unwrap().is_assignable_from(class),
             None => true,
         }
     }

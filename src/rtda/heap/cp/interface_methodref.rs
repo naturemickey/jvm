@@ -4,7 +4,7 @@ pub struct InterfaceMethodRef {
 }
 
 impl InterfaceMethodRef {
-    fn new(info: &classfile::ConstantInterfaceMethodrefInfo, cp: Arc<ConstantPool>) -> InterfaceMethodRef {
+    fn new(info: &classfile::ConstantInterfaceMethodrefInfo, cp: Arc<RwLock<ConstantPool>>) -> InterfaceMethodRef {
         let member = MemberRef::new(info.member(), cp);
         Self { member, method: None }
     }
@@ -17,10 +17,10 @@ impl InterfaceMethodRef {
     }
 
     fn resolve_interface_method_ref(&mut self) -> Arc<Method> {
-        let d = self.member.cp().class();
+        let d = self.member.cp().read().unwrap().class();
         let c = self.member.resoved_class();
 
-        if !c.is_interface() {
+        if !c.read().unwrap().is_interface() {
             panic!("java.lang.IncompatibleClassChangeError");
         }
 
@@ -39,13 +39,13 @@ impl InterfaceMethodRef {
         }
     }
 
-    fn lookup_interface_method(iface: Arc<Class>, name: &str, descriptor: &str) -> Option<Arc<Method>> {
-        for method in &iface.methods {
+    fn lookup_interface_method(iface: Arc<RwLock<Class>>, name: &str, descriptor: &str) -> Option<Arc<Method>> {
+        for method in &iface.read().unwrap().methods {
             if method.name() == name && method.descriptor() == descriptor {
                 return Some(method.clone());
             }
         }
 
-        MemberRef::lookup_method_in_interfaces(&iface.interfaces, name, descriptor)
+        MemberRef::lookup_method_in_interfaces(&iface.read().unwrap().interfaces, name, descriptor)
     }
 }

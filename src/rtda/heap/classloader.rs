@@ -1,6 +1,6 @@
 pub struct ClassLoader {
     classpath: Classpath,
-    class_map: HashMap<String, Arc<Class>>,
+    class_map: HashMap<String, Arc<RwLock<Class>>>,
 }
 
 impl ClassLoader {
@@ -8,8 +8,8 @@ impl ClassLoader {
         Arc::new(Self { classpath, class_map: HashMap::new() })
     }
 
-    pub fn load_class(loader: Arc<ClassLoader>, name: &str) -> Arc<Class> {
-        match loader.class_map.get(name) {
+    pub fn load_class(loader: Arc<RwLock<ClassLoader>>, name: &str) -> Arc<RwLock<Class>> {
+        match loader.read().unwrap().class_map.get(name) {
             Some(class) => class.clone(),
             None => {
                 // todo array_class?
@@ -18,8 +18,8 @@ impl ClassLoader {
         }
     }
 
-    fn load_non_array_class(loader: Arc<ClassLoader>, name: &str) -> Arc<Class> {
-        let data = loader.read_class(name);
+    fn load_non_array_class(loader: Arc<RwLock<ClassLoader>>, name: &str) -> Arc<RwLock<Class>> {
+        let data = loader.read().unwrap().read_class(name);
         let class = Self::define_class(loader, data);
         Self::link(class.clone());
 
@@ -33,10 +33,10 @@ impl ClassLoader {
         }
     }
 
-    fn define_class(loader: Arc<ClassLoader>, data: Vec<u8>) -> Arc<Class> {
+    fn define_class(loader: Arc<RwLock<ClassLoader>>, data: Vec<u8>) -> Arc<RwLock<Class>> {
         let class = Self::parse_class(data, loader.clone());
-        let class_ref = crate::util::arc_util::as_mut_ref(class.clone());
-        let loader_ref = crate::util::arc_util::as_mut_ref(loader.clone());
+        let class_ref = &mut class.write().unwrap();
+        let loader_ref =  &mut loader.write().unwrap();
 
         Self::resolve_super_class(class_ref);
         Self::resolve_interfaces(class_ref);
@@ -47,7 +47,7 @@ impl ClassLoader {
         class
     }
 
-    fn parse_class(data: Vec<u8>, loader: Arc<ClassLoader>) -> Arc<Class> {
+    fn parse_class(data: Vec<u8>, loader: Arc<RwLock<ClassLoader>>) -> Arc<RwLock<Class>> {
         let cf = classfile::ClassFile::parse(data);
         Class::new(&cf, loader)
     }
@@ -72,17 +72,17 @@ impl ClassLoader {
         }
     }
 
-    fn link(class: Arc<Class>) {
+    fn link(class: Arc<RwLock<Class>>) {
         Self::verify(class.clone());
         Self::prepare(class);
     }
 
-    fn verify(class: Arc<Class>) {
+    fn verify(class: Arc<RwLock<Class>>) {
         // todo
     }
 
-    fn prepare(class: Arc<Class>) {
-        let class = crate::util::arc_util::as_mut_ref(class);
+    fn prepare(class: Arc<RwLock<Class>>) {
+        let class = &mut class.write().unwrap();
         Self::calc_instance_field_slot_ids(class);
         Self::calc_static_field_slot_ids(class);
         Self::alloc_and_init_static_vars(class);
@@ -91,13 +91,13 @@ impl ClassLoader {
     fn calc_instance_field_slot_ids(class: &mut Class) {
         let mut slot_id = match &class.super_class {
             None => 0,
-            Some(c) => c.instance_slot_count
+            Some(c) => c.read().unwrap().instance_slot_count
         };
         for field in &mut class.fields {
-            if !field.is_static() {
-                let mut field_ref = crate::util::arc_util::as_mut_ref(field.clone());
+            if !field.read().unwrap().is_static() {
+                let mut field_ref = field.write().unwrap();
                 field_ref.slot_id = slot_id;
-                slot_id += if field.is_long_or_double() { 2 } else { 1 };
+                slot_id += if field.read().unwrap().is_long_or_double() { 2 } else { 1 };
             }
         }
         class.instance_slot_count = slot_id;
@@ -106,9 +106,9 @@ impl ClassLoader {
     fn calc_static_field_slot_ids(class: &mut Class) {
         let mut slot_id = 0usize;
         for field in &mut class.fields {
-            let mut field_ref = crate::util::arc_util::as_mut_ref(field.clone());
+            let mut field_ref = field.write().unwrap();
             field_ref.slot_id = slot_id;
-            slot_id += if field.is_long_or_double() { 2 } else { 1 };
+            slot_id += if field.read().unwrap().is_long_or_double() { 2 } else { 1 };
         }
         class.static_slot_count = slot_id;
     }
@@ -117,8 +117,8 @@ impl ClassLoader {
         let slots = Slots::new(class.static_slot_count);
         let class_ptr: *mut Class = class;
         for field in &class.fields {
-            if field.is_static() && field.is_final() {
-                Self::init_static_final_var(class_ptr, field);
+            if field.read().unwrap().is_static() && field.read().unwrap().is_final() {
+                Self::init_static_final_var(class_ptr, &field.read().unwrap());
             }
         }
         class.static_vars = slots
@@ -137,25 +137,25 @@ impl ClassLoader {
         if cp_index > 0 {
             match descriptor {
                 "Z" | "B" | "C" | "S" | "I" => {
-                    match cp.get_constant(cp_index) {
+                    match cp.read().unwrap().get_constant(cp_index) {
                         Constant::Integer(val) => vars.set_int(slot_id, *val),
                         _ => panic!("impossible.")
                     }
                 }
                 "J" => {
-                    match cp.get_constant(cp_index) {
+                    match cp.read().unwrap().get_constant(cp_index) {
                         Constant::Long(val) => vars.set_long(slot_id, *val),
                         _ => panic!("impossible.")
                     }
                 }
                 "F" => {
-                    match cp.get_constant(cp_index) {
+                    match cp.read().unwrap().get_constant(cp_index) {
                         Constant::Float(val) => vars.set_float(slot_id, *val),
                         _ => panic!("impossible.")
                     }
                 }
                 "D" => {
-                    match cp.get_constant(cp_index) {
+                    match cp.read().unwrap().get_constant(cp_index) {
                         Constant::Double(val) => vars.set_double(slot_id, *val),
                         _ => panic!("impossible.")
                     }

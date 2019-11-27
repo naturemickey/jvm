@@ -15,9 +15,9 @@ impl Instruction for GET_STATIC {
     }
 
     fn execute(&mut self, frame: &mut Frame) {
-        let cp = frame.method().class().constant_pool();
-        let field_ref = unsafe { crate::util::arc_util::as_mut_ref(cp.clone()).get_constant_mut(self.index).get_field_ref_mut() };
-        let field = field_ref.resolved_field();
+        let cp = frame.method().class().read().unwrap().constant_pool();
+        let field_ref = unsafe { cp.write().unwrap().get_constant_mut(self.index).get_field_ref_mut() };
+        let field = field_ref.resolved_field().read().unwrap();
         let class = field.class();
 
         if !field.is_static() {
@@ -26,7 +26,7 @@ impl Instruction for GET_STATIC {
 
         let descriptor = field.descriptor();
         let slot_id = field.slot_id();
-        let slots = crate::util::arc_util::as_mut_ref(class.clone()).static_vars_mut();
+        let slots = class.write().unwrap().static_vars_mut();
         let stack = frame.operand_stack();
         match descriptor.chars().next() {
             Some(c) => match c {

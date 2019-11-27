@@ -16,16 +16,16 @@ impl Instruction for PUT_FIELD {
 
     fn execute(&mut self, frame: &mut Frame) {
         let current_method = frame.method();
-        let current_class = current_method.class();
+        let current_class = current_method.class().read().unwrap();
         let cp = current_class.constant_pool();
-        let field_ref = unsafe { crate::util::arc_util::as_mut_ref(cp.clone()).get_constant_mut(self.index).get_field_ref_mut() };
-        let field = field_ref.resolved_field();
+        let field_ref = unsafe { cp.write().unwrap().get_constant_mut(self.index).get_field_ref_mut() };
+        let field = field_ref.resolved_field().read().unwrap();
 
         if field.is_static() {
             panic!("java.lang.IncompatibleClassChangError");
         }
         if field.is_final() {
-            if current_class != field.class() || current_method.name() != "<init>" {
+            if current_class.deref() != field.class().read().unwrap().deref() || current_method.name() != "<init>" {
                 panic!("java.lang.IllegalAccessError");
             }
         }
@@ -39,42 +39,42 @@ impl Instruction for PUT_FIELD {
                 'Z' | 'B' | 'C' | 'S' | 'I' => {
                     let val = stack.pop_int();
                     let _ref = stack.pop_ref();
-                    if _ref == Object::null() {
+                    if _ref.read().unwrap().deref() == Object::null().read().unwrap().deref() {
                         panic!("java.lang.NullPointerException");
                     }
-                    crate::util::arc_util::as_mut_ref(_ref.clone()).fields_mut().set_int(slot_id, val);
+                    _ref.write().unwrap().fields_mut().set_int(slot_id, val);
                 }
                 'F' => {
                     let val = stack.pop_float();
                     let _ref = stack.pop_ref();
-                    if _ref == Object::null() {
+                    if _ref.read().unwrap().deref() == Object::null().read().unwrap().deref() {
                         panic!("java.lang.NullPointerException");
                     }
-                    crate::util::arc_util::as_mut_ref(_ref.clone()).fields_mut().set_float(slot_id, val);
+                    _ref.write().unwrap().fields_mut().set_float(slot_id, val);
                 }
                 'J' => {
                     let val = stack.pop_long();
                     let _ref = stack.pop_ref();
-                    if _ref == Object::null() {
+                    if _ref.read().unwrap().deref() == Object::null().read().unwrap().deref() {
                         panic!("java.lang.NullPointerException");
                     }
-                    crate::util::arc_util::as_mut_ref(_ref.clone()).fields_mut().set_long(slot_id, val);
+                    _ref.write().unwrap().fields_mut().set_long(slot_id, val);
                 }
                 'D' => {
                     let val = stack.pop_double();
                     let _ref = stack.pop_ref();
-                    if _ref == Object::null() {
+                    if _ref.read().unwrap().deref() == Object::null().read().unwrap().deref() {
                         panic!("java.lang.NullPointerException");
                     }
-                    crate::util::arc_util::as_mut_ref(_ref.clone()).fields_mut().set_double(slot_id, val);
+                    _ref.write().unwrap().fields_mut().set_double(slot_id, val);
                 }
                 'L' | '[' => {
                     let val = stack.pop_ref();
                     let _ref = stack.pop_ref();
-                    if _ref == Object::null() {
+                    if _ref.read().unwrap().deref() == Object::null().read().unwrap().deref() {
                         panic!("java.lang.NullPointerException");
                     }
-                    crate::util::arc_util::as_mut_ref(_ref.clone()).fields_mut().set_ref(slot_id, val);
+                    _ref.write().unwrap().fields_mut().set_ref(slot_id, val);
                 }
                 _ => panic!("impossible")
             },

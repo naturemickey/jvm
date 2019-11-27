@@ -16,9 +16,9 @@ impl Instruction for IF_ACMPEQ {
 
     fn execute(&mut self, frame: &mut Frame) {
         let stack = frame.operand_stack();
-        let val2 = stack.pop_ref();
-        let val1 = stack.pop_ref();
-        if val1 == val2 {
+        let val2 = stack.pop_ref().read().unwrap();
+        let val1 = stack.pop_ref().read().unwrap();
+        if val1.deref() == val2.deref() {
             self.base.branch(frame);
         }
     }

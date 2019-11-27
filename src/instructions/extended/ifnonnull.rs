@@ -15,7 +15,7 @@ impl Instruction for IFNONNULL {
     }
     fn execute(&mut self, frame: &mut Frame) {
         let obj = frame.operand_stack().pop_ref();
-        if obj != Object::null() {
+        if obj.read().unwrap().deref() != Object::null().read().unwrap().deref() {
             self.base.branch(frame);
         }
     }

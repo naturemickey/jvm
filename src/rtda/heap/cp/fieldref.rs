@@ -1,22 +1,22 @@
 pub struct FieldRef {
     member: MemberRef,
-    field: Option<Arc<Field>>,
+    field: Option<Arc<RwLock<Field>>>,
 }
 
 impl FieldRef {
-    fn new(info: &classfile::ConstantFieldrefInfo, cp: Arc<ConstantPool>) -> FieldRef {
+    fn new(info: &classfile::ConstantFieldrefInfo, cp: Arc<RwLock<ConstantPool>>) -> FieldRef {
         let member = MemberRef::new(info.member(), cp);
         Self { member, field: None }
     }
 
-    pub fn resolved_field(&mut self) -> Arc<Field> {
+    pub fn resolved_field(&mut self) -> Arc<RwLock<Field>> {
         match &self.field {
             Some(f) => f.clone(),
             None => self.resolve_field_ref()
         }
     }
 
-    fn resolve_field_ref(&mut self) -> Arc<Field> {
+    fn resolve_field_ref(&mut self) -> Arc<RwLock<Field>> {
         let c = self.member.resoved_class();
         let name = self.member.name();
         let descriptor = self.member.descriptor();
@@ -25,8 +25,8 @@ impl FieldRef {
 
         match field {
             Some(field) => {
-                let d = self.member.cp().class();
-                if !field.is_accessible_to(d) {
+                let d = self.member.cp().read().unwrap().class();
+                if !field.read().unwrap().is_accessible_to(d) {
                     panic!("java.lang.IllegalAccessError");
                 }
                 self.field = Some(field.clone());
@@ -38,14 +38,14 @@ impl FieldRef {
         }
     }
 
-    fn lookup_field(class: Arc<Class>, name: &str, descriptor: &str) -> Option<Arc<Field>> {
-        for field in &class.fields {
-            if field.name().eq(name) && field.descriptor().eq(descriptor) {
+    fn lookup_field(class: Arc<RwLock<Class>>, name: &str, descriptor: &str) -> Option<Arc<RwLock<Field>>> {
+        for field in &class.read().unwrap().fields {
+            if field.read().unwrap().name().eq(name) && field.read().unwrap().descriptor().eq(descriptor) {
                 return Some(field.clone());
             }
         }
 
-        for iface in &class.interfaces {
+        for iface in &class.read().unwrap().interfaces {
             let field = Self::lookup_field(iface.clone(), name, descriptor);
             match field {
                 Some(f) => return Some(f),
@@ -53,7 +53,7 @@ impl FieldRef {
             }
         }
 
-        match &class.super_class {
+        match &class.read().unwrap().super_class {
             Some(cptr) => Self::lookup_field(cptr.clone(), name, descriptor),
             None => None
         }

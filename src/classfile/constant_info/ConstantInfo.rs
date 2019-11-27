@@ -38,12 +38,12 @@ pub enum ConstantInfo {
 }
 
 impl ConstantInfo {
-    fn read_constant_info(reader: &mut ClassReader, cp: Arc<ConstantPool>) -> ConstantInfo {
+    fn read_constant_info(reader: &mut ClassReader, cp: Arc<RwLock<ConstantPool>>) -> ConstantInfo {
         let tag = reader.read_u8();
         Self::new_constant_info(tag, reader, cp.clone())
     }
 
-    fn new_constant_info(tag: u8, reader: &mut ClassReader, cp: Arc<ConstantPool>) -> ConstantInfo {
+    fn new_constant_info(tag: u8, reader: &mut ClassReader, cp: Arc<RwLock<ConstantPool>>) -> ConstantInfo {
         match tag {
             CONSTANT_UTF8________________ => Self::Utf8(ConstantUtf8Info::new(reader)),
             CONSTANT_INTEGER_____________ => Self::Integer(ConstantIntegerInfo::new(reader)),

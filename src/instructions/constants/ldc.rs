@@ -10,9 +10,9 @@ impl LDC {
 
     fn _ldc(frame: &mut Frame, index: u16) {
         // let stack = frame.operand_stack();
-        let cp = frame.method().class().constant_pool();
+        let cp = frame.method().class().read().unwrap().constant_pool();
 
-        match cp.get_constant(index as u16) {
+        match cp.read().unwrap().get_constant(index as u16) {
             Constant::Integer(i) => frame.operand_stack().push_int(*i),
             Constant::Float(f) => frame.operand_stack().push_float(*f),
 //            Constant::String(s) => // todo in chapter8,

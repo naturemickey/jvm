@@ -6,7 +6,7 @@ pub struct Method {
 }
 
 impl Method {
-    pub fn new_methods(class: Arc<Class>, cf_methods: &Vec<MemberInfo>) -> Vec<Arc<Method>> {
+    pub fn new_methods(class: Arc<RwLock<Class>>, cf_methods: &Vec<MemberInfo>) -> Vec<Arc<Method>> {
         let mut methods = Vec::with_capacity(cf_methods.len());
         for cf_method in cf_methods {
             let member = ClassMember::new(class.clone(), cf_method);
@@ -69,10 +69,10 @@ impl Method {
     pub fn descriptor(&self) -> &str {
         self.member.descriptor()
     }
-    pub fn class(&self) -> Arc<Class> {
+    pub fn class(&self) -> Arc<RwLock<Class>> {
         self.member.class()
     }
-    pub fn is_accessible_to(&self, d: Arc<Class>) -> bool {
+    pub fn is_accessible_to(&self, d: Arc<RwLock<Class>>) -> bool {
         self.member.is_accessible_to(d)
     }
 

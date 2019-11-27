@@ -3,19 +3,19 @@ pub struct Class {
     name: String,
     super_class_name: String,
     interface_names: Vec<String>,
-    constant_pool: Arc<ConstantPool>,
-    fields: Vec<Arc<Field>>,
+    constant_pool: Arc<RwLock<ConstantPool>>,
+    fields: Vec<Arc<RwLock<Field>>>,
     methods: Vec<Arc<Method>>,
-    loader: Arc<ClassLoader>,
-    super_class: Option<Arc<Class>>,
-    interfaces: Vec<Arc<Class>>,
+    loader: Arc<RwLock<ClassLoader>>,
+    super_class: Option<Arc<RwLock<Class>>>,
+    interfaces: Vec<Arc<RwLock<Class>>>,
     instance_slot_count: usize,
     static_slot_count: usize,
     static_vars: Slots,
 }
 
 impl Class {
-    pub fn new(cf: &ClassFile, loader: Arc<ClassLoader>) -> Arc<Class> {
+    pub fn new(cf: &ClassFile, loader: Arc<RwLock<ClassLoader>>) -> Arc<RwLock<Class>> {
         let access_flags = cf.access_flags();
         let name = cf.class_name().to_string();
         let super_class_name = dbg!(cf.super_class_name().to_string());
@@ -26,7 +26,7 @@ impl Class {
         let static_vars = Slots::new(0);
 
         let class =
-            Arc::new(Self {
+            Arc::new(RwLock::new(Self {
                 access_flags,
                 name,
                 super_class_name,
@@ -40,16 +40,16 @@ impl Class {
                 instance_slot_count: 0,
                 static_slot_count: 0,
                 static_vars,
-            });
+            }));
 
-        crate::util::arc_util::as_mut_ref(constant_pool.clone()).set_class(Some(class.clone()));
+        constant_pool.write().unwrap().set_class(Some(class.clone()));
 
         let methods = Method::new_methods(class.clone(), cf.methods());
         let fields = Field::new_fields(class.clone(), cf.fields());
 
         // let class: &mut Self = Arc::get_mut(&mut arc_class).unwrap();
-        crate::util::arc_util::as_mut_ref(class.clone()).methods = methods;
-        crate::util::arc_util::as_mut_ref(class.clone()).fields = fields;
+        class.write().unwrap().methods = methods;
+        class.write().unwrap().fields = fields;
 
         class
     }
@@ -79,7 +79,7 @@ impl Class {
         self.access_flags & ACC_ENUM != 0
     }
 
-    pub fn constant_pool(&self) -> Arc<ConstantPool> {
+    pub fn constant_pool(&self) -> Arc<RwLock<ConstantPool>> {
         self.constant_pool.clone()
     }
     pub fn static_vars(&self) -> &Slots {
@@ -114,7 +114,7 @@ impl Class {
         None
     }
 
-    pub fn new_object(class: Arc<Class>) -> Arc<Object> {
+    pub fn new_object(class: Arc<RwLock<Class>>) -> Arc<RwLock<Object>> {
         Object::new(class)
     }
 
@@ -134,7 +134,7 @@ impl Class {
         match &self.super_class {
             None => false,
             Some(c) => {
-                let c = c.as_ref();
+                let c = c.read().unwrap().deref();
                 c == other || c.is_sub_class_of(other)
             }
         }
@@ -150,19 +150,19 @@ impl Class {
     }
     pub fn is_implements(&self, iface: &Class) -> bool {
         for interface in &self.interfaces {
-            let interface = interface.as_ref();
+            let interface = interface.read().unwrap().deref();
             if interface == iface || interface.is_sub_insterface_of(iface) {
                 return true;
             }
         }
         match &self.super_class {
             None => false,
-            Some(c) => c.is_implements(iface)
+            Some(c) => c.read().unwrap().is_implements(iface)
         }
     }
     pub fn is_sub_insterface_of(&self, iface: &Class) -> bool {
         for super_interface in &self.interfaces {
-            let super_interface = super_interface.as_ref();
+            let super_interface = super_interface.read().unwrap().deref();
             if super_interface == iface || super_interface.is_sub_insterface_of(iface) {
                 return true;
             }
@@ -170,7 +170,7 @@ impl Class {
         return false;
     }
 
-    fn loader(&self) -> Arc<ClassLoader> {
+    fn loader(&self) -> Arc<RwLock<ClassLoader>> {
         self.loader.clone()
     }
 }

@@ -2,8 +2,8 @@
 //    Arc::get_mut(&mut arc).unwrap()
 //}
 
-use std::sync::Arc;
+//use std::sync::Arc;
 
-pub fn as_mut_ref<'a, T>(ptr: Arc<T>) -> &'a mut T {
-    unsafe { &mut *(Arc::into_raw(ptr) as *mut T) }
-}
+//pub fn as_mut_ref<'a, T>(ptr: Arc<T>) -> &'a mut T {
+//    unsafe { &mut *(Arc::into_raw(ptr) as *mut T) }
+//}

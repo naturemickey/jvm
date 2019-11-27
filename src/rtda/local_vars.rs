@@ -41,11 +41,11 @@ impl LocalVars {
         self.slots.get_double(index)
     }
 
-    pub fn set_ref(&mut self, index: usize, reference: Arc<Object>) {
+    pub fn set_ref(&mut self, index: usize, reference: Arc<RwLock<Object>>) {
         self.slots.set_ref(index, reference)
     }
 
-    pub fn get_ref(&self, index: usize) -> Arc<Object> {
+    pub fn get_ref(&self, index: usize) -> Arc<RwLock<Object>> {
         self.slots.get_ref(index)
     }
 

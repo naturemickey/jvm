@@ -3,10 +3,10 @@ pub struct ConstantPool {
 }
 
 impl ConstantPool {
-    fn read_constant_pool(reader: &mut ClassReader) -> Arc<ConstantPool> {
+    fn read_constant_pool(reader: &mut ClassReader) -> Arc<RwLock<ConstantPool>> {
         let cp_count = reader.read_u16();
 
-        let cp = Arc::new(ConstantPool { constant_infos: Vec::with_capacity(0) });
+        let cp = Arc::new(RwLock::new(ConstantPool { constant_infos: Vec::with_capacity(0) }));
 
 
         let mut constant_infos = Vec::with_capacity(cp_count as usize);
@@ -38,7 +38,7 @@ impl ConstantPool {
             i += 1;
         }
 
-        crate::util::arc_util::as_mut_ref(cp.clone()).constant_infos = constant_infos;
+        cp.write().unwrap().constant_infos = constant_infos;
 
         cp
     }

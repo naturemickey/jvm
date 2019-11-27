@@ -1,9 +1,10 @@
 use crate::classfile;
 use crate::classfile::{ClassFile, MemberInfo, ConstantInfo};
-use std::sync::Arc;
+use std::sync::{Arc, RwLock};
 use crate::classpath::Classpath;
 use std::collections::HashMap;
 use crate::rtda::Slot;
+use std::ops::Deref;
 
 include!("cp/constant.rs");
 include!("cp/classref.rs");

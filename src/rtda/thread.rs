@@ -4,8 +4,8 @@ pub struct Thread {
 }
 
 impl Thread {
-    pub fn new() -> Arc<Thread> {
-        Arc::new(Self { pc: 0, stack: Stack::new1k() })
+    pub fn new() -> Arc<RwLock<Thread>> {
+        Arc::new(RwLock::new(Self { pc: 0, stack: Stack::new1k() }))
     }
 
     pub fn pc(&self) -> i32 {

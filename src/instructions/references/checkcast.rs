@@ -16,13 +16,13 @@ impl Instruction for CHECK_CAST {
 
     fn execute(&mut self, frame: &mut Frame) {
         let stack = frame.operand_stack();
-        let _ref = stack.pop_ref();
-        if _ref != Object::null() {
-            let cp = frame.method().class().constant_pool();
-            let class_ref = unsafe { crate::util::arc_util::as_mut_ref(cp.clone()).get_constant_mut(self.index).get_class_ref_mut() };
+        let _ref = stack.pop_ref().read().unwrap();
+        if _ref.deref() != Object::null().read().unwrap().deref() {
+            let cp = frame.method().class().read().unwrap().constant_pool();
+            let class_ref = unsafe {cp.write().unwrap().get_constant_mut(self.index).get_class_ref_mut()};
             let class = class_ref.resolved_class();
 
-            if !_ref.is_instance_of(class.as_ref()) {
+            if !_ref.is_instance_of(class.read().unwrap().deref()) {
                 panic!("java.lang.ClassCastException")
             }
         }

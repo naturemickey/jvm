@@ -1,5 +1,5 @@
 use std::fmt::{Debug, Formatter, Error};
-use std::sync::Arc;
+use std::sync::{Arc, RwLock};
 
 include!("class_reader.rs");
 include!("class_file.rs");

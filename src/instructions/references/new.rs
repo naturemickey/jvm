@@ -15,11 +15,11 @@ impl Instruction for NEW {
     }
 
     fn execute(&mut self, frame: &mut Frame) {
-        let cp = frame.method().class().constant_pool();
-        let class_ref = unsafe { crate::util::arc_util::as_mut_ref(cp).get_constant_mut(self.index).get_class_ref_mut() };
+        let cp = frame.method().class().read().unwrap().constant_pool();
+        let class_ref = unsafe { cp.write().unwrap().get_constant_mut(self.index).get_class_ref_mut() };
         let class = class_ref.resolved_class();
 
-        if class.is_interface() || class.is_abstract() {
+        if class.read().unwrap().is_interface() || class.read().unwrap().is_abstract() {
             panic!("java.lang.InstantiationError")
         }
 

@@ -86,14 +86,14 @@ impl OperandStack {
         f64::from_bits(long)
     }
 
-    pub fn push_ref(&mut self, obj: Arc<Object>) {
+    pub fn push_ref(&mut self, obj: Arc<RwLock<Object>>) {
         if self.slots.len() >= self.max_stack {
             panic!("operand stack over flow in push_ref");
         }
         self.slots.push(Slot::Ref(obj))
     }
 
-    pub fn pop_ref(&mut self) -> Arc<Object> {
+    pub fn pop_ref(&mut self) -> Arc<RwLock<Object>> {
 //        let rc_slot = self.slots.pop().unwrap();
 //        rc_slot.as_ref()
         match self.slots.pop().unwrap() {

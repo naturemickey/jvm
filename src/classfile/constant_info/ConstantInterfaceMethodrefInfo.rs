@@ -3,7 +3,7 @@ pub struct ConstantInterfaceMethodrefInfo {
 }
 
 impl ConstantInterfaceMethodrefInfo {
-    fn new(reader: &mut ClassReader, cp: Arc<ConstantPool>) -> ConstantInterfaceMethodrefInfo {
+    fn new(reader: &mut ClassReader, cp: Arc<RwLock<ConstantPool>>) -> ConstantInterfaceMethodrefInfo {
         Self { member: ConstantMemberrefInfo::new(reader, cp.clone()) }
     }
     fn class_name(&self) -> &str {

@@ -16,16 +16,16 @@ impl Instruction for INSTANCE_OF {
 
     fn execute(&mut self, frame: &mut Frame) {
         let stack = frame.operand_stack();
-        let _ref = stack.pop_ref();
-        if _ref == Object::null() {
+        let _ref = stack.pop_ref().read().unwrap();
+        if _ref.deref() == Object::null().read().unwrap().deref() {
             stack.push_int(0);
         } else {
-            let cp = frame.method().class().constant_pool();
+            let cp = frame.method().class().read().unwrap().constant_pool();
             let stack = frame.operand_stack();
-            let class_ref = unsafe { crate::util::arc_util::as_mut_ref(cp.clone()).get_constant_mut(self.index).get_class_ref_mut() };
+            let class_ref = unsafe { cp.write().unwrap().get_constant_mut(self.index).get_class_ref_mut() };
             let class = class_ref.resolved_class();
 
-            if _ref.is_instance_of(class.as_ref()) {
+            if _ref.is_instance_of(class.read().unwrap().deref()) {
                 stack.push_int(1);
             } else {
                 stack.push_int(0);

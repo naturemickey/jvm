@@ -15,8 +15,8 @@ impl Instruction for INVOKE_VIRTUAL {
     }
 
     fn execute(&mut self, frame: &mut Frame) {
-        let cp = frame.method().class().constant_pool();
-        let method_ref = unsafe { cp.get_constant(self.index).get_method_ref() };
+        let cp = frame.method().class().read().unwrap().constant_pool();
+        let method_ref = unsafe { cp.read().unwrap().get_constant(self.index).get_method_ref() };
 
         if method_ref.name() == "println" {
             let stack = frame.operand_stack();

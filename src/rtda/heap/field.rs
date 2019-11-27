@@ -5,7 +5,7 @@ pub struct Field {
 }
 
 impl Field {
-    pub fn new_fields(class: Arc<Class>, cf_fields: &Vec<MemberInfo>) -> Vec<Arc<Field>> {
+    pub fn new_fields(class: Arc<RwLock<Class>>, cf_fields: &Vec<MemberInfo>) -> Vec<Arc<RwLock<Field>>> {
         let mut fields = Vec::with_capacity(cf_fields.len());
         for cf_field in cf_fields {
             let member = ClassMember::new(class.clone(), cf_field);
@@ -13,7 +13,7 @@ impl Field {
                 Some(cva) => Self { member, const_value_index: cva.value_index(), slot_id: 0 },
                 None => Self { member, const_value_index: 0, slot_id: 0 }
             };
-            fields.push(Arc::new(field));
+            fields.push(Arc::new(RwLock::new(field)));
         }
 
         fields
@@ -62,10 +62,10 @@ impl Field {
     pub fn descriptor(&self) -> &str {
         self.member.descriptor()
     }
-    pub fn class(&self) -> Arc<Class> {
+    pub fn class(&self) -> Arc<RwLock<Class>> {
         self.member.class()
     }
-    fn is_accessible_to(&self, d: Arc<Class>) -> bool {
+    fn is_accessible_to(&self, d: Arc<RwLock<Class>>) -> bool {
         self.member.is_accessible_to(d)
     }
 }

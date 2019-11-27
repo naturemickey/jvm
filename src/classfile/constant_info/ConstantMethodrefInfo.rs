@@ -3,7 +3,7 @@ pub struct ConstantMethodrefInfo {
 }
 
 impl ConstantMethodrefInfo {
-    fn new(reader: &mut ClassReader, cp: Arc<ConstantPool>) -> ConstantMethodrefInfo {
+    fn new(reader: &mut ClassReader, cp: Arc<RwLock<ConstantPool>>) -> ConstantMethodrefInfo {
         Self { member: ConstantMemberrefInfo::new(reader, cp.clone()) }
     }
     pub fn class_name(&self) -> &str {

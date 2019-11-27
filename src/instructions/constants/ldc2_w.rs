@@ -15,8 +15,8 @@ impl Instruction for LDC2_W {
     }
 
     fn execute(&mut self, frame: &mut Frame) {
-        let cp = frame.method().class().constant_pool();
-        match cp.get_constant(self.index) {
+        let cp = frame.method().class().read().unwrap().constant_pool();
+        match cp.read().unwrap().get_constant(self.index) {
             Constant::Long(l) => frame.operand_stack().push_long(*l),
             Constant::Double(d) => frame.operand_stack().push_double(*d),
             _ => panic!("java.lang.ClassFormatError")

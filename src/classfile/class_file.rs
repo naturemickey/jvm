@@ -2,7 +2,7 @@ pub struct ClassFile {
     _magic: u32,
     minor_version: u16,
     major_version: u16,
-    constant_pool: Arc<ConstantPool>,
+    constant_pool: Arc<RwLock<ConstantPool>>,
     access_flags: u16,
     this_class: u16,
     super_class: u16,
@@ -69,7 +69,7 @@ impl ClassFile {
     pub fn major_version(&self) -> u16 {
         self.major_version
     }
-    pub fn constant_pool(&self) -> Arc<ConstantPool> {
+    pub fn constant_pool(&self) -> Arc<RwLock<ConstantPool>> {
         self.constant_pool.clone()
     }
     pub fn access_flags(&self) -> u16 {
@@ -82,11 +82,11 @@ impl ClassFile {
         &self.methods
     }
     pub fn class_name(&self) -> &str {
-        self.constant_pool.class_name(self.this_class)
+        self.constant_pool.read().unwrap().class_name(self.this_class)
     }
     pub fn super_class_name(&self) -> &str {
         if self.super_class > 0 {
-            self.constant_pool.class_name(self.super_class)
+            self.constant_pool.read().unwrap().class_name(self.super_class)
         } else {
             ""
         }
@@ -94,7 +94,7 @@ impl ClassFile {
     pub fn interface_names(&self) -> Vec<&str> {
         let mut names = Vec::new();
         for i in &self.interfaces {
-            names.push(self.constant_pool.class_name(*i));
+            names.push(self.constant_pool.read().unwrap().class_name(*i));
         }
         names
     }
