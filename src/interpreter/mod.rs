@@ -2,16 +2,16 @@ use crate::rtda::Thread;
 use crate::instructions::*;
 use std::sync::Arc;
 use crate::rtda::heap::Method;
-use std::ops::Deref;
+use std::ops::DerefMut;
 
 pub fn interpret(method: &Method) {
     let thread = Thread::new();
     //let thread = crate::util::arc_util::as_mut_ref(thread);
 
-    let mut t = thread.write().unwrap().deref();
+    let mut t = thread.write().unwrap();
     t.new_frame(method);
 
-    _loop(&mut t, method.code());
+    _loop(thread.write().unwrap().deref_mut(), method.code());
 }
 
 fn _loop(thread: &mut Thread, bytecode: Arc<Vec<u8>>) {

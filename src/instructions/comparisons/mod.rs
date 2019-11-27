@@ -1,7 +1,6 @@
 use super::*;
 use crate::rtda::*;
 use std::fmt::{Formatter, Error};
-use crate::rtda::heap::Object;
 use std::ops::Deref;
 
 include!("dcmpg.rs");

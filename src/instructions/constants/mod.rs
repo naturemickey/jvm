@@ -2,6 +2,7 @@
 use super::*;
 use std::fmt::{Formatter, Error};
 use crate::rtda::heap::{Object, Constant};
+use crate::rtda::Frame;
 
 include!("nop.rs");
 include!("aconst_null.rs");

@@ -58,7 +58,7 @@ impl ClassFile {
             (0, 50) => res,
             (0, 51) => res,
             (0, 52) => res,
-            _ => panic!("java. lang. UnsupportedClassVersionError!")
+            _ => panic!("java.lang.UnsupportedClassVersionError!")
         }
     }
 
@@ -82,7 +82,7 @@ impl ClassFile {
         &self.methods
     }
     pub fn class_name(&self) -> &str {
-        self.constant_pool.read().unwrap().class_name(self.this_class)
+        self.constant_pool.read().unwrap().deref().class_name(self.this_class)
     }
     pub fn super_class_name(&self) -> &str {
         if self.super_class > 0 {
