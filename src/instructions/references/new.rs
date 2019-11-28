@@ -16,7 +16,8 @@ impl Instruction for NEW {
 
     fn execute(&mut self, frame: &mut Frame) {
         let cp = frame.method().class().read().unwrap().constant_pool();
-        let class_ref = unsafe { cp.write().unwrap().get_constant_mut(self.index).get_class_ref_mut() };
+        let mut cp_ref = cp.write().unwrap();
+        let class_ref = unsafe { cp_ref.get_constant_mut(self.index).get_class_ref_mut() };
         let class = class_ref.resolved_class();
 
         if class.read().unwrap().is_interface() || class.read().unwrap().is_abstract() {

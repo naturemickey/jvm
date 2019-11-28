@@ -24,7 +24,7 @@ impl AttributeInfo {
         let attr_name_index = reader.read_u16();
         let attr_name = cp.read().unwrap().get_utf8(attr_name_index);
         let attr_len = reader.read_u32();
-        Self::new(attr_name_index, attr_name, attr_len, reader, cp.clone())
+        Self::new(attr_name_index, attr_name.as_ref(), attr_len, reader, cp.clone())
     }
     fn new(name_index: u16, name: &str, length: u32, reader: &mut ClassReader, cp: Arc<RwLock<ConstantPool>>) -> AttributeInfo {
         match name {

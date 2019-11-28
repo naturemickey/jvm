@@ -9,7 +9,7 @@ impl ConstantStringInfo {
         Self { string_index, cp }
     }
 
-    pub fn string<'a>(&'a self) -> &'a str {
+    pub fn string(&self) -> Arc<String> {
         self.cp.read().unwrap().get_utf8(self.string_index)
     }
 }

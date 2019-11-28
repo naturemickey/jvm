@@ -4,8 +4,8 @@ pub struct ClassLoader {
 }
 
 impl ClassLoader {
-    pub fn new(classpath: Classpath) -> Arc<ClassLoader> {
-        Arc::new(Self { classpath, class_map: HashMap::new() })
+    pub fn new(classpath: Classpath) -> Arc<RwLock<ClassLoader>> {
+        Arc::new(RwLock::new(Self { classpath, class_map: HashMap::new() }))
     }
 
     pub fn load_class(loader: Arc<RwLock<ClassLoader>>, name: &str) -> Arc<RwLock<Class>> {
@@ -13,7 +13,7 @@ impl ClassLoader {
             Some(class) => class.clone(),
             None => {
                 // todo array_class?
-                Self::load_non_array_class(loader, name)
+                Self::load_non_array_class(loader.clone(), name)
             }
         }
     }
@@ -36,7 +36,7 @@ impl ClassLoader {
     fn define_class(loader: Arc<RwLock<ClassLoader>>, data: Vec<u8>) -> Arc<RwLock<Class>> {
         let class = Self::parse_class(data, loader.clone());
         let class_ref = &mut class.write().unwrap();
-        let loader_ref =  &mut loader.write().unwrap();
+        let loader_ref = &mut loader.write().unwrap();
 
         Self::resolve_super_class(class_ref);
         Self::resolve_interfaces(class_ref);
@@ -44,7 +44,7 @@ impl ClassLoader {
         let class_name = class_ref.name.to_string();
 
         loader_ref.class_map.insert(class_name.clone(), class.clone());
-        class
+        class.clone()
     }
 
     fn parse_class(data: Vec<u8>, loader: Arc<RwLock<ClassLoader>>) -> Arc<RwLock<Class>> {

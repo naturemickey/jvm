@@ -29,11 +29,11 @@ impl MemberInfo {
         self.access_flags
     }
 
-    pub fn name(&self) -> &str {
+    pub fn name(&self) -> Arc<String> {
         self.cp.read().unwrap().get_utf8(self.name_index)
     }
 
-    pub fn descriptor(&self) -> &str {
+    pub fn descriptor(&self) -> Arc<String> {
         self.cp.read().unwrap().get_utf8(self.descriptor_index)
     }
 

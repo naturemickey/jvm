@@ -16,10 +16,12 @@ impl Instruction for PUT_FIELD {
 
     fn execute(&mut self, frame: &mut Frame) {
         let current_method = frame.method();
-        let current_class = current_method.class().read().unwrap();
+        let class = current_method.class();
+        let current_class = class.read().unwrap();
         let cp = current_class.constant_pool();
-        let field_ref = unsafe { cp.write().unwrap().get_constant_mut(self.index).get_field_ref_mut() };
-        let field = field_ref.resolved_field().read().unwrap();
+        let mut cp_ref = cp.write().unwrap();
+        let field_ref = unsafe { cp_ref.get_constant_mut(self.index).get_field_ref_mut() }.resolved_field();
+        let field = field_ref.read().unwrap();
 
         if field.is_static() {
             panic!("java.lang.IncompatibleClassChangError");

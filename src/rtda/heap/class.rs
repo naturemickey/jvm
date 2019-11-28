@@ -2,7 +2,7 @@ pub struct Class {
     access_flags: u16,
     name: String,
     super_class_name: String,
-    interface_names: Vec<String>,
+    interface_names: Vec<Arc<String>>,
     constant_pool: Arc<RwLock<ConstantPool>>,
     fields: Vec<Arc<RwLock<Field>>>,
     methods: Vec<Arc<Method>>,
@@ -19,7 +19,7 @@ impl Class {
         let access_flags = cf.access_flags();
         let name = cf.class_name().to_string();
         let super_class_name = dbg!(cf.super_class_name().to_string());
-        let interface_names = crate::util::coll::strvec_to_stringvec(&cf.interface_names());
+        let interface_names = cf.interface_names();
         let constant_pool = ConstantPool::new(cf.constant_pool(), None);
         let fields = Vec::with_capacity(0);
         let methods = Vec::with_capacity(0);
@@ -134,8 +134,8 @@ impl Class {
         match &self.super_class {
             None => false,
             Some(c) => {
-                let c = c.read().unwrap().deref();
-                c == other || c.is_sub_class_of(other)
+                let c = c.read().unwrap();
+                c.deref() == other || c.deref().is_sub_class_of(other)
             }
         }
 //        let c = self.super_class;
@@ -150,7 +150,8 @@ impl Class {
     }
     pub fn is_implements(&self, iface: &Class) -> bool {
         for interface in &self.interfaces {
-            let interface = interface.read().unwrap().deref();
+            let inf = interface.read().unwrap();
+            let interface = inf.deref();
             if interface == iface || interface.is_sub_insterface_of(iface) {
                 return true;
             }
@@ -162,7 +163,8 @@ impl Class {
     }
     pub fn is_sub_insterface_of(&self, iface: &Class) -> bool {
         for super_interface in &self.interfaces {
-            let super_interface = super_interface.read().unwrap().deref();
+            let si = super_interface.read().unwrap();
+            let super_interface = si.deref();
             if super_interface == iface || super_interface.is_sub_insterface_of(iface) {
                 return true;
             }

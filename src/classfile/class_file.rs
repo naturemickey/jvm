@@ -81,17 +81,17 @@ impl ClassFile {
     pub fn methods(&self) -> &Vec<MemberInfo> {
         &self.methods
     }
-    pub fn class_name(&self) -> &str {
+    pub fn class_name(&self) -> Arc<String> {
         self.constant_pool.read().unwrap().deref().class_name(self.this_class)
     }
-    pub fn super_class_name(&self) -> &str {
+    pub fn super_class_name(&self) -> Arc<String> {
         if self.super_class > 0 {
             self.constant_pool.read().unwrap().class_name(self.super_class)
         } else {
-            ""
+            Arc::new("".to_string())
         }
     }
-    pub fn interface_names(&self) -> Vec<&str> {
+    pub fn interface_names(&self) -> Vec<Arc<String>> {
         let mut names = Vec::new();
         for i in &self.interfaces {
             names.push(self.constant_pool.read().unwrap().class_name(*i));

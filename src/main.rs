@@ -29,8 +29,9 @@ fn start_jvm(cmd: Cmd) {
     //println!("{}", class_name);
 
     let main_class = ClassLoader::load_class(classloader.clone(), &dbg!(class_name));
+    let main_class_ref = main_class.read().unwrap();
 
-    let main_method = main_class.get_main_method();
+    let main_method = main_class_ref.get_main_method();
 
     match main_method {
         Some(m) => interpret(m.as_ref()),

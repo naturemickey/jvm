@@ -50,7 +50,7 @@ impl ConstantPool {
         }
     }
 
-    fn name_and_type(&self, index: u16) -> (&str, &str) {
+    fn name_and_type(&self, index: u16) -> (Arc<String>, Arc<String>) {
         let constant_info = self.get_constant_info(index);
 
         match constant_info {
@@ -63,7 +63,7 @@ impl ConstantPool {
         }
     }
 
-    fn class_name(&self, class_index: u16) -> &str {
+    fn class_name(&self, class_index: u16) -> Arc<String> {
         let constant_info = self.get_constant_info(class_index);
 
         match constant_info {
@@ -72,11 +72,11 @@ impl ConstantPool {
         }
     }
 
-    fn get_utf8(&self, index: u16) -> &str {
+    fn get_utf8(&self, index: u16) -> Arc<String> {
         let constant_info = self.get_constant_info(index);
 
         match constant_info {
-            ConstantInfo::Utf8(info) => &info.string,
+            ConstantInfo::Utf8(info) => info.string(),
             _ => panic!("impossible.")
         }
     }
