@@ -3,10 +3,10 @@ pub fn invoke_method(invoker_frame: &mut Frame, method: Arc<Method>) {
     let new_frame = Thread::new_frame(thread.clone(),method.clone());
     let arg_slot_count = method.arg_slot_count();
     if arg_slot_count > 0 {
-        let mut i = arg_slot_count - 1;
+        let mut i = arg_slot_count;
         while i > 0 {
             let slot = invoker_frame.operand_stack().pop_slot();
-            new_frame.borrow_mut().local_vars().set_slot(i, slot);
+            new_frame.borrow_mut().local_vars().set_slot(i - 1, slot);
             i -= 1;
         }
     }
