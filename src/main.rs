@@ -34,7 +34,7 @@ fn start_jvm(cmd: Cmd) {
     let main_method = main_class_ref.get_main_method();
 
     match main_method {
-        Some(m) => interpret(m.as_ref()),
+        Some(m) => interpret(m.clone()),
         None => println!("Main method not found in class {}", &cmd.class),
     }
 //    let class_data = classpath.read_class(class_name);

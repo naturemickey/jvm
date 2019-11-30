@@ -22,9 +22,10 @@ use reserved::*;
 use stack::*;
 use stores::*;
 
-use crate::rtda::Frame;
+use crate::rtda::{Frame, Thread};
 use std::fmt::Debug;
 use crate::rtda::heap::Method;
+use std::sync::Arc;
 
 include!("instruction.rs");
 include!("bytecode_reader.rs");

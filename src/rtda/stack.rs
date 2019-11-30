@@ -1,6 +1,6 @@
 struct Stack {
     deep: usize,
-    vec: Vec<Box<Frame>>,
+    vec: Vec<Rc<RefCell<Frame>>>,
 }
 
 impl Stack {
@@ -14,21 +14,21 @@ impl Stack {
         Self::new(1024 * 1024)
     }
 
-    fn push(&mut self, frame: Box<Frame>) {
+    fn push(&mut self, frame: Rc<RefCell<Frame>>) {
         if self.vec.len() >= self.deep {
             panic!("java.lang.StackOverFlowError");
         }
         self.vec.push(frame);
     }
-    fn pop(&mut self) -> Box<Frame> {
+    fn pop(&mut self) -> Rc<RefCell<Frame>> {
         match self.vec.pop() {
             Some(f) => f,
             None => panic!("jvm stack is empty!")
         }
     }
-    fn top(&self) -> &Box<Frame> {
+    fn top(&self) -> Rc<RefCell<Frame>> {
         match self.vec.last() {
-            Some(f) => f,
+            Some(f) => f.clone(),
             None => panic!("jvm stack is empty!")
         }
     }

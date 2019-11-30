@@ -16,20 +16,20 @@ impl Thread {
         self.pc = pc;
     }
 
-    pub fn push_frame(&mut self, frame: Box<Frame>) {
+    pub fn push_frame(&mut self, frame: Rc<RefCell<Frame>>) {
         self.stack.push(frame);
     }
 
-    pub fn pop_frame(&mut self) -> Box<Frame> {
+    pub fn pop_frame(&mut self) -> Rc<RefCell<Frame>> {
         self.stack.pop()
     }
 
-    pub fn current_frame(&self) -> &Box<Frame> {
+    pub fn current_frame(&self) -> Rc<RefCell<Frame>> {
         self.stack.top()
     }
 
-    pub fn new_frame(&mut self, method: &Method) -> &Box<Frame> {
-        self.push_frame(Frame::new(self, method));
-        self.stack.top()
+    pub fn new_frame(thread: Arc<RwLock<Thread>>, method: Arc<Method>) -> Rc<RefCell<Frame>> {
+        thread.write().unwrap().push_frame(Frame::new(thread.clone(), method));
+        thread.read().unwrap().stack.top()
     }
 }

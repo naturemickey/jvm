@@ -1,17 +1,17 @@
 pub struct Frame {
     local_vars: LocalVars,
     operand_stack: OperandStack,
-    thread: *const Thread,
-    method: *const Method,
+    thread: Arc<RwLock<Thread>>,
+    method: Arc<Method>,
     next_pc: i32,
 }
 
 impl Frame {
-    pub fn new(thread: &Thread,
-               method: &Method) -> Box<Frame> {
+    pub fn new(thread: Arc<RwLock<Thread>>,
+               method: Arc<Method>) -> Rc<RefCell<Frame>> {
         let local_vars = LocalVars::new(method.max_locals() as usize);
         let operand_stack = OperandStack::new(method.max_stack() as usize);
-        Box::new(Self { local_vars, operand_stack, thread, method, next_pc: 0 })
+        Rc::new(RefCell::new(Self { local_vars, operand_stack, thread, method, next_pc: 0 }))
     }
 
     pub fn operand_stack(&mut self) -> &mut OperandStack {
@@ -22,12 +22,8 @@ impl Frame {
         &mut self.local_vars
     }
 
-    pub fn thread(&self) -> &Thread {
-        unsafe { &*self.thread }
-    }
-
-    pub fn thread_mut(&mut self) -> &mut Thread {
-        unsafe { &mut *(self.thread as *mut Thread) }
+    pub fn thread(&self) -> Arc<RwLock<Thread>> {
+        self.thread.clone()
     }
 
     pub fn next_pc(&self) -> i32 {
@@ -43,10 +39,10 @@ impl Frame {
     }
 
     pub fn thread_pc(&self) -> i32 {
-        self.thread().pc
+        self.thread().read().unwrap().pc
     }
 
-    pub fn method(&self) -> &Method {
-        unsafe { &*self.method }
+    pub fn method(&self) -> Arc<Method> {
+        self.method.clone()
     }
 }
