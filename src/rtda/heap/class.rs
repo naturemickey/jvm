@@ -88,6 +88,9 @@ impl Class {
     pub fn static_vars_mut(&mut self) -> &mut Slots {
         &mut self.static_vars
     }
+    pub fn name(&self) -> &str {
+        &self.name
+    }
 
     pub fn is_accessible_to(&self, other: &Class) -> bool {
         self.is_public() || self.package_name().eq(other.package_name())
