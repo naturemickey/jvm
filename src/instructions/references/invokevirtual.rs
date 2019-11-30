@@ -19,7 +19,7 @@ impl Instruction for INVOKE_VIRTUAL {
         let class_ref = class.read().unwrap();
         let cp = class_ref.constant_pool();
         let cp_ref = cp.read().unwrap();
-        let method_ref = unsafe { cp_ref.get_constant(self.index).get_method_ref() };
+        let method_ref = cp_ref.get_constant(self.index).get_method_ref();
 
         if method_ref.name() == "println" {
             let stack = frame.operand_stack();

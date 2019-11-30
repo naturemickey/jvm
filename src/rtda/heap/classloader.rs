@@ -82,55 +82,53 @@ impl ClassLoader {
     }
 
     fn prepare(class: Arc<RwLock<Class>>) {
-        let class = &mut class.write().unwrap();
-        Self::calc_instance_field_slot_ids(class);
-        Self::calc_static_field_slot_ids(class);
+        Self::calc_instance_field_slot_ids(class.clone());
+        Self::calc_static_field_slot_ids(class.clone());
         Self::alloc_and_init_static_vars(class);
     }
 
-    fn calc_instance_field_slot_ids(class: &mut Class) {
-        let mut slot_id = match &class.super_class {
+    fn calc_instance_field_slot_ids(class: Arc<RwLock<Class>>) {
+        let mut slot_id = match &class.read().unwrap().super_class {
             None => 0,
             Some(c) => c.read().unwrap().instance_slot_count
         };
-        for field in &mut class.fields {
+        for field in &mut class.write().unwrap().fields {
             if !field.read().unwrap().is_static() {
                 let mut field_ref = field.write().unwrap();
                 field_ref.slot_id = slot_id;
                 slot_id += if field.read().unwrap().is_long_or_double() { 2 } else { 1 };
             }
         }
-        class.instance_slot_count = slot_id;
+        class.write().unwrap().instance_slot_count = slot_id;
     }
 
-    fn calc_static_field_slot_ids(class: &mut Class) {
+    fn calc_static_field_slot_ids(class: Arc<RwLock<Class>>) {
         let mut slot_id = 0usize;
-        for field in &mut class.fields {
+        for field in &mut class.write().unwrap().fields {
             let mut field_ref = field.write().unwrap();
             field_ref.slot_id = slot_id;
             slot_id += if field.read().unwrap().is_long_or_double() { 2 } else { 1 };
         }
-        class.static_slot_count = slot_id;
+        class.write().unwrap().static_slot_count = slot_id;
     }
 
-    fn alloc_and_init_static_vars(class: &mut Class) {
-        let slots = Slots::new(class.static_slot_count);
-        let class_ptr: *mut Class = class;
-        for field in &class.fields {
+    fn alloc_and_init_static_vars(class: Arc<RwLock<Class>>) {
+        let slots = Slots::new(class.read().unwrap().static_slot_count);
+        for field in &class.read().unwrap().fields {
             if field.read().unwrap().is_static() && field.read().unwrap().is_final() {
-                Self::init_static_final_var(class_ptr, &field.read().unwrap());
+                Self::init_static_final_var(class.clone(), &field.read().unwrap());
             }
         }
-        class.static_vars = slots
+        class.write().unwrap().static_vars = slots
     }
 
 //    fn init_static_final_var(class: &mut Class, cp_index: u16, slot_id: usize, descriptor: String) {
 //        unimplemented!()
 //    }
 
-    fn init_static_final_var(class: *mut Class, field: &Field) {
-        let vars = &mut unsafe { &mut *class }.static_vars;
-        let cp = unsafe { &*class }.constant_pool();
+    fn init_static_final_var(class: Arc<RwLock<Class>>, field: &Field) {
+        let vars = &mut class.write().unwrap().static_vars;
+        let cp = class.read().unwrap().constant_pool();
         let cp_index = field.const_value_index();
         let slot_id = field.slot_id();
         let descriptor = field.descriptor();

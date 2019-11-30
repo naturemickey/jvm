@@ -17,7 +17,7 @@ impl Instruction for GET_STATIC {
     fn execute(&mut self, frame: &mut Frame) {
         let cp = frame.method().class().read().unwrap().constant_pool();
         let mut cp_ref = cp.write().unwrap();
-        let field_ref = unsafe { cp_ref.get_constant_mut(self.index).get_field_ref_mut() }.resolved_field();
+        let field_ref = cp_ref.get_constant_mut(self.index).get_field_ref_mut() .resolved_field();
         let field = field_ref.read().unwrap();
         let class = field.class();
 

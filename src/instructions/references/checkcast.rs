@@ -20,7 +20,7 @@ impl Instruction for CHECK_CAST {
         if _ref.read().unwrap().deref() != Object::null().read().unwrap().deref() {
             let cp = frame.method().class().read().unwrap().constant_pool();
             let mut cp_ref = cp.write().unwrap();
-            let class_ref = unsafe { cp_ref.get_constant_mut(self.index).get_class_ref_mut()};
+            let class_ref = cp_ref.get_constant_mut(self.index).get_class_ref_mut();
             let class = class_ref.resolved_class();
 
             if !_ref.read().unwrap().is_instance_of(class.read().unwrap().deref()) {

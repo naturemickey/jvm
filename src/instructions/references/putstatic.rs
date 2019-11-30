@@ -19,7 +19,7 @@ impl Instruction for PUT_STATIC {
         let current_class = current_method.class();
         let cp = current_class.write().unwrap().constant_pool();
         let mut cp_ref = cp.write().unwrap();
-        let field_ref = unsafe { cp_ref.get_constant_mut(self.index).get_field_ref_mut() }.resolved_field();
+        let field_ref = cp_ref.get_constant_mut(self.index).get_field_ref_mut().resolved_field();
         let field = field_ref.read().unwrap();
         let class = field.class();
 

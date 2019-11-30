@@ -20,7 +20,7 @@ impl SymRef {
     fn resoved_class_ref(&mut self) -> Arc<RwLock<Class>> {
         let d = self.constant_pool().read().unwrap().class();
         let c = ClassLoader::load_class(d.read().unwrap().loader(), &self.class_name);
-        //let c_class = unsafe { &*c };
+
         if !c.read().unwrap().is_accessible_to(d.read().unwrap().deref()) {
             panic!("java.lang.IllegalAccessError");
         }

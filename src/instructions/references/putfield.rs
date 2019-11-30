@@ -20,7 +20,7 @@ impl Instruction for PUT_FIELD {
         let current_class = class.read().unwrap();
         let cp = current_class.constant_pool();
         let mut cp_ref = cp.write().unwrap();
-        let field_ref = unsafe { cp_ref.get_constant_mut(self.index).get_field_ref_mut() }.resolved_field();
+        let field_ref = cp_ref.get_constant_mut(self.index).get_field_ref_mut().resolved_field();
         let field = field_ref.read().unwrap();
 
         if field.is_static() {
