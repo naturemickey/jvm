@@ -5,6 +5,7 @@ use crate::classpath::Classpath;
 use std::collections::HashMap;
 use crate::rtda::Slot;
 use std::ops::Deref;
+use std::os::raw::c_int;
 
 include!("cp/constant.rs");
 include!("cp/classref.rs");
@@ -23,3 +24,5 @@ include!("access_flags.rs");
 include!("field.rs");
 include!("method.rs");
 include!("classmember.rs");
+include!("method_descriptor.rs");
+include!("method_descriptor_parser.rs");

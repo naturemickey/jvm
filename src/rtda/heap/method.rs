@@ -3,6 +3,7 @@ pub struct Method {
     max_stack: u16,
     max_locals: u16,
     code: Arc<Vec<u8>>,
+    arg_slot_count: usize,
 }
 
 impl Method {
@@ -11,7 +12,8 @@ impl Method {
         for cf_method in cf_methods {
             let member = ClassMember::new(class.clone(), cf_method);
             let (max_stack, max_locals, code) = Self::copy_attributes(cf_method);
-            methods.push(Arc::new(Self { member, max_stack, max_locals, code }));
+            let arg_slot_count = Self::calc_arg_slot_count(&member);
+            methods.push(Arc::new(Self { member, max_stack, max_locals, code, arg_slot_count }));
         }
         methods
     }
@@ -86,6 +88,20 @@ impl Method {
         self.code.clone()
     }
     pub fn arg_slot_count(&self) -> usize {
-        unimplemented!()
+        self.arg_slot_count
+    }
+    fn calc_arg_slot_count(member:&ClassMember) -> usize {
+        let mut arg_slot_count = 0usize;
+        let parsed_descriptor = MethodDescriptorParser::parse(member.descriptor());
+        for param_type in &parsed_descriptor.parameter_types {
+            arg_slot_count += 1;
+            if param_type == "J" || param_type == "D" {
+                arg_slot_count += 1;
+            }
+        }
+        if member.is_static() {
+            arg_slot_count += 1;
+        }
+        arg_slot_count
     }
 }

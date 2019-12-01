@@ -15,7 +15,7 @@ pub fn interpret(method: Arc<Method>) {
 }
 
 fn _loop(thread: &mut Thread, bytecode: Arc<Vec<u8>>) {
-    let rc_frame = thread.pop_frame();
+    let mut rc_frame = thread.pop_frame();
     let mut frame = rc_frame.borrow_mut();
     let mut reader = BytecodeReader::new(bytecode.as_ref(), 0);
 
