@@ -10,7 +10,7 @@ impl MethodDescriptor {
         Self { parameter_types, return_type }
     }
 
-    fn add_parameter_type(t: String) {
+    fn add_parameter_type(&mut self, t: String) {
         unimplemented!()
     }
 }
