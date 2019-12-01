@@ -24,6 +24,10 @@ impl Thread {
         self.stack.pop()
     }
 
+    pub fn top_frame(&self) -> Rc<RefCell<Frame>> {
+        self.stack.top()
+    }
+
     pub fn current_frame(&self) -> Rc<RefCell<Frame>> {
         self.stack.top()
     }
