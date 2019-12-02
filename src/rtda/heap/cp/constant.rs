@@ -52,4 +52,11 @@ impl Constant {
             _ => panic!("impossible.")
         }
     }
+
+    pub fn get_method_ref_mut(&mut self) -> &mut MethodRef {
+        match self {
+            Constant::MethodRef(method_ref) => method_ref,
+            _ => panic!("impossible.")
+        }
+    }
 }

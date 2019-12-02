@@ -49,19 +49,19 @@ impl Method {
         self.member.access_flags & ACC_STRICT != 0
     }
 
-    fn is_public(&self) -> bool {
+    pub fn is_public(&self) -> bool {
         self.member.is_public()
     }
-    fn is_private(&self) -> bool {
+    pub fn is_private(&self) -> bool {
         self.member.is_private()
     }
-    fn is_protected(&self) -> bool {
+    pub fn is_protected(&self) -> bool {
         self.member.is_protected()
     }
-    fn is_static(&self) -> bool {
+    pub fn is_static(&self) -> bool {
         self.member.is_static()
     }
-    fn is_synthetic(&self) -> bool {
+    pub fn is_synthetic(&self) -> bool {
         self.member.is_synthetic()
     }
 

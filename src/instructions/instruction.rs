@@ -191,7 +191,7 @@ pub fn new_instruction(opcode: u8) -> Box<dyn Instruction> {
         181 => Box::new(PUT_FIELD::new()),
         182 => Box::new(INVOKE_VIRTUAL::new()),
         183 => Box::new(INVOKE_SPECIAL::new()),
-//        184 => Box::new(INVOKE_STATIC {}),
+        184 => Box::new(INVOKE_STATIC::new()),
 //        185 => Box::new(INVOKE_INTERFACE {}),
 //        186 => Box::new(INVOKE_DYNAMIC {}),
         187 => Box::new(NEW::new()),

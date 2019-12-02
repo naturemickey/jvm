@@ -16,7 +16,7 @@ impl MethodRef {
         }
     }
 
-    fn resolve_method_ref(&mut self) -> Arc<Method> {
+    pub fn resolve_method_ref(&mut self) -> Arc<Method> {
         let d = self.member.cp().read().unwrap().class();
         let c = self.member.resoved_class();
 
